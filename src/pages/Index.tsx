@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function Index() {
   return (
@@ -352,75 +358,83 @@ function TeamSection() {
 function FAQSection() {
   const faqs = [
     {
-      question: "How to create an account?",
+      question: "Comment créer un compte ?",
       answer:
-        "is a long established fact that a reader a distracted by the readable content page when looking at its layout. The point of using Lorem Ipsum.",
+        "La création d'un compte est simple et rapide. Cliquez sur le bouton 'Commencer' en haut de la page, remplissez le formulaire avec vos informations et validez. Vous recevrez un email de confirmation pour activer votre compte.",
     },
     {
-      question: "What payment method do you support?",
+      question: "Quelles méthodes de paiement acceptez-vous ?",
       answer:
-        "It is a long established fact that a reader a distracted by the readable content page when looking at its layout. The point of using Lorem Ipsum.",
+        "Nous acceptons les principales cartes bancaires (Visa, Mastercard), les virements bancaires et Mobile Money. Tous les paiements sont sécurisés et cryptés pour garantir la protection de vos données.",
     },
     {
-      question: "Do you provide any support for this kit?",
+      question: "Proposez-vous un support technique ?",
       answer:
-        "It is a long established fact that a reader a distracted by the readable content page when looking at its layout. The point of using Lorem Ipsum.",
+        "Oui, notre équipe de support est disponible 24/7 pour répondre à toutes vos questions. Vous pouvez nous contacter par email, téléphone ou via notre chat en ligne. Nous garantissons un temps de réponse rapide.",
     },
     {
-      question: "Will I get money back if I am not satisfied?",
+      question: "Quelle est votre politique de remboursement ?",
       answer:
-        "It is a long established fact that a reader a distracted by the readable content page when looking at its layout. The point of using Lorem Ipsum.",
+        "Si vous n'êtes pas satisfait de nos services, nous offrons une garantie satisfait ou remboursé de 30 jours. Contactez notre équipe et nous traiterons votre demande dans les plus brefs délais.",
     },
     {
-      question: "How long do you provide support?",
+      question: "Combien de temps dure le support ?",
       answer:
-        "It is a long established fact that a reader a distracted by the readable content page when looking at its layout. The point of using Lorem Ipsum.",
+        "Le support est inclus pendant toute la durée de votre contrat. Pour les projets ponctuels, nous offrons 6 mois de support gratuit, puis vous pouvez souscrire à un plan de maintenance selon vos besoins.",
     },
     {
-      question: "Does this theme supports plugins?",
+      question: "Proposez-vous des formations personnalisées ?",
       answer:
-        "It is a long established fact that a reader a distracted by the readable content page when looking at its layout. The point of using Lorem Ipsum.",
+        "Absolument ! Nous proposons des formations sur mesure adaptées à vos besoins spécifiques en cybersécurité, développement web, et outils bureautiques. Contactez-nous pour établir un programme personnalisé.",
     },
   ];
 
   return (
-    <section className="w-full px-4 lg:px-8 py-12 lg:py-20 bg-[hsl(var(--brand-blue))] border border-[#2568A6]">
+    <section className="w-full py-12 lg:py-20 bg-[hsl(var(--brand-blue))]">
       <div className="container mx-auto">
-        <div className="text-center mb-12 lg:mb-20">
-          <p className="text-blue-600 font-poppins text-sm font-semibold uppercase tracking-wider mb-4">
-            Questions fréquemment posées
+        <div className="text-center mb-12 lg:mb-16">
+          <p className="text-[hsl(var(--brand-cyan))] font-inter text-sm font-bold uppercase tracking-wider mb-3">
+            FAQ
           </p>
-          <h2 className="text-white font-poppins text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight">
-            Questions fréquentes & Réponses
+          <h2 className="text-white font-poppins text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+            Questions Fréquentes
           </h2>
+          <p className="text-gray-300 font-inter text-lg max-w-2xl mx-auto">
+            Trouvez rapidement les réponses à vos questions
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 max-w-6xl mx-auto">
-          <div className="space-y-8">
-            {faqs.slice(0, 3).map((faq, idx) => (
-              <div key={idx} className="border-b border-[#1E293B] pb-6">
-                <h3 className="text-[hsl(var(--brand-gray-light))] font-poppins text-lg font-semibold mb-3">
-                  {faq.question}
-                </h3>
-                <p className="text-black font-poppins text-lg leading-relaxed">
+        <div className="max-w-4xl mx-auto">
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {faqs.map((faq, idx) => (
+              <AccordionItem
+                key={idx}
+                value={`item-${idx}`}
+                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-2 hover:bg-white/10 transition-all duration-300"
+              >
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <span className="text-white font-poppins text-lg md:text-xl font-semibold pr-4">
+                    {faq.question}
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300 font-inter text-base md:text-lg leading-relaxed pb-6 pt-2">
                   {faq.answer}
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
+        </div>
 
-          <div className="space-y-8">
-            {faqs.slice(3).map((faq, idx) => (
-              <div key={idx} className="border-b border-[#1E293B] pb-6">
-                <h3 className="text-[hsl(var(--brand-gray-light))] font-poppins text-lg font-semibold mb-3">
-                  {faq.question}
-                </h3>
-                <p className="text-black font-poppins text-lg leading-relaxed">
-                  {faq.answer}
-                </p>
-              </div>
-            ))}
-          </div>
+        <div className="text-center mt-12">
+          <p className="text-gray-300 font-inter text-base mb-4">
+            Vous avez d'autres questions ?
+          </p>
+          <Link
+            to="/contact"
+            className="inline-flex px-8 py-3 bg-[hsl(var(--brand-cyan))] rounded-lg text-black font-inter font-semibold hover:bg-opacity-90 transition-colors"
+          >
+            Contactez-nous
+          </Link>
         </div>
       </div>
     </section>
