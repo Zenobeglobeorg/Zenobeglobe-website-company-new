@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const navLinks = [
     { to: "/", label: "Accueil" },
@@ -14,6 +15,13 @@ export default function Header() {
     { to: "/formation", label: "Formation" },
     { to: "/contact", label: "Contact" },
   ];
+
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <motion.header 
@@ -47,23 +55,34 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            {navLinks.map((link, idx) => (
-              <motion.div
-                key={link.to}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.4 + idx * 0.1 }}
-                whileHover={{ y: -2 }}
-              >
-                <Link
-                  to={link.to}
-                  className="text-white font-['IBM_Plex_Sans'] text-base hover:text-[hsl(var(--brand-cyan))] transition-colors relative group"
+            {navLinks.map((link, idx) => {
+              const active = isActive(link.to);
+              return (
+                <motion.div
+                  key={link.to}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.4 + idx * 0.1 }}
+                  whileHover={{ y: -2 }}
                 >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[hsl(var(--brand-cyan))] group-hover:w-full transition-all duration-300"></span>
-                </Link>
-              </motion.div>
-            ))}
+                  <Link
+                    to={link.to}
+                    className={`font-['IBM_Plex_Sans'] text-base transition-colors relative group ${
+                      active 
+                        ? "text-[hsl(var(--brand-cyan))] font-semibold" 
+                        : "text-white hover:text-[hsl(var(--brand-cyan))]"
+                    }`}
+                  >
+                    {link.label}
+                    <span 
+                      className={`absolute -bottom-1 left-0 h-0.5 bg-[hsl(var(--brand-cyan))] transition-all duration-300 ${
+                        active ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    ></span>
+                  </Link>
+                </motion.div>
+              );
+            })}
           </motion.nav>
 
           <motion.div
@@ -118,24 +137,40 @@ export default function Header() {
                   }
                 }}
               >
-                {navLinks.map((link) => (
-                  <motion.div
-                    key={link.to}
-                    variants={{
-                      hidden: { opacity: 0, x: -20 },
-                      visible: { opacity: 1, x: 0 }
-                    }}
-                    whileHover={{ x: 10, scale: 1.05 }}
-                  >
-                    <Link
-                      to={link.to}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-white font-['IBM_Plex_Sans'] text-lg hover:text-[hsl(var(--brand-cyan))] transition-colors block"
+                {navLinks.map((link) => {
+                  const active = isActive(link.to);
+                  return (
+                    <motion.div
+                      key={link.to}
+                      variants={{
+                        hidden: { opacity: 0, x: -20 },
+                        visible: { opacity: 1, x: 0 }
+                      }}
+                      whileHover={{ x: 10, scale: 1.05 }}
                     >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                ))}
+                      <Link
+                        to={link.to}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`font-['IBM_Plex_Sans'] text-lg transition-colors block relative ${
+                          active 
+                            ? "text-[hsl(var(--brand-cyan))] font-semibold" 
+                            : "text-white hover:text-[hsl(var(--brand-cyan))]"
+                        }`}
+                      >
+                        {link.label}
+                        {active && (
+                          <motion.span
+                            className="absolute left-0 -bottom-1 w-full h-0.5 bg-[hsl(var(--brand-cyan))]"
+                            layoutId="mobile-active-link"
+                            initial={{ width: 0 }}
+                            animate={{ width: "100%" }}
+                            transition={{ duration: 0.3 }}
+                          />
+                        )}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, x: -20 },
