@@ -566,6 +566,15 @@ function TeamSection() {
   const [count, setCount] = useState(0);
 
   const team = [
+    { name: "Matida Flora", role: "Product Manager", image: "/img-1.jpg " },
+    { name: "Brice", role: "CTO", image: "/img-2.jpg" },
+    { name: "Aurel", role: "Designer", image: "/img-3.jpg" },
+    { name: "Diallo", role: "Dev Backend", image: "/img-4.jpg" },
+    { name: "Toussok Fabricia", role: "Dev Frontend", image: "/img-5.jpg" },
+    { name: "Ngoulou Zenobe", role: "CEO", image: "/img-6.jpg" },
+    { name: "Olivia Taylor", role: "Dev Fullstack", image: "/img-7.jpg" },
+  ];
+  /*const team = [
     { name: "Axel Pebe", role: "CEO", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" },
     { name: "Ella Grace", role: "CTO", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" },
     { name: "Jade Perez", role: "Designer", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80" },
@@ -575,7 +584,7 @@ function TeamSection() {
     { name: "Olivia Taylor", role: "UX Researcher", image: "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?w=400&q=80" },
     { name: "Lucas Martin", role: "QA Engineer", image: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=400&q=80" },
     { name: "Sophia Davis", role: "Marketing", image: "https://images.unsplash.com/photo-1547425260-84e9d3f06c64?w=400&q=80" },
-  ];
+  ];*/
 
   useEffect(() => {
     if (!api) {
