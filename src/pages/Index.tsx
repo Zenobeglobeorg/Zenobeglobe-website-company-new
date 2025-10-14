@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { motion } from "framer-motion";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import {
   Accordion,
   AccordionContent,
@@ -274,68 +276,183 @@ function AboutSection() {
   );
 }
 
+// Interface pour les services
+interface Service {
+  title: string;
+  description: string;
+  image: string;
+  icon: string;
+  iconBg?: boolean;
+}
+
 function ServicesSection() {
-  const services = [
-    {
-      title: "Site Web",
-      description:
-        "Création de sites web modernes, performants et responsive adaptés à vos besoins.",
-      image:
-        "https://api.builder.io/api/v1/image/assets/TEMP/c0111912a356c713dc003ea251c125b43aff13d5?width=800",
-      icon: "https://api.builder.io/api/v1/image/assets/TEMP/f01c68df7669c2c46b3c0adbe169a5a0838160bc?width=124",
-    },
-    {
-      title: "Application Web",
-      description:
-        "Développement d'applications web sur mesure pour digitaliser vos processus métier.",
-      image:
-        "https://api.builder.io/api/v1/image/assets/TEMP/f1db32357c67da0db63d2f16fdf3f7012e5fa5d4?width=800",
-      icon: "https://api.builder.io/api/v1/image/assets/TEMP/ca50e1f722487d939acedb05bd3274b8832146ad?width=124",
-    },
-    {
-      title: "Application Mobile",
-      description:
-        "Applications mobiles natives iOS et Android pour étendre votre présence digitale.",
-      image:
-        "https://api.builder.io/api/v1/image/assets/TEMP/bb637126a9fbdfdad9c809d22705c4911d4f2594?width=800",
-      icon: "https://api.builder.io/api/v1/image/assets/TEMP/14e9a81667a4f3b20f0e9d3ac5e2003b62e2a305?width=124",
-    },
-    {
-      title: "Automatisme",
-      description:
-        "Solutions d'automatisation pour optimiser vos workflows et gagner en productivité.",
-      image:
-        "https://api.builder.io/api/v1/image/assets/TEMP/953732b758b7f478d18ffcaad6ff00d221aa0559?width=800",
-      icon: "https://api.builder.io/api/v1/image/assets/TEMP/ff09d306ee9bc7721aa4b49ccf8f867724372bba?width=124",
-    },
-    {
-      title: "Marketing",
-      description:
-        "Stratégies marketing digitales pour booster votre visibilité et croissance en ligne.",
-      image:
-        "https://api.builder.io/api/v1/image/assets/TEMP/035863fa130a04d7e8a62ca359bfb4771799767a?width=800",
-      icon: "https://api.builder.io/api/v1/image/assets/TEMP/8cf03eed2241d52952acbeaa579fb479d2d7cd32?width=124",
-    },
-    {
-      title: "Formations en burautique",
-      description:
-        "Formations pratiques pour maîtriser les outils bureautiques et améliorer votre efficacité.",
-      image:
-        "https://api.builder.io/api/v1/image/assets/TEMP/2cdf9385ce94d364c01bd7e6754e79159e9171fe?width=800",
-      icon: "https://api.builder.io/api/v1/image/assets/TEMP/a7eaddf90542b4b7062479727fe312605c468b7c?width=80",
-      iconBg: true,
-    },
-  ];
+  const [selectedCategory, setSelectedCategory] = useState("Developpement web/mobile");
+
+  // Structure complète des services par catégorie
+  const allServices: Record<string, Service[]> = {
+    "Developpement web/mobile": [
+      {
+        title: "Site Web",
+        description: "Création de sites web modernes, performants et responsive adaptés à vos besoins.",
+        image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/f01c68df7669c2c46b3c0adbe169a5a0838160bc?width=124",
+      },
+      {
+        title: "Application Web",
+        description: "Développement d'applications web sur mesure pour digitaliser vos processus métier.",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/ca50e1f722487d939acedb05bd3274b8832146ad?width=124",
+      },
+      {
+        title: "Application Mobile",
+        description: "Applications mobiles natives iOS et Android pour étendre votre présence digitale.",
+        image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/14e9a81667a4f3b20f0e9d3ac5e2003b62e2a305?width=124",
+      },
+    ],
+    "Securité et reseau": [
+      {
+        title: "Audit Informatique",
+        description: "Analyse complète de votre infrastructure IT pour identifier les failles et optimiser la sécurité.",
+        image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/f01c68df7669c2c46b3c0adbe169a5a0838160bc?width=124",
+      },
+      {
+        title: "Solution Antivirus et Firewall",
+        description: "Protection avancée contre les menaces avec des solutions antivirus et firewall de dernière génération.",
+        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/ca50e1f722487d939acedb05bd3274b8832146ad?width=124",
+      },
+      {
+        title: "Déploiement et Configuration",
+        description: "Installation et configuration professionnelle de votre infrastructure réseau et sécurité.",
+        image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/14e9a81667a4f3b20f0e9d3ac5e2003b62e2a305?width=124",
+      },
+      {
+        title: "Architecture Réseau sur Mesure",
+        description: "Conception et mise en place d'une architecture réseau adaptée à vos besoins spécifiques.",
+        image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/ff09d306ee9bc7721aa4b49ccf8f867724372bba?width=124",
+      },
+    ],
+    "Maintenance": [
+      {
+        title: "Maintenance Préventive",
+        description: "Entretien régulier de vos systèmes pour éviter les pannes et optimiser les performances.",
+        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/f01c68df7669c2c46b3c0adbe169a5a0838160bc?width=124",
+      },
+      {
+        title: "Maintenance Corrective",
+        description: "Intervention rapide pour résoudre les problèmes techniques et rétablir vos services.",
+        image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/ca50e1f722487d939acedb05bd3274b8832146ad?width=124",
+      },
+      {
+        title: "Support Technique",
+        description: "Assistance technique 24/7 pour tous vos besoins informatiques et résolution de problèmes.",
+        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/14e9a81667a4f3b20f0e9d3ac5e2003b62e2a305?width=124",
+      },
+    ],
+    "Design": [
+      {
+        title: "Design UI/UX",
+        description: "Création d'interfaces utilisateur modernes et expériences utilisateur optimales.",
+        image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/f01c68df7669c2c46b3c0adbe169a5a0838160bc?width=124",
+      },
+      {
+        title: "Identité Visuelle",
+        description: "Développement de votre identité de marque avec logo, charte graphique et supports visuels.",
+        image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/ca50e1f722487d939acedb05bd3274b8832146ad?width=124",
+      },
+      {
+        title: "Design Graphique",
+        description: "Création de supports visuels professionnels pour tous vos besoins marketing et communication.",
+        image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/14e9a81667a4f3b20f0e9d3ac5e2003b62e2a305?width=124",
+      },
+    ],
+    "Automatisme": [
+      {
+        title: "Automatisation de Processus",
+        description: "Optimisation de vos workflows avec des solutions d'automatisation intelligentes.",
+        image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/ff09d306ee9bc7721aa4b49ccf8f867724372bba?width=124",
+      },
+      {
+        title: "Intégration Système",
+        description: "Connexion et synchronisation de vos différents outils et systèmes métier.",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/f01c68df7669c2c46b3c0adbe169a5a0838160bc?width=124",
+      },
+      {
+        title: "Robotisation",
+        description: "Mise en place de robots logiciels pour automatiser vos tâches répétitives.",
+        image: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/ca50e1f722487d939acedb05bd3274b8832146ad?width=124",
+      },
+    ],
+    "Marketing": [
+      {
+        title: "Marketing Digital",
+        description: "Stratégies marketing digitales complètes pour booster votre présence en ligne.",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/8cf03eed2241d52952acbeaa579fb479d2d7cd32?width=124",
+      },
+      {
+        title: "SEO & Référencement",
+        description: "Optimisation de votre visibilité sur les moteurs de recherche pour attirer plus de clients.",
+        image: "https://images.unsplash.com/photo-1571677208737-b0e5149f9c2d?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/f01c68df7669c2c46b3c0adbe169a5a0838160bc?width=124",
+      },
+      {
+        title: "Gestion Réseaux Sociaux",
+        description: "Animation et gestion professionnelle de vos comptes sur les réseaux sociaux.",
+        image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/ca50e1f722487d939acedb05bd3274b8832146ad?width=124",
+      },
+    ],
+    "Formations en burautique": [
+      {
+        title: "Formation Microsoft Office",
+        description: "Maîtrise complète de la suite Microsoft Office (Word, Excel, PowerPoint, Outlook).",
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/a7eaddf90542b4b7062479727fe312605c468b7c?width=80",
+        iconBg: true,
+      },
+      {
+        title: "Formation Google Workspace",
+        description: "Utilisation professionnelle des outils Google (Docs, Sheets, Slides, Drive).",
+        image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/a7eaddf90542b4b7062479727fe312605c468b7c?width=80",
+        iconBg: true,
+      },
+      {
+        title: "Gestion de Projet Digital",
+        description: "Formation aux outils de gestion de projet et de collaboration en ligne.",
+        image: "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=800&q=80",
+        icon: "https://api.builder.io/api/v1/image/assets/TEMP/a7eaddf90542b4b7062479727fe312605c468b7c?width=80",
+        iconBg: true,
+      },
+    ],
+  };
 
   const categories = [
-    { label: "Maintenance", active: true },
-    { label: "Design", active: false },
-    { label: "Developpement web/mobile", active: true, highlight: true },
-    { label: "Automatisme", active: false },
-    { label: "Marketing", active: false },
-    { label: "Formations en burautique", active: false },
-    { label: "Securité et reseau", active: false },
+    { id: "Maintenance", label: "Maintenance" },
+    { id: "Design", label: "Design" },
+    { id: "Developpement web/mobile", label: "Developpement web/mobile" },
+    { id: "Automatisme", label: "Automatisme" },
+    { id: "Marketing", label: "Marketing" },
+    { id: "Formations en burautique", label: "Formations en burautique" },
+    { id: "Securité et reseau", label: "Securité et reseau" },
   ];
+
+  // Récupérer les services de la catégorie sélectionnée
+  const displayedServices = allServices[selectedCategory as keyof typeof allServices] || [];
 
   return (
     <section className="w-full px-4 lg:px-8 py-12 lg:py-16 overflow-hidden">
@@ -361,12 +478,13 @@ function ServicesSection() {
               {categories.map((cat, idx) => (
                 <motion.button
                   key={idx}
+                  onClick={() => setSelectedCategory(cat.id)}
                   variants={fadeInUp}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   className={`px-6 md:px-10 py-2 md:py-2.5 rounded-[20px] font-inter text-base md:text-xl font-semibold transition-all duration-300 ${
-                    cat.highlight
-                      ? "bg-[#BBB] text-black"
+                    selectedCategory === cat.id
+                      ? "bg-[hsl(var(--brand-cyan))] text-black shadow-lg"
                       : "bg-white text-black hover:bg-opacity-90"
                   }`}
                 >
@@ -377,51 +495,62 @@ function ServicesSection() {
           </motion.div>
 
           <motion.div 
+            key={selectedCategory}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
             variants={staggerContainer}
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
             viewport={{ once: true }}
           >
-            {services.map((service, idx) => (
+            {displayedServices.map((service, idx) => (
               <motion.div
-                key={idx}
+                key={`${selectedCategory}-${idx}`}
                 variants={fadeInUp}
                 whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
-                className="border border-white rounded-[15px] p-5 flex flex-col transition-all duration-300"
+                className="border border-white rounded-[15px] p-5 flex flex-col transition-all duration-300 group cursor-pointer"
               >
-                <div className="relative mb-5">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-auto rounded-2xl"
-                  />
-                  <div className="absolute left-1/2 -translate-x-1/2 -bottom-8">
-                    {service.iconBg ? (
-                      <div className="w-16 h-16 rounded-full bg-white border border-white flex items-center justify-center">
+                <Link to="/service" className="flex flex-col h-full">
+                  <div className="relative mb-5">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-48 object-cover rounded-2xl"
+                    />
+                    <div className="absolute left-1/2 -translate-x-1/2 -bottom-8">
+                      {service.iconBg ? (
+                        <div className="w-16 h-16 rounded-full bg-white border border-white flex items-center justify-center">
+                          <img
+                            src={service.icon}
+                            alt=""
+                            className="w-10 h-10"
+                          />
+                        </div>
+                      ) : (
                         <img
                           src={service.icon}
                           alt=""
-                          className="w-10 h-10"
+                          className="w-16 h-16 rounded-full border border-white"
                         />
-                      </div>
-                    ) : (
-                      <img
-                        src={service.icon}
-                        alt=""
-                        className="w-16 h-16 rounded-full border border-white"
-                      />
-                    )}
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="text-center mt-8">
-                  <h3 className="text-white font-inter text-2xl font-semibold mb-2.5">
-                    {service.title}
-                  </h3>
-                  <p className="text-[#D9D9D9] font-inter text-base line-clamp-3">
-                    {service.description}
-                  </p>
-                </div>
+                  <div className="text-center mt-8 flex-1 flex flex-col">
+                    <h3 className="text-white font-inter text-2xl font-semibold mb-2.5 group-hover:text-[hsl(var(--brand-cyan))] transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-[#D9D9D9] font-inter text-base line-clamp-3 mb-4">
+                      {service.description}
+                    </p>
+                    <div className="mt-auto">
+                      <span className="text-[hsl(var(--brand-cyan))] font-inter font-semibold text-sm flex items-center justify-center gap-2 group-hover:gap-3 transition-all">
+                        En savoir plus
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -433,21 +562,15 @@ function ServicesSection() {
 
 function TeamSection() {
   const team = [
-    {
-      name: "Axel Pebe",
-      role: "CEO",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
-    },
-    {
-      name: "Ella Grace",
-      role: "CTO",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80",
-    },
-    {
-      name: "Jade Perez",
-      role: "Designer",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80",
-    },
+    { name: "Axel Pebe", role: "CEO", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" },
+    { name: "Ella Grace", role: "CTO", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" },
+    { name: "Jade Perez", role: "Designer", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80" },
+    { name: "Liam Smith", role: "Dev Frontend", image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&q=80" },
+    { name: "Noah Brown", role: "Dev Backend", image: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=400&q=80" },
+    { name: "Emma Wilson", role: "Product Manager", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80" },
+    { name: "Olivia Taylor", role: "UX Researcher", image: "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?w=400&q=80" },
+    { name: "Lucas Martin", role: "QA Engineer", image: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=400&q=80" },
+    { name: "Sophia Davis", role: "Marketing", image: "https://images.unsplash.com/photo-1547425260-84e9d3f06c64?w=400&q=80" },
   ];
 
   return (
@@ -459,63 +582,49 @@ function TeamSection() {
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
         >
-        <h2 className="text-white font-poppins text-3xl md:text-5xl lg:text-6xl font-semibold mb-4">
-          Notre Equipe
-        </h2>
-        <p className="text-gray-400 font-inter text-lg max-w-2xl mx-auto mb-12 lg:mb-16">
-          Une équipe d'experts passionnés dédiée à votre succès numérique
-        </p>
+          <h2 className="text-white font-poppins text-3xl md:text-5xl lg:text-6xl font-semibold mb-4">
+            Notre Equipe
+          </h2>
+          <p className="text-gray-400 font-inter text-lg max-w-2xl mx-auto mb-12 lg:mb-16">
+            Une équipe d'experts passionnés dédiée à votre succès numérique
+          </p>
         </motion.div>
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-8"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {team.map((member, idx) => (
-            <motion.div 
-              key={idx} 
-              className="text-center group"
-              variants={fadeInUp}
-              whileHover={{ y: -10 }}
-            >
-              <motion.div
-                className="relative overflow-hidden rounded-2xl mx-auto mb-4 w-48 h-48"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-              >
-              <img
-                src={member.image}
-                alt={member.name}
-                  className="w-full h-full object-cover"
-              />
-                <div className="absolute inset-0 bg-[hsl(var(--brand-cyan))]/0 group-hover:bg-[hsl(var(--brand-cyan))]/20 transition-all duration-300" />
-              </motion.div>
-              <h3 className="text-white font-inter text-xl font-semibold">
-                {member.name}
-              </h3>
-              <p className="text-gray-400 font-inter">{member.role}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <div className="flex justify-center gap-2">
-          {[0, 1, 2, 3].map((dot) => (
-            <motion.div
-              key={dot}
-              className={`w-3 h-3 rounded-full ${
-                dot === 0 ? "bg-white" : "bg-gray-600"
-              }`}
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ delay: dot * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.3 }}
-            ></motion.div>
-          ))}
-        </div>
+        <Carousel className="max-w-5xl mx-auto" opts={{ align: "start", loop: true }}>
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {team.map((member, idx) => (
+              <CarouselItem key={idx} className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3">
+                <motion.div 
+                  className="text-center group"
+                  variants={fadeInUp}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -10 }}
+                >
+                  <motion.div
+                    className="relative overflow-hidden rounded-2xl mx-auto mb-4 w-48 h-48"
+                    whileHover={{ scale: 1.07 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-[hsl(var(--brand-cyan))]/0 group-hover:bg-[hsl(var(--brand-cyan))]/20 transition-all duration-300" />
+                  </motion.div>
+                  <h3 className="text-white font-inter text-xl font-semibold">
+                    {member.name}
+                  </h3>
+                  <p className="text-gray-400 font-inter">{member.role}</p>
+                </motion.div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-0 bg-white" />
+          <CarouselNext className="right-0 bg-white" />
+        </Carousel>
       </div>
     </section>
   );
