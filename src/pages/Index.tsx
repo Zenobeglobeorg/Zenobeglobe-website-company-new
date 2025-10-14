@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { motion } from "framer-motion";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import {
   Accordion,
   AccordionContent,
@@ -561,6 +561,10 @@ function ServicesSection() {
 }
 
 function TeamSection() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
   const team = [
     { name: "Axel Pebe", role: "CEO", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" },
     { name: "Ella Grace", role: "CTO", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" },
@@ -572,6 +576,19 @@ function TeamSection() {
     { name: "Lucas Martin", role: "QA Engineer", image: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=400&q=80" },
     { name: "Sophia Davis", role: "Marketing", image: "https://images.unsplash.com/photo-1547425260-84e9d3f06c64?w=400&q=80" },
   ];
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
 
   return (
     <section className="w-full px-4 lg:px-8 py-12 lg:py-20 bg-black overflow-hidden">
@@ -590,7 +607,11 @@ function TeamSection() {
           </p>
         </motion.div>
 
-        <Carousel className="max-w-5xl mx-auto" opts={{ align: "start", loop: true }}>
+        <Carousel 
+          className="max-w-5xl mx-auto" 
+          opts={{ align: "start", loop: true }}
+          setApi={setApi}
+        >
           <CarouselContent className="-ml-2 md:-ml-4">
             {team.map((member, idx) => (
               <CarouselItem key={idx} className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3">
@@ -625,6 +646,29 @@ function TeamSection() {
           <CarouselPrevious className="left-0 bg-white" />
           <CarouselNext className="right-0 bg-white" />
         </Carousel>
+
+        {/* Dots/Pagination */}
+        <motion.div 
+          className="flex justify-center gap-2 mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          {Array.from({ length: count }).map((_, idx) => (
+            <motion.button
+              key={idx}
+              onClick={() => api?.scrollTo(idx)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                current === idx + 1 
+                  ? "bg-[hsl(var(--brand-cyan))] scale-125" 
+                  : "bg-gray-600 hover:bg-gray-400"
+              }`}
+              whileHover={{ scale: 1.3 }}
+              whileTap={{ scale: 0.9 }}
+            />
+          ))}
+        </motion.div>
       </div>
     </section>
   );
