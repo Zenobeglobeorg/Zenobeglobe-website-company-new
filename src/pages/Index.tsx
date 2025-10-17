@@ -566,13 +566,13 @@ function TeamSection() {
   const [count, setCount] = useState(0);
 
   const team = [
-    { name: "Matida Flora", role: "Product Manager", image: "/img-1.jpg " },
+    { name: "Matida Flora", role: "Product Manager", image: "/img-1.jpg" },
     { name: "Brice", role: "CTO", image: "/img-2.jpg" },
     { name: "Aurel", role: "Designer", image: "/img-3.jpg" },
     { name: "Diallo", role: "Dev Backend", image: "/img-4.jpg" },
     { name: "Toussok Fabricia", role: "Dev Frontend", image: "/img-5.jpg" },
     { name: "Ngoulou Zenobe", role: "CEO", image: "/img-6.jpg" },
-    { name: "Olivia Taylor", role: "Dev Fullstack", image: "/img-7.jpg" },
+    { name: "Djoko Franck", role: "Dev Fullstack", image: "/img-7.jpg" },
   ];
   /*const team = [
     { name: "Axel Pebe", role: "CEO", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" },
@@ -733,7 +733,7 @@ function FAQSection() {
           <h2 className="text-white font-poppins text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
             Questions Fréquentes
           </h2>
-          <p className="text-gray-300 font-inter text-lg max-w-2xl mx-auto">
+          <p className="text-white font-inter text-lg max-w-2xl mx-auto">
             Trouvez rapidement les réponses à vos questions
           </p>
         </motion.div>
@@ -750,14 +750,14 @@ function FAQSection() {
               <motion.div key={idx} variants={fadeInUp}>
                 <AccordionItem
                   value={`item-${idx}`}
-                  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-2 hover:bg-white/10 transition-all duration-300"
+                  className="bg-white backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-2 hover:bg-white transition-all duration-300"
                 >
                   <AccordionTrigger className="text-left hover:no-underline py-6">
-                    <span className="text-white font-poppins text-lg md:text-xl font-semibold pr-4">
+                    <span className="text-[hsl(var(--brand-blue))] font-poppins text-lg md:text-xl font-semibold pr-4">
                   {faq.question}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-300 font-inter text-base md:text-lg leading-relaxed pb-6 pt-2">
+                  <AccordionContent className="text-[hsl(var(--brand-cyan))] font-inter text-base md:text-lg leading-relaxed pb-6 pt-2">
                   {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -773,7 +773,7 @@ function FAQSection() {
           viewport={{ once: true }}
           variants={fadeInUp}
         >
-          <p className="text-gray-300 font-inter text-base mb-4">
+          <p className="text-white font-inter text-base mb-4">
             Vous avez d'autres questions ?
           </p>
           <motion.div
