@@ -336,8 +336,8 @@ export default function Service() {
                 
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* ... (Existing code for section 1) ... */}
-                    <div className="bg-[#49B0F2] h-48 sm:h-64 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
+                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             SÉCURITÉ ET RÉSEAUX INFORMATIQUE
                         </h1>
                     </div>
@@ -350,7 +350,7 @@ export default function Service() {
                                     Sécurité & Réseau Informatique
                                 </h2>
                                 <p className="mt-2 text-lg leading-relaxed font-inter text-gray-300">
-                                    Le service de sécurité informatique de **ZENOBEGLOBE** est conçu comme une cyber-stratégie complète pour protéger les informations et les actifs numériques de votre entreprise. Il propose des solutions réseau adaptées à vos besoins spécifiques pour garantir la **performance, la sécurité et la fiabilité** de votre infrastructure.
+                                    Le service de sécurité informatique de ZENOBEGLOBE est conçu comme une cyber-stratégie complète pour protéger les informations et les actifs numériques de votre entreprise. Il propose des solutions réseau adaptées à vos besoins spécifiques pour garantir la **performance, la sécurité et la fiabilité** de votre infrastructure.
                                 </p>
                             </div>
                             <div className="lg:w-1/2 w-full order-1 lg:order-2 h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
@@ -369,10 +369,10 @@ export default function Service() {
                         
                         <div className="mt-20 p-6 md:p-8 rounded-2xl border-2 border-[#49B0F2] bg-[#0A0A19] shadow-xl">
                             <p className="font-inter text-[#49B0F2] uppercase text-sm font-medium text-center">MISSION</p>
-                            <h2 className="text-3xl font-medium font-poppins text-white text-center mb-10">Nos Missions Liées</h2>
-                            <div className="flex flex-wrap justify-center gap-8 md:gap-4">
+                            <h2 className="text-2xl font-medium font-Inter text-white text-center mb-10">Nos Missions Liées</h2>
+                            <div className="flex justify-content-space-between flex-wrap gap-8 md:gap-4">
                                 {securityMissions.map((mission, index) => (
-                                    <MissionItem key={index} {...mission} />
+                                    <MissionItem  key={index} {...mission} />
                                 ))}
                             </div>
                         </div>
@@ -383,9 +383,9 @@ export default function Service() {
                 
                 {/* 2. MAINTENANCE */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
-                    {/* ... (Existing code for section 2) ... */}
-                    <div className="bg-[#49B0F2] h-48 sm:h-64 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    {/* ... (Existing code for section 1) ... */}
+                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
+                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             MAINTENANCE
                         </h1>
                     </div>
@@ -414,10 +414,10 @@ export default function Service() {
                             <ReservationButton serviceName="MAINTENANCE" />
                         </div>
                         
-                        <div className="mt-20 p-6 md:p-8 rounded-2xl border-2 border-[#49B0F2] bg-[#0A0A19] shadow-xl">
+                            <div className="mt-20 p-6 md:p-8 rounded-2xl border-2 border-[#49B0F2] bg-[#0A0A19] shadow-xl">
                             <p className="font-inter text-[#49B0F2] uppercase text-sm font-medium text-center">MISSION</p>
-                            <h2 className="text-3xl font-medium font-poppins text-white text-center mb-10">Nos Missions Liées</h2>
-                            <div className="flex flex-wrap justify-center gap-8 md:gap-4">
+                            <h2 className="text-2xl font-medium font-Inter text-white text-center mb-10">Nos Missions Liées</h2>
+                            <div className="flex justify-between flex-wrap gap-8 md:gap-4">
                                 {maintenanceMissions.map((mission, index) => (
                                     <MissionItem key={index} {...mission} />
                                 ))}
@@ -431,8 +431,8 @@ export default function Service() {
                 {/* 3. DEVELOPPEMENT WEB/MOBILE */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* ... (Existing code for section 3) ... */}
-                    <div className="bg-[#49B0F2] h-48 sm:h-64 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
+                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             DÉVELOPPEMENT WEB/MOBILE
                         </h1>
                     </div>
@@ -501,8 +501,8 @@ export default function Service() {
                 {/* 4. FORMATION EN BUREAUTIQUE */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* ... (Existing code for section 4) ... */}
-                    <div className="bg-[#49B0F2] h-48 sm:h-64 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
+                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             FORMATION EN BUREAUTIQUE
                         </h1>
                     </div>
@@ -551,8 +551,8 @@ export default function Service() {
                 {/* 5. MARKETING DIGITAL */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* ... (Existing code for section 5) ... */}
-                    <div className="bg-[#49B0F2] h-48 sm:h-64 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
+                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             MARKETING DIGITAL
                         </h1>
                     </div>
@@ -571,7 +571,7 @@ export default function Service() {
 
                             <div className="lg:w-1/2 w-full h-80 sm:h-96 lg:h-[450px] relative bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
                                 <img 
-                                    src="https://images.unsplash.com/photo-1542435503-921c550f17f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                                    src="public/marketing_numerique.jpg"
                                     alt="Digital Marketing dashboard and analysis" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy"
@@ -592,7 +592,7 @@ export default function Service() {
                         <div className="p-6 md:p-12 rounded-xl border border-gray-700 bg-[#0A0A19] shadow-xl">
                             {/* ... (Marketing Missions) ... */}
                             <p className="text-center text-[#49B0F2] uppercase text-sm font-inter">Missions</p>
-                            <h3 className="text-3xl font-medium font-poppins text-center mt-2 mb-12 text-white">
+                            <h3 className="text-2xl font-medium font-poppins text-center mt-2 mb-12 text-white">
                                 Nos Missions Liées
                             </h3>
                             
@@ -622,8 +622,8 @@ export default function Service() {
                 {/* 6. INFOGRAPHIE ET DESIGN (New Section) */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* ... (Existing code for section 6) ... */}
-                    <div className="bg-[#49B0F2] h-48 sm:h-64 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
+                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             INFOGRAPHIE ET DESIGN
                         </h1>
                     </div>
@@ -632,7 +632,7 @@ export default function Service() {
                         <div className="flex flex-col lg:flex-row items-center justify-center gap-12">
                             <div className="lg:w-1/2 w-full h-80 sm:h-96 rounded-2xl overflow-hidden shadow-2xl">
                                 <img 
-                                    src="https://images.unsplash.com/photo-1549692520-22c10b77c5c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                                    src="public/design.webp"
                                     alt="Graphic Design and Infographics" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy"
@@ -656,7 +656,7 @@ export default function Service() {
                         <div className="mt-20 p-6 md:p-12 rounded-2xl border-2 border-[#49B0F2]/50 bg-[#0A0A19] shadow-xl">
                             {/* ... (Design Offerings) ... */}
                             <p className="font-inter text-[#49B0F2] uppercase text-sm font-medium text-center">OFFRE</p>
-                            <h3 className="text-3xl font-medium font-poppins text-center mt-2 mb-12 text-white">
+                            <h3 className="text-2xl font-medium font-poppins text-center mt-2 mb-12 text-white">
                                 Ce Que Nous Proposons
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -685,8 +685,8 @@ export default function Service() {
                 {/* 7. INTERNET DES OBJETS (New Section) */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* ... (Existing code for section 7) ... */}
-                    <div className="bg-[#49B0F2] h-48 sm:h-64 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
+                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             INTERNET DES OBJETS (IoT)
                         </h1>
                     </div>
@@ -703,7 +703,7 @@ export default function Service() {
                             </div>
                             <div className="lg:w-1/2 w-full h-80 sm:h-96 rounded-2xl overflow-hidden shadow-2xl order-1 lg:order-2">
                                 <img 
-                                    src="https://source.unsplash.com/1600x900/?iot,devices,sensors"
+                                    src="public/iot.jpg"
                                     alt="Internet of Things (IoT) devices" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy"
@@ -719,7 +719,7 @@ export default function Service() {
                         <div className="mt-20 p-6 md:p-12 rounded-2xl border-2 border-[#49B0F2]/50 bg-[#0A0A19] shadow-xl">
                             {/* ... (IoT Missions) ... */}
                             <p className="font-inter text-[#49B0F2] uppercase text-sm font-medium text-center">MISSION</p>
-                            <h3 className="text-3xl font-medium font-poppins text-center mt-2 mb-12 text-white">
+                            <h3 className="text-2xl font-medium font-poppins text-center mt-2 mb-12 text-white">
                                 Nos Missions Liées
                             </h3>
                             
@@ -773,8 +773,8 @@ export default function Service() {
                 {/* 8. CONTRACT DE SUPPORT TECHNIQUES (New Section - Pricing) */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* ... (Existing code for section 8) ... */}
-                    <div className="bg-[#49B0F2] h-48 sm:h-64 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    <div className="bg-[#49B0F2] h-40 sm:h-50 flex items-center justify-center px-4">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             CONTRAT DE SUPPORT TECHNIQUE
                         </h1>
                     </div>
