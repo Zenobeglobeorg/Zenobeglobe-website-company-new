@@ -1,13 +1,139 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="fr" class="dark">
   <head>
+    <!-- Meta tags essentiels -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/Logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>zenobeglobe-website-company</title>
-    <meta name="description" content="Platform d'entreprise pour la création de site web, application mobile, cybersécurité, automatisme, marketing, design, formation, etc." >
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/Logo.svg" />
+    <link rel="apple-touch-icon" href="/Logo.svg" />
+    
+    <!-- SEO Principal -->
+    <title>ZenobeGlobe - Expert Cybersécurité & Solutions IT au Gabon | Libreville</title>
+    <meta name="description" content="ZenobeGlobe : Votre partenaire IT au Gabon. Cybersécurité, développement web/mobile, maintenance informatique, formation bureautique. Expertise locale, solutions sur mesure à Libreville." />
+    <meta name="keywords" content="cybersécurité Gabon, développement web Libreville, maintenance informatique, formation bureautique, solutions IT, sécurité réseau, développement mobile, ZenobeGlobe" />
+    <meta name="author" content="ZenobeGlobe" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zenobeglobe.com/" />
+    
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:title" content="ZenobeGlobe - Expert Cybersécurité & Solutions IT au Gabon" />
+    <meta property="og:description" content="Protégez votre entreprise avec nos solutions de cybersécurité et développement IT. Expertise locale au Gabon et Cameroun." />
+    <meta property="og:image" content="https://zenobeglobe.com/og-image.jpg" />
+    <meta property="og:url" content="https://zenobeglobe.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ZenobeGlobe" />
+    <meta property="og:locale" content="fr_FR" />
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ZenobeGlobe - Expert Cybersécurité Gabon" />
+    <meta name="twitter:description" content="Solutions IT et cybersécurité au Gabon" />
+    <meta name="twitter:image" content="https://zenobeglobe.com/twitter-image.jpg" />
+    <meta name="twitter:site" content="@zenobeglobe" />
+    
+    <!-- Données structurées JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ZenobeGlobe",
+      "description": "Expert en cybersécurité et solutions IT au Gabon",
+      "url": "https://zenobeglobe.com",
+      "logo": "https://zenobeglobe.com/Logo.svg",
+      "foundingDate": "2024",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+237-671-524-727",
+        "contactType": "customer service",
+        "email": "zenobeglobe@gmail.com",
+        "availableLanguage": ["French", "English"]
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Libreville",
+        "addressCountry": "GA"
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "Gabon"
+        },
+        {
+          "@type": "Country", 
+          "name": "Cameroun"
+        }
+      ],
+      "serviceType": [
+        "Cybersécurité",
+        "Développement Web",
+        "Développement Mobile", 
+        "Maintenance Informatique",
+        "Formation Bureautique",
+        "Marketing Digital",
+        "Design Graphique"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/zenobeglobe",
+        "https://www.facebook.com/zenobeglobe"
+      ]
+    }
+    </script>
+    
+    <!-- Données structurées Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "ZenobeGlobe",
+      "image": "https://zenobeglobe.com/Logo.svg",
+      "description": "Expert en cybersécurité et solutions IT au Gabon",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Libreville",
+        "addressCountry": "GA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "0.4162",
+        "longitude": "9.4673"
+      },
+      "url": "https://zenobeglobe.com",
+      "telephone": "+237-671-524-727",
+      "email": "zenobeglobe@gmail.com",
+      "openingHours": "Mo-Fr 08:00-18:00",
+      "priceRange": "$$",
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "0.4162",
+          "longitude": "9.4673"
+        },
+        "geoRadius": "500000"
+      }
+    }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DJ2J3YTKM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-8DJ2J3YTKM');
+    </script>
+    
+    <!-- Preconnect pour les performances -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body>

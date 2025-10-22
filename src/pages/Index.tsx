@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
+import SEO, { organizationSchema } from "@/components/SEO";
 import { motion } from "framer-motion";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import {
@@ -63,6 +64,13 @@ const scaleIn = {
 export default function Index() {
   return (
     <Layout>
+      <SEO 
+        title="ZenobeGlobe - Expert Cybersécurité & Solutions IT au Gabon | Libreville"
+        description="ZenobeGlobe : Votre partenaire IT au Gabon. Cybersécurité, développement web/mobile, maintenance informatique, formation bureautique. Expertise locale, solutions sur mesure à Libreville."
+        keywords="cybersécurité Gabon, développement web Libreville, maintenance informatique, formation bureautique, solutions IT, sécurité réseau, développement mobile, ZenobeGlobe"
+        canonical="https://zenobeglobe.com/"
+        structuredData={organizationSchema}
+      />
       <div className="w-full">
         <HeroSection />
         <AboutSection />
@@ -104,13 +112,13 @@ function HeroSection() {
               className="text-white font-poppins text-4xl md:text-5xl lg:text-[80px] font-medium leading-tight lg:leading-[90px] mb-6 lg:mb-8"
               variants={fadeInUp}
             >
-              Votre Partenaire en Cybersécurité & Solution Numérique
+              Votre Partenaire en <strong>Cybersécurité</strong> & Solutions IT au <strong>Gabon</strong>
             </motion.h1>
             <motion.p 
               className="text-gray-200 font-inter text-lg lg:text-xl mb-8 lg:mb-12"
               variants={fadeInUp}
             >
-              Securisez votre infrastructures IT avec ZENOBEGLOBE
+              Sécurisez votre infrastructure IT avec <strong>ZENOBEGLOBE</strong> - Expert en cybersécurité à <strong>Libreville</strong>
             </motion.p>
             <motion.div 
               className="flex flex-wrap gap-4"
@@ -236,9 +244,10 @@ function AboutSection() {
               className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed mb-8"
               variants={fadeInUp}
             >
-              ZenobeGlobe est une entreprise technologique innovante basée au Gabon, 
+              <strong>ZenobeGlobe</strong> est une entreprise technologique innovante basée à <strong>Libreville, Gabon</strong>, 
               spécialisée dans l'accompagnement des entreprises, administrations et 
-              particuliers dans leur transition numérique.
+              particuliers dans leur <strong>transition numérique</strong>. Nous offrons des <strong>solutions de cybersécurité</strong>, 
+              <strong>développement web et mobile</strong>, et <strong>maintenance informatique</strong> au Gabon et au Cameroun.
             </motion.p>
 
             <motion.div 
@@ -327,8 +336,11 @@ function AboutSection() {
               >
                 <motion.img
                   src="/About.jpg"
-                  alt="Équipe ZenobeGlobe"
+                  alt="Équipe ZenobeGlobe - Experts cybersécurité et développement IT au Gabon"
                 className="rounded-3xl w-full h-auto"
+                  loading="lazy"
+                  width="600"
+                  height="400"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -654,9 +666,12 @@ function ServicesSection() {
                     >
                   <img
                     src={service.image}
-                    alt={service.title}
-                        className="w-full h-48 object-cover"
-                      />
+                    alt={`${service.title} - Service ${service.title.toLowerCase()} par ZenobeGlobe au Gabon`}
+                    className="w-full h-48 object-cover"
+                    loading="lazy"
+                    width="400"
+                    height="192"
+                  />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     </motion.div>
                     
@@ -855,8 +870,11 @@ function TeamSection() {
                   <div className="relative overflow-hidden">
                     <motion.img
                 src={member.image}
-                alt={member.name}
+                      alt={`${member.name} - ${member.role} chez ZenobeGlobe, expert IT au Gabon`}
                       className="w-full h-64 object-cover"
+                      loading="lazy"
+                      width="300"
+                      height="256"
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.3 }}
                     />

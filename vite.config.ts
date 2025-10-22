@@ -14,4 +14,40 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    // Optimisations de build pour le SEO
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          motion: ['framer-motion'],
+        },
+      },
+    },
+    // Optimisation des assets
+    assetsInlineLimit: 4096,
+    chunkSizeWarningLimit: 1000,
+  },
+  // Optimisations de développement
+  server: {
+    port: 3000,
+    open: true,
+  },
+  // Préchargement des modules critiques
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'framer-motion',
+    ],
+  },
 })

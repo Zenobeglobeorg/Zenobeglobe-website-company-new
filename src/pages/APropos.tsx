@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
+import SEO, { localBusinessSchema } from "@/components/SEO";
 import { 
   Rocket, 
   Briefcase, 
@@ -43,6 +44,13 @@ const scaleIn = {
 export default function APropos() {
   return (
     <Layout>
+      <SEO 
+        title="À Propos - ZenobeGlobe | Expert Cybersécurité au Gabon"
+        description="Découvrez ZenobeGlobe, votre partenaire IT au Gabon. Notre équipe d'experts en cybersécurité et développement IT vous accompagne dans votre transformation digitale à Libreville."
+        keywords="à propos ZenobeGlobe, équipe cybersécurité Gabon, histoire entreprise IT Libreville, experts développement web Gabon"
+        canonical="https://zenobeglobe.com/a-propos"
+        structuredData={localBusinessSchema}
+      />
       <div className="w-full bg-black">
         <HeroSection />
         <NotreHistoireSection />
@@ -130,16 +138,17 @@ function HeroSection() {
                 avenir numérique
               </span>
               <br />
-              de l'Afrique Centrale
+              de l'<strong>Afrique Centrale</strong>
             </motion.h1>
             
             <motion.p 
               className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0"
               variants={fadeInUp}
             >
-              ZenobeGlobe est plus qu'une entreprise technologique. Nous sommes les architectes 
-              de la transformation digitale qui propulse les entreprises gabonaises et camerounaises 
-              vers l'excellence numérique.
+              <strong>ZenobeGlobe</strong> est plus qu'une entreprise technologique. Nous sommes les architectes 
+              de la <strong>transformation digitale</strong> qui propulse les entreprises <strong>gabonaises et camerounaises</strong> 
+              vers l'excellence numérique. Basés à <strong>Libreville</strong>, nous offrons des <strong>solutions de cybersécurité</strong> 
+              et <strong>développement IT</strong> sur mesure.
             </motion.p>
 
             {/* Statistiques impressionnantes */}
@@ -233,8 +242,11 @@ function HeroSection() {
               >
                 <motion.img
                   src="/Hero main.jpg"
-                  alt="Équipe ZenobeGlobe en action"
+                  alt="Équipe ZenobeGlobe en action - Experts cybersécurité et développement IT au Gabon"
                   className="w-full max-w-[500px] lg:max-w-[600px] h-auto rounded-2xl"
+                  loading="lazy"
+                  width="600"
+                  height="400"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 />
