@@ -925,7 +925,7 @@ function NosValeursSection() {
               </div>
               <div className="text-left">
                 <div className="text-white font-inter font-semibold">Ngoulou Zenobe</div>
-                <div className="text-gray-400 font-inter text-sm">CEO & Fondateur</div>
+                <div className="text-gray-400 font-inter text-sm">CEO</div>
         </div>
             </motion.div>
           </motion.div>
@@ -939,7 +939,7 @@ function NotreEquipeSection() {
   const team = [
     {
       name: "Ngoulou Zenobe",
-      role: "CEO & Fondateur",
+      role: "CEO",
       image: "/img-6.jpg",
       highlight: true,
       bio: "Visionnaire et leader technologique avec plus de 8 ans d'expérience",
@@ -950,7 +950,7 @@ function NotreEquipeSection() {
       role: "Product Manager",
       image: "/img-1.jpg",
       highlight: false,
-      bio: "Spécialiste en gestion de produits et stratégie digitale",
+      bio: "Spécialiste en gestion de produits digitaux.  Je coordonne, planifie et optimise pour livrer des solutions utiles.  Axé résultats, innovation et expérience utilisateur.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -1149,14 +1149,16 @@ function TeamCard({ member }: { member: TeamMember }) {
       viewport={{ once: false, margin: "-50px" }}
     >
       {/* Image avec overlay */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden aspect-[4/5]">
         <motion.img
         src={member.image}
         alt={member.name}
-          className="w-full h-64 object-cover"
-          whileHover={{ scale: 1.1 }}
+          className="w-full h-full object-cover object-center"
+          whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
           loading="lazy"
+          width="300"
+          height="375"
         />
         
         {/* Overlay avec gradient */}

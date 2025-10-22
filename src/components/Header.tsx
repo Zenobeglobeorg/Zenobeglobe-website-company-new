@@ -12,9 +12,9 @@ export default function Header() {
     { to: "/", label: "Accueil" },
     { to: "/a-propos", label: "A Propos" },
     { to: "/service", label: "Service" },
-    { to: "/equipe", label: "Equipe" },
+    //{ to: "/equipe", label: "Equipe" },
     { to: "/formation", label: "Formation" },
-    { to: "/contact", label: "Contact" },
+    //{ to: "/contact", label: "Contact" },
   ];
 
   const isActive = (path: string) => {
