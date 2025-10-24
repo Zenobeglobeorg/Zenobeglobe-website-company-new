@@ -142,7 +142,7 @@ function HeroSection() {
               </motion.div>
               <motion.div variants={fadeInUp}>
               <Link
-                to="/travail"
+                to="/a-propos"
                   className="inline-block px-10 py-4 border-4 border-[#4AA3DF] rounded-lg text-white font-inter font-semibold text-base hover:bg-[#4AA3DF] hover:bg-opacity-20 hover:scale-105 transition-all duration-300"
               >
                 Notre Travail
