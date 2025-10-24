@@ -16,7 +16,8 @@ import {
   Calendar,
   CheckCircle,
   Layers,
-  Quote
+  Quote,
+  MessageCircle
 } from "lucide-react";
 
 // Animation variants
@@ -195,7 +196,13 @@ function HeroSection() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <motion.button 
+              <motion.button
+                onClick={() => {
+                  const histoireSection = document.getElementById('histoire');
+                  if (histoireSection) {
+                    histoireSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }} 
                 className="px-8 py-4 bg-[hsl(var(--brand-blue))] rounded-lg text-white font-inter font-semibold text-base hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2"
                 variants={fadeInUp}
                 whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(79, 209, 197, 0.3)" }}
@@ -214,13 +221,19 @@ function HeroSection() {
                 </motion.svg>
               </motion.button>
               
-              <motion.button 
+              <motion.button
+                onClick={() => {
+                  const equipeSection = document.getElementById('equipe');
+                  if (equipeSection) {
+                    equipeSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }} 
                 className="px-8 py-4 border-2 border-[hsl(var(--brand-cyan))] rounded-lg text-[hsl(var(--brand-cyan))] font-inter font-semibold text-base hover:bg-[hsl(var(--brand-cyan))] hover:text-black transition-all duration-300"
                 variants={fadeInUp}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Voir nos réalisations
+                Voir notre équipe
               </motion.button>
             </motion.div>
           </motion.div>
@@ -332,7 +345,7 @@ function NotreHistoireSection() {
   ];
 
   return (
-    <section className="w-full px-4 lg:px-8 py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-black to-[#090914]">
+    <section id="histoire" className="w-full px-4 lg:px-8 py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-black to-[#090914]">
       <div className="container mx-auto">
         <motion.div
           initial="hidden"
@@ -1020,7 +1033,7 @@ function NotreEquipeSection() {
   ];
 
   return (
-    <section className="w-full px-4 lg:px-8 py-16 lg:py-24 bg-gradient-to-b from-[#090914] to-black overflow-hidden">
+    <section id="equipe" className="w-full px-4 lg:px-8 py-16 lg:py-24 bg-gradient-to-b from-[#090914] to-black overflow-hidden">
       <div className="container mx-auto">
         <motion.div
           initial="hidden"
@@ -1107,20 +1120,17 @@ function NotreEquipeSection() {
               transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <motion.button
-                className="px-8 py-4 bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] rounded-lg text-white font-inter font-semibold text-base hover:opacity-90 transition-all duration-300"
+              <motion.a
+                href="https://wa.me/237671524727"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(var(--brand-cyan))] text-white rounded-lg font-semibold hover:bg-[hsl(var(--brand-cyan))]/90 transition-colors duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Voir les offres d'emploi
-              </motion.button>
-              <motion.button
-                className="px-8 py-4 border-2 border-[hsl(var(--brand-cyan))] rounded-lg text-[hsl(var(--brand-cyan))] font-inter font-semibold text-base hover:bg-[hsl(var(--brand-cyan))] hover:text-black transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Candidature spontanée
-              </motion.button>
+                <MessageCircle className="w-5 h-5" />
+                Contactez nous
+              </motion.a>
             </motion.div>
           </motion.div>
         </motion.div>

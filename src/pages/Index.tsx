@@ -128,12 +128,17 @@ function HeroSection() {
               viewport={{ once: true }}
             >
               <motion.div variants={fadeInUp}>
-              <Link
-                to="/commencer"
+              <button
+                onClick={() => {
+                  const aboutSection = document.getElementById('about');
+                  if (aboutSection) {
+                    aboutSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
                   className="inline-block px-10 py-4 bg-[hsl(var(--brand-blue))] rounded-lg text-white font-inter font-semibold text-base hover:bg-opacity-90 hover:scale-105 transition-all duration-300"
               >
                 Commencer
-              </Link>
+              </button>
               </motion.div>
               <motion.div variants={fadeInUp}>
               <Link
@@ -203,7 +208,7 @@ function AboutSection() {
   ];
 
   return (
-    <section className="w-full px-4 lg:px-8 py-12 lg:py-20 overflow-hidden bg-gradient-to-b from-black to-[#090914]">
+    <section id="about" className="w-full px-4 lg:px-8 py-12 lg:py-20 overflow-hidden bg-gradient-to-b from-black to-[#090914]">
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
           <motion.div 
@@ -409,6 +414,17 @@ interface Service {
 
 function ServicesSection() {
   const [selectedCategory, setSelectedCategory] = useState("Developpement web/mobile");
+
+  // Mapping des catégories vers les ancres de Service.tsx
+  const categoryToAnchor = {
+    "Developpement web/mobile": "developpement-web-mobile",
+    "Securité et reseau": "securite-et-reseaux-informatique", 
+    "Maintenance": "maintenance",
+    "Design": "infographie-et-design",
+    "Automatisme": "internet-des-objets-iot",
+    "Marketing": "marketing-digital",
+    "Formations et outils collaboratifs": "formation-en-bureautique"
+  };
 
   // Structure complète des services par catégorie
   const allServices: Record<string, Service[]> = {
@@ -657,7 +673,10 @@ function ServicesSection() {
                 whileHover={{ y: -10, scale: 1.02 }}
                 className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 flex flex-col transition-all duration-300 cursor-pointer hover:border-[hsl(var(--brand-cyan))]/50"
               >
-                <Link to="/service" className="flex flex-col h-full relative z-10">
+                <Link 
+                  to={`/service#${categoryToAnchor[selectedCategory as keyof typeof categoryToAnchor]}`} 
+                  className="flex flex-col h-full relative z-10"
+                >
                   <div className="relative mb-6">
                     <motion.div
                       className="relative overflow-hidden rounded-xl"
@@ -698,7 +717,7 @@ function ServicesSection() {
                       whileHover={{ x: 5 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <span className="text-[hsl(var(--brand-cyan))] font-inter font-semibold text-sm flex items-center justify-center gap-2 group-hover:gap-3 transition-all">
+                      <span className="text-white font-inter font-semibold text-sm flex items-center justify-center gap-2 group-hover:gap-3 group-hover:text-[hsl(var(--brand-cyan))] transition-all">
                         En savoir plus
                         <ArrowRight className="w-4 h-4" />
                       </span>
