@@ -10,6 +10,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Placeholder from "./pages/Placeholder";
 import Service from './pages/Service';
+import APropos from './pages/APropos';
+import Formation from './pages/Formation';
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -20,10 +22,10 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/a-propos" element={<Placeholder pageName="A Propos" />} />
+          <Route path="/a-propos" element={<APropos />} />
           <Route path="/service" element={<Service />} />
           <Route path="/equipe" element={<Placeholder pageName="Notre Équipe" />} />
-          <Route path="/formation" element={<Placeholder pageName="Formations" />} />
+          <Route path="/formation" element={<Formation />} />
           <Route path="/contact" element={<Placeholder pageName="Contact" />} />
           <Route path="/commencer" element={<Placeholder pageName="Commencer" />} />
           <Route path="/travail" element={<Placeholder pageName="Notre Travail" />} />

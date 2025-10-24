@@ -1,0 +1,52 @@
+# Robots.txt pour ZenobeGlobe
+# https://zenobeglobe.com/robots.txt
+
+# Autoriser tous les robots à explorer le site
+User-agent: *
+Allow: /
+
+# Bloquer l'accès aux fichiers sensibles
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /*.ts$
+Disallow: /*.tsx$
+
+# Autoriser spécifiquement les images et assets publics
+Allow: /images/
+Allow: /assets/
+Allow: /Logo.svg
+Allow: /favicon.ico
+
+# Sitemap
+Sitemap: https://zenobeglobe.com/sitemap.xml
+
+# Délai entre les requêtes (en secondes)
+Crawl-delay: 1
+
+# Instructions spécifiques pour Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Instructions spécifiques pour Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Bloquer les bots malveillants connus
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+

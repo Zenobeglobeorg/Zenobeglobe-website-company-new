@@ -4,6 +4,43 @@ import { User, Grid, Sparkles, Zap, Smartphone, Shield, Server, Edit, Globe, Loc
 import { useState, useCallback, useMemo, useEffect } from "react"; 
 import type { ReactNode } from "react";
 
+// --------------------------------------------------------------------------------
+// --- ANIMATION VARIANTS ADDED ---
+// --------------------------------------------------------------------------------
+const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { 
+        opacity: 1, 
+        y: 0, 
+        transition: { 
+            duration: 0.6 
+        } 
+    },
+};
+
+const scaleIn = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+        opacity: 1, 
+        scale: 1, 
+        transition: { 
+            duration: 0.5 
+        } 
+    },
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1, // Délai entre les éléments enfants
+            delayChildren: 0.3, // Délai initial avant que les enfants ne commencent
+        },
+    },
+};
+// --------------------------------------------------------------------------------
+
 // Define the Service component
 export default function Service() {
     
@@ -79,22 +116,38 @@ export default function Service() {
     ];
     
     // Helper component for Mission Items
-    const MissionItem = ({ title, description, icon }: { title: string, description: string, icon: ReactNode }) => (
-        <div className="w-full md:w-[23%] flex flex-col gap-3 p-4">
-            <div className="mx-auto bg-[#49B0F2] w-24 h-24 rounded-xl flex items-center justify-center shadow-lg">
-                {icon}
-            </div>
-            <h3 className="font-poppins text-white text-lg font-semibold mt-2">{title}</h3>
-            <p className="font-inter text-sm text-gray-400 text-center">{description}</p>
-        </div>
-    );
-    
+    // Helper component for Mission Items - MODIFIÉ: texte centré
+const MissionItem = ({ title, description, icon }: { title: string, description: string, icon: ReactNode }) => (
+    // --- Animation Added ---
+    <motion.div 
+        className="w-full md:w-[23%] flex flex-col gap-3 p-4"
+        variants={fadeInUp}
+    >
+        <motion.div
+            className="mx-auto bg-[#49B0F2] w-24 h-24 rounded-xl flex items-center justify-center shadow-lg"
+            whileHover={{ scale: 1.12, rotate: 6 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+        >
+            {icon}
+        </motion.div>
+        {/* MODIFIÉ: text-center ajouté */}
+        <h3 className="font-poppins text-white text-lg font-semibold mt-2 text-center">{title}</h3>
+        {/* MODIFIÉ: text-center déjà présent mais confirmé */}
+        <p className="font-inter text-sm text-gray-400 text-center">{description}</p>
+    </motion.div>
+);
     // Helper component for Development Offerings (Cubes)
     const DevCube = ({ title, icon }: { title: string, icon: ReactNode }) => (
         <motion.div
             className="h-64 p-6 rounded-xl shadow-2xl bg-[#111827] flex flex-col justify-between cursor-pointer border border-transparent hover:border-[#49B0F2]"
             whileHover={{ scale: 1.03, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)" }}
             transition={{ duration: 0.3 }}
+            // --- Animation Added ---
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            // -----------------------
         >
             <div className="w-10 h-10 bg-gradient-to-br from-[#49B0F2] to-[#2563EB] rounded-lg flex items-center justify-center p-2">
                 {icon}
@@ -109,7 +162,11 @@ export default function Service() {
 
     // Helper component for Training List Items
     const TrainingItem = ({ number, title, description }: { number: number, title: string, description: string }) => (
-        <div className="flex items-start gap-4">
+        // --- Animation Added ---
+        <motion.div 
+            className="flex items-start gap-4"
+            variants={fadeInUp}
+        >
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white text-[#1A374A] font-bold flex items-center justify-center text-lg mt-1 shadow-md">
                 {number}
             </div>
@@ -117,7 +174,7 @@ export default function Service() {
                 <h3 className="text-xl font-semibold text-white mb-1 font-poppins">{title}</h3>
                 <p className="text-gray-300 text-base font-inter">{description}</p>
             </div>
-        </div>
+        </motion.div>
     );
     
     // --------------------------------------------------------------------------------
@@ -130,6 +187,12 @@ export default function Service() {
             whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(73, 176, 242, 0.5), 0 4px 6px -2px rgba(73, 176, 242, 0.2)" }}
             transition={{ duration: 0.3 }}
             onClick={() => openModal(serviceName)} // Use the new openModal function
+            // --- Animation Added ---
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            // -----------------------
         >
             Réserver ce service
         </motion.button>
@@ -142,6 +205,12 @@ export default function Service() {
             className={`p-8 rounded-2xl shadow-2xl flex flex-col space-y-6 ${isPremium ? 'bg-gradient-to-br from-[#49B0F2]/20 to-gray-900 border-2 border-[#49B0F2]' : 'bg-[#111827] border border-gray-700'}`}
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
+            // --- Animation Added ---
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            // -----------------------
         >
             <h3 className="text-3xl font-poppins font-bold text-white uppercase">{title}</h3>
             <p className="text-sm text-[#49B0F2] font-inter">Meilleur rapport qualité-prix</p>
@@ -231,7 +300,7 @@ export default function Service() {
                         <X className="w-6 h-6" />
                     </button>
 
-                    <h2 className="text-4xl font-extrabold font-poppins text-white mb-2 text-center tracking-tight">
+                    <h2 className="text-3xl md:text-4xl font-extrabold font-poppins text-white mb-4 text-center tracking-tight">
                         Réserver un Service
                     </h2>
                     <p className="text-center text-gray-400 font-inter mb-10 text-base">
@@ -331,149 +400,241 @@ export default function Service() {
             {/* The main content div's background class is used as a base */}
             <div className="min-h-screen bg-[#272626cc] text-white">
                 
+             
                 {/* 1. SECURITE ET RESEAUX INFORMATIQUE */}
-                {/* ... (Existing sections 1 to 8 remain unchanged) ... */}
-                
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
-                    {/* ... (Existing code for section 1) ... */}
-                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    {/* Title Banner - Apply fadeInUp */}
+                    <motion.div 
+                        className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.5 }}
+                        variants={fadeInUp}
+                    >
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             SÉCURITÉ ET RÉSEAUX INFORMATIQUE
                         </h1>
-                    </div>
+                    </motion.div>
                     
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        {/* ... (Text and Image) ... */}
+                    {/* Main Content Container - Apply staggerContainer */}
+                    <motion.div 
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={staggerContainer}
+                    >
+                        {/* Text and Image Block */}
                         <div className="flex flex-col lg:flex-row items-center justify-center gap-12">
-                            <div className="lg:w-1/2 w-full order-2 lg:order-1 text-justify space-y-4">
-                                <h2 className="text-3xl md:text-4xl font-medium font-poppins text-white">
+                            {/* Text (1/2) - Apply fadeInUp - MODIFIÉ: text-center */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full order-2 lg:order-1 text-center space-y-4"
+                                variants={fadeInUp}
+                            >
+                                <h2 className="text-3xl md:text-4xl font-extrabold font-poppins text-white">
                                     Sécurité & Réseau Informatique
                                 </h2>
                                 <p className="mt-2 text-lg leading-relaxed font-inter text-gray-300">
-                                    Le service de sécurité informatique de ZENOBEGLOBE est conçu comme une cyber-stratégie complète pour protéger les informations et les actifs numériques de votre entreprise. Il propose des solutions réseau adaptées à vos besoins spécifiques pour garantir la **performance, la sécurité et la fiabilité** de votre infrastructure.
+                                    Le service de sécurité informatique de ZENOBEGLOBE est conçu comme une cyber-stratégie complète pour protéger les informations et les actifs numériques de votre entreprise. Il propose des solutions réseau adaptées à vos besoins spécifiques pour garantir la performance, la sécurité et la fiabilité de votre infrastructure.
                                 </p>
-                            </div>
-                            <div className="lg:w-1/2 w-full order-1 lg:order-2 h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
+                            </motion.div>
+                            {/* Image (1/2) - Apply scaleIn */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full order-1 lg:order-2 h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl"
+                                variants={scaleIn}
+                            >
                                 <img 
-                                    src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80" 
+                                    src="public/securité.jpg" 
                                     alt="Cybersecurity concept with digital lock" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy" 
                                 />
-                            </div>
+                            </motion.div>
                         </div>
 
+                        {/* ReservationButton component déjà centré */}
                         <div className="flex justify-center mt-12">
                             <ReservationButton serviceName="SÉCURITÉ ET RÉSEAUX INFORMATIQUE" />
                         </div>
                         
-                        <div className="mt-20 p-6 md:p-8 rounded-2xl border-2 border-[#49B0F2] bg-[#0A0A19] shadow-xl">
+                        {/* Missions Block - Apply staggerContainer to the parent, MissionItem handles children */}
+                        <motion.div 
+                            className="mt-20 p-6 md:p-8 rounded-2xl border-2 border-[#49B0F2] bg-[#0A0A19] shadow-xl"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            variants={staggerContainer}
+                        >
                             <p className="font-inter text-[#49B0F2] uppercase text-sm font-medium text-center">MISSION</p>
-                            <h2 className="text-2xl font-medium font-Inter text-white text-center mb-10">Nos Missions Liées</h2>
-                            <div className="flex justify-content-space-between flex-wrap gap-8 md:gap-4">
+                            <motion.h2 className="text-2xl font-medium font-Inter text-white text-center mb-10" variants={fadeInUp}>Nos Missions Liées</motion.h2>
+                            {/* MODIFIÉ: justify-center */}
+                            <div className="flex justify-center flex-wrap gap-8 md:gap-4">
                                 {securityMissions.map((mission, index) => (
-                                    <MissionItem  key={index} {...mission} />
+                                    <MissionItem key={index} {...mission} />
                                 ))}
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </section>
                 
                 <hr className="border-t border-gray-800" />
                 
                 {/* 2. MAINTENANCE */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
-                    {/* ... (Existing code for section 1) ... */}
-                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    {/* Title Banner - Apply fadeInUp */}
+                    <motion.div 
+                        className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.5 }}
+                        variants={fadeInUp}
+                    >
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             MAINTENANCE
                         </h1>
-                    </div>
+                    </motion.div>
                     
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Main Content Container - Apply staggerContainer */}
+                    <motion.div 
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={staggerContainer}
+                    >
                         <div className="flex flex-col lg:flex-row items-center justify-center gap-12">
-                            <div className="lg:w-1/2 w-full order-2 text-justify space-y-4">
-                                <h2 className="text-3xl md:text-4xl font-medium font-poppins text-white">
+                            {/* Text (1/2) - Apply fadeInUp */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full order-2 text-justify space-y-4"
+                                variants={fadeInUp}
+                            >
+                                <h2 className="text-3xl md:text-4xl font-extrabold font-poppins text-white ">
                                     Maintenance Informatique
                                 </h2>
                                 <p className="mt-2 text-lg leading-relaxed font-inter text-gray-300">
-                                    **ZENOBEGLOBE** : Votre tranquillité par la Maintenance Informatique. Le service de maintenance de ZENOBEGLOBE a pour objectif central de maintenir vos équipements en parfait état de fonctionnement et d'assurer la **longévité** de votre infrastructure numérique.
+                                    ZENOBEGLOBE : Votre tranquillité par la Maintenance Informatique. Le service de maintenance de ZENOBEGLOBE a pour objectif central de maintenir vos équipements en parfait état de fonctionnement et d'assurer la longévité de votre infrastructure numérique.
                                 </p>
-                            </div>
-                            <div className="lg:w-1/2 w-full order-1 h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
+                            </motion.div>
+                            {/* Image (1/2) - Apply scaleIn */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full order-1 h-64 md:h-96 rounded-2xl overflow-hidden shadow-2xl"
+                                variants={scaleIn}
+                            >
                                 <img 
-                                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                                    src="public/maintenance.jpg" 
                                     alt="IT Maintenance concept" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy" 
                                 />
-                            </div>
+                            </motion.div>
                         </div>
                         
+                        {/* ReservationButton component already has the animation */}
                         <div className="flex justify-center mt-12">
                             <ReservationButton serviceName="MAINTENANCE" />
                         </div>
                         
-                            <div className="mt-20 p-6 md:p-8 rounded-2xl border-2 border-[#49B0F2] bg-[#0A0A19] shadow-xl">
+                        {/* Missions Block - Apply staggerContainer to the parent, MissionItem handles children */}
+                        <motion.div 
+                            className="mt-20 p-6 md:p-8 rounded-2xl border-2 border-[#49B0F2] bg-[#0A0A19] shadow-xl"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            variants={staggerContainer}
+                        >
                             <p className="font-inter text-[#49B0F2] uppercase text-sm font-medium text-center">MISSION</p>
-                            <h2 className="text-2xl font-medium font-Inter text-white text-center mb-10">Nos Missions Liées</h2>
+                            <motion.h2 className="text-2xl font-medium font-Inter text-white text-center mb-10" variants={fadeInUp}>Nos Missions Liées</motion.h2>
                             <div className="flex justify-between flex-wrap gap-8 md:gap-4">
                                 {maintenanceMissions.map((mission, index) => (
                                     <MissionItem key={index} {...mission} />
                                 ))}
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </section>
                 
                 <hr className="border-t border-gray-800" />
 
                 {/* 3. DEVELOPPEMENT WEB/MOBILE */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
-                    {/* ... (Existing code for section 3) ... */}
-                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    {/* Title Banner - Apply fadeInUp */}
+                    <motion.div 
+                        className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.5 }}
+                        variants={fadeInUp}
+                    >
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             DÉVELOPPEMENT WEB/MOBILE
                         </h1>
-                    </div>
+                    </motion.div>
                     
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Main Content Container - Apply staggerContainer */}
+                    <motion.div 
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={staggerContainer}
+                    >
                         <div className="flex flex-col lg:flex-row items-center justify-center gap-12">
-                            <div className="lg:w-1/2 w-full order-2 lg:order-1 text-justify space-y-4">
-                                <h2 className="text-3xl md:text-4xl font-medium font-poppins text-white">
+                            {/* Text (1/2) - Apply fadeInUp */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full order-2 lg:order-1 text-justify space-y-4"
+                                variants={fadeInUp}
+                            >
+                                <h2 className="text-3xl md:text-4xl font-extrabold font-poppins text-white">
                                     Développement Web/Mobile
                                 </h2>
                                 <p className="mt-2 text-lg leading-relaxed font-inter text-gray-300">
-                                    Le service de développement web et mobile de **ZENOBEGLOBE** est conçu pour créer des solutions numériques sur mesure qui répondent aux besoins spécifiques de votre entreprise. Nous utilisons les dernières technologies et méthodologies pour garantir la **performance, la sécurité et la fiabilité** de votre infrastructure.
+                                    Le service de développement web et mobile de ZENOBEGLOBE est conçu pour créer des solutions numériques sur mesure qui répondent aux besoins spécifiques de votre entreprise. Nous utilisons les dernières technologies et méthodologies pour garantir la performance, la sécurité et la fiabilité de votre infrastructure.
                                 </p>
-                            </div>
-                            <div className="lg:w-1/2 w-full order-1 lg:order-2 flex gap-6 items-end justify-center p-4">
+                            </motion.div>
+                            {/* Images (1/2) - Apply scaleIn to the container */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full order-1 lg:order-2 flex gap-6 items-end justify-center p-4"
+                                variants={scaleIn}
+                            >
                                 <div className="w-28 h-40 sm:w-40 sm:h-56 lg:w-48 lg:h-64 rounded-xl overflow-hidden shadow-2xl">
                                     <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Web Development" className="w-full h-full object-cover" loading="lazy" />
                                 </div>
                                 <div className="w-36 h-64 sm:w-56 sm:h-96 lg:w-64 lg:h-[500px] rounded-xl overflow-hidden shadow-2xl">
                                     <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mobile Development" className="w-full h-full object-cover" loading="lazy" />
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
                         
+                        {/* ReservationButton component already has the animation */}
                         <div className="flex justify-center mt-12">
                             <ReservationButton serviceName="DÉVELOPPEMENT WEB/MOBILE" />
                         </div>
                         
-                        {/* Ce Que Nous Offrons - Grid Section */}
+                        {/* Ce Que Nous Offrons - Grid Section - Apply staggerContainer to the grid parent */}
                         <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-                            {/* ... (Existing code for offerings grid) ... */}
                             <div className="text-center mb-16">
-                                <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-poppins">
+                                <motion.h2 
+                                    className="text-4xl sm:text-5xl font-extrabold tracking-tight font-poppins"
+                                    variants={fadeInUp} // Title
+                                >
                                     Ce Que Nous Offrons
-                                </h2>
-                                <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto font-inter">
+                                </motion.h2>
+                                <motion.p 
+                                    className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto font-inter"
+                                    variants={fadeInUp} // Description
+                                >
                                     Nous créons des solutions digitales sur mesure adaptées à vos besoins spécifiques.
-                                </p>
+                                </motion.p>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                            {/* Grid items use DevCube which already has fadeInUp */}
+                            <motion.div 
+                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.2 }}
+                                variants={staggerContainer} // Staggered grid
+                            >
                                 {/* Column 1: Conception, Applications Mobiles */}
                                 <div className="flex flex-col space-y-8">
                                     <DevCube title={devOfferings[0].title.replace('sur mesure<br />et ergonomique', 'sur mesure\n<br />et ergonomique')} icon={devOfferings[0].icon} />
@@ -491,47 +652,64 @@ export default function Service() {
                                     <DevCube title={devOfferings[4].title.replace('avec vos<br />systèmes existants', 'avec vos\n<br />systèmes existants')} icon={devOfferings[4].icon} />
                                     <DevCube title={devOfferings[5].title.replace('et protection<br />des données', 'et protection\n<br />des données')} icon={devOfferings[5].icon} />
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
                 </section>
                 
                 <hr className="border-t border-gray-800" />
 
                 {/* 4. FORMATION EN BUREAUTIQUE */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
-                    {/* ... (Existing code for section 4) ... */}
-                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    {/* Title Banner - Apply fadeInUp */}
+                    <motion.div 
+                        className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.5 }}
+                        variants={fadeInUp}
+                    >
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             FORMATION EN BUREAUTIQUE
                         </h1>
-                    </div>
+                    </motion.div>
                     
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Main Content Container - Apply staggerContainer */}
+                    <motion.div 
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={staggerContainer}
+                    >
                         <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-24">
                             
-                            {/* Colonne de gauche: Titre et description */}
-                            <div className="lg:w-1/2 text-left space-y-6 lg:space-y-8">
-                                <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-white font-poppins">
+                            {/* Colonne de gauche: Titre et description - Apply fadeInUp */}
+                            <motion.div 
+                                className="lg:w-1/2 text-left space-y-6 lg:space-y-8"
+                                variants={fadeInUp}
+                            >
+                                <h2 className="text-3xl md:text-4xl font-extrabold font-poppins text-white ">
                                     FORMATIONS ET OUTILS COLLABORATIFS
                                 </h2>
                                 <p className="mt-4 text-lg text-gray-300 max-w-lg font-inter">
                                     Développez les compétences numériques de votre équipe grâce à nos programmes de formation personnalisés et adaptés à vos besoins spécifiques.
                                 </p>
-                                <motion.button 
-                                    className="mt-6 text-white rounded px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl transition duration-300" 
-                                    style={{ backgroundColor: "#49B0F2", fontFamily: "Inter", cursor: "pointer" }}
-                                    whileHover={{ scale: 1.05 }}
-                                    transition={{ duration: 0.3 }}
-                                    onClick={() => openModal("FORMATION EN BUREAUTIQUE")}
-                                >
-                                    Réserver une formation
-                                </motion.button>
-                            </div>
+                                <div className="mt-6">
+                                    <ReservationButton serviceName="FORMATION EN BUREAUTIQUE" />
+                                </div>
+                            </motion.div>
 
-                            {/* Colonne de droite: Liste des formations */}
-                            <div className="lg:w-1/2 w-full p-6 md:p-8 rounded-xl shadow-2xl" style={{ backgroundColor: '#1A374A' }}>
-                                {/* ... (Training Items) ... */}
+                            {/* Colonne de droite: Liste des formations - Apply staggerContainer */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full p-6 md:p-8 rounded-xl shadow-2xl" 
+                                style={{ backgroundColor: '#1A374A' }}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.2 }}
+                                variants={staggerContainer} // Staggered list
+                            >
+                                {/* Training Items use TrainingItem which already has fadeInUp */}
                                 <div className="space-y-8">
                                     <TrainingItem number={1} title="Outils bureautiques avancés" description="Maîtrisez Excel, Word, PowerPoint et Outlook pour optimiser votre productivité quotidienne et professionnaliser vos documents." />
                                     <hr className="border-t border-[#49B0F2]/40" />
@@ -541,35 +719,56 @@ export default function Service() {
                                     <hr className="border-t border-[#49B0F2]/40" />
                                     <TrainingItem number={4} title="Gestion des projets numériques" description="Formez-vous aux méthodes et outils de gestion de projets digitaux pour mener à bien vos initiatives technologiques." />
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
                 </section>
                 
                 <hr className="border-t border-gray-800" />
 
                 {/* 5. MARKETING DIGITAL */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
-                    {/* ... (Existing code for section 5) ... */}
-                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    {/* Title Banner - Apply fadeInUp */}
+                    <motion.div 
+                        className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.5 }}
+                        variants={fadeInUp}
+                    >
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             MARKETING DIGITAL
                         </h1>
-                    </div>
+                    </motion.div>
                     
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Main Content Container - Apply staggerContainer */}
+                    <motion.div 
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={staggerContainer}
+                    >
                         {/* Section Principale: Texte et Image */}
                         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
-                            <div className="lg:w-1/2 text-left space-y-6">
-                                <h2 className="text-5xl sm:text-6xl font-extrabold leading-tight tracking-tight font-poppins">
-                                    Marketing<br />Digital
+                            {/* Text (1/2) - Apply fadeInUp */}
+                            <motion.div 
+                                className="lg:w-1/2 text-left space-y-6"
+                                variants={fadeInUp}
+                            >
+                                <h2 className="text-3xl md:text-4xl font-extrabold leading-tight tracking-tight font-poppins text-white ">
+                                    Marketing Digital 
                                 </h2>
                                 <p className="mt-4 text-lg text-gray-300 max-w-lg font-inter">
                                     Notre expertise est là pour vous donner un avantage décisif en ligne. Nous vous offrons des solutions sur mesure pour que vous atteigniez vos objectifs spécifiques, le tout géré par nos équipes qualifiées.
                                 </p>
-                            </div>
+                            </motion.div>
 
-                            <div className="lg:w-1/2 w-full h-80 sm:h-96 lg:h-[450px] relative bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
+                            {/* Image (1/2) - Apply scaleIn */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full h-80 sm:h-96 lg:h-[450px] relative bg-gray-900 rounded-2xl shadow-2xl overflow-hidden"
+                                variants={scaleIn}
+                            >
                                 <img 
                                     src="public/marketing_numerique.jpg"
                                     alt="Digital Marketing dashboard and analysis" 
@@ -581,27 +780,41 @@ export default function Service() {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                     </svg>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
                         
+                        {/* ReservationButton component already has the animation */}
                         <div className="flex justify-center mt-12 mb-16">
                             <ReservationButton serviceName="MARKETING DIGITAL" />
                         </div>
 
-                        {/* Section Missions Liées */}
-                        <div className="p-6 md:p-12 rounded-xl border border-gray-700 bg-[#0A0A19] shadow-xl">
-                            {/* ... (Marketing Missions) ... */}
+                        {/* Section Missions Liées - Apply staggerContainer to the grid parent */}
+                        <motion.div 
+                            className="p-6 md:p-12 rounded-xl border border-gray-700 bg-[#0A0A19] shadow-xl"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            variants={staggerContainer} // Staggered grid
+                        >
                             <p className="text-center text-[#49B0F2] uppercase text-sm font-inter">Missions</p>
-                            <h3 className="text-2xl font-medium font-poppins text-center mt-2 mb-12 text-white">
+                            <motion.h3 className="text-2xl font-medium font-poppins text-center mt-2 mb-12 text-white" variants={fadeInUp}>
                                 Nos Missions Liées
-                            </h3>
+                            </motion.h3>
                             
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                                 {marketingMissions.map((mission, index) => (
-                                    <div key={index} className="flex flex-col items-center text-center space-y-4">
-                                        <div className="w-24 h-24 bg-[#49B0F2]/10 rounded-md flex items-center justify-center">
+                                    <motion.div 
+                                        key={index} 
+                                        className="flex flex-col items-center text-center space-y-4"
+                                        variants={fadeInUp} // Children animation
+                                    >
+                                        <motion.div
+                                            className="w-24 h-24 bg-[#49B0F2]/10 rounded-md flex items-center justify-center"
+                                            whileHover={{ scale: 1.12, rotate: 6 }}
+                                            transition={{ type: 'spring', stiffness: 300 }}
+                                        >
                                             {mission.icon}
-                                        </div>
+                                        </motion.div>
                                         <div className="pt-2">
                                             <h4 className="text-lg font-semibold text-white mb-2 font-poppins">
                                                 {mission.title}
@@ -610,61 +823,96 @@ export default function Service() {
                                                 {mission.description}
                                             </p>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </section>
 
                 <hr className="border-t border-gray-800" />
                 
                 {/* 6. INFOGRAPHIE ET DESIGN (New Section) */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
-                    {/* ... (Existing code for section 6) ... */}
-                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    {/* Title Banner - Apply fadeInUp */}
+                    <motion.div 
+                        className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.5 }}
+                        variants={fadeInUp}
+                    >
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             INFOGRAPHIE ET DESIGN
                         </h1>
-                    </div>
+                    </motion.div>
 
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Main Content Container - Apply staggerContainer */}
+                    <motion.div 
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={staggerContainer}
+                    >
                         <div className="flex flex-col lg:flex-row items-center justify-center gap-12">
-                            <div className="lg:w-1/2 w-full h-80 sm:h-96 rounded-2xl overflow-hidden shadow-2xl">
+                            {/* Image (1/2) - Apply scaleIn */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full h-80 sm:h-96 rounded-2xl overflow-hidden shadow-2xl"
+                                variants={scaleIn}
+                            >
                                 <img 
-                                    src="public/design.webp"
+                                    src="public/design.jpg"
                                     alt="Graphic Design and Infographics" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy"
                                 />
-                            </div>
-                            <div className="lg:w-1/2 w-full text-justify space-y-4">
-                                <h2 className="text-3xl md:text-4xl font-medium font-poppins text-white">
+                            </motion.div>
+                            {/* Text (1/2) - Apply fadeInUp */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full text-justify space-y-4"
+                                variants={fadeInUp}
+                            >
+                                <h2 className="text-3xl md:text-4xl font-extrabold font-poppins text-white">
                                     Infographie et Design
                                 </h2>
                                 <p className="mt-2 text-lg leading-relaxed font-inter text-gray-300">
                                     Nous créons des visuels percutants et professionnels pour renforcer votre image de marque. Notre service couvre l'infographie, l'identité visuelle, et le design UI/UX pour toutes vos plateformes.
                                 </p>
-                            </div>
+                            </motion.div>
                         </div>
                         
+                        {/* ReservationButton component already has the animation */}
                         <div className="flex justify-center mt-12">
                             <ReservationButton serviceName="INFOGRAPHIE ET DESIGN" />
                         </div>
                         
-                        {/* Ce Que Nous Proposons */}
-                        <div className="mt-20 p-6 md:p-12 rounded-2xl border-2 border-[#49B0F2]/50 bg-[#0A0A19] shadow-xl">
-                            {/* ... (Design Offerings) ... */}
+                        {/* Ce Que Nous Proposons - Apply staggerContainer to the grid parent */}
+                        <motion.div 
+                            className="mt-20 p-6 md:p-12 rounded-2xl border-2 border-[#49B0F2]/50 bg-[#0A0A19] shadow-xl"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            variants={staggerContainer} // Staggered grid
+                        >
                             <p className="font-inter text-[#49B0F2] uppercase text-sm font-medium text-center">OFFRE</p>
-                            <h3 className="text-2xl font-medium font-poppins text-center mt-2 mb-12 text-white">
+                            <motion.h3 className="text-2xl font-medium font-poppins text-center mt-2 mb-12 text-white" variants={fadeInUp}>
                                 Ce Que Nous Proposons
-                            </h3>
+                            </motion.h3>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                                 {designOfferings.map((offering, index) => (
-                                    <div key={index} className="flex flex-col items-center text-center space-y-4">
-                                        <div className="w-24 h-24 bg-[#49B0F2] rounded-md flex items-center justify-center shadow-lg">
+                                    <motion.div 
+                                        key={index} 
+                                        className="flex flex-col items-center text-center space-y-4"
+                                        variants={fadeInUp} // Children animation
+                                    >
+                                        <motion.div
+                                            className="w-24 h-24 bg-[#49B0F2] rounded-md flex items-center justify-center shadow-lg"
+                                            whileHover={{ scale: 1.12, rotate: 6 }}
+                                            transition={{ type: 'spring', stiffness: 300 }}
+                                        >
                                             {offering.icon}
-                                        </div>
+                                        </motion.div>
                                         <div className="pt-2">
                                             <h4 className="text-lg font-semibold text-white mb-2 font-poppins">
                                                 {offering.title}
@@ -673,61 +921,96 @@ export default function Service() {
                                                 {offering.description}
                                             </p>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </section>
                 
                 <hr className="border-t border-gray-800" />
 
                 {/* 7. INTERNET DES OBJETS (New Section) */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
-                    {/* ... (Existing code for section 7) ... */}
-                    <div className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4">
-                        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    {/* Title Banner - Apply fadeInUp */}
+                    <motion.div 
+                        className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.5 }}
+                        variants={fadeInUp}
+                    >
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             INTERNET DES OBJETS (IoT)
                         </h1>
-                    </div>
+                    </motion.div>
 
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Main Content Container - Apply staggerContainer */}
+                    <motion.div 
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={staggerContainer}
+                    >
                         <div className="flex flex-col lg:flex-row items-center justify-center gap-12">
-                            <div className="lg:w-1/2 w-full text-justify space-y-4 order-2 lg:order-1">
-                                <h2 className="text-3xl md:text-4xl font-medium font-poppins text-white">
+                            {/* Text (1/2) - Apply fadeInUp */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full text-justify space-y-4 order-2 lg:order-1"
+                                variants={fadeInUp}
+                            >
+                                <h2 className="text-3xl md:text-4xl font-extrabold font-poppins text-white">
                                     Internet Des Objets (IoT)
                                 </h2>
                                 <p className="mt-2 text-lg leading-relaxed font-inter text-gray-300">
-                                    Nous concevons et déployons des solutions IoT sur mesure pour l'**automatisation** et la **collecte de données** intelligentes. Transformez votre entreprise avec des capteurs, des plateformes cloud et des analyses prédictives.
+                                    Nous concevons et déployons des solutions IoT sur mesure pour l'automatisation et la collecte de données intelligentes. Transformez votre entreprise avec des capteurs, des plateformes cloud et des analyses prédictives.
                                 </p>
-                            </div>
-                            <div className="lg:w-1/2 w-full h-80 sm:h-96 rounded-2xl overflow-hidden shadow-2xl order-1 lg:order-2">
+                            </motion.div>
+                            {/* Image (1/2) - Apply scaleIn */}
+                            <motion.div 
+                                className="lg:w-1/2 w-full h-80 sm:h-96 rounded-2xl overflow-hidden shadow-2xl order-1 lg:order-2"
+                                variants={scaleIn}
+                            >
                                 <img 
                                     src="public/iot.jpg"
                                     alt="Internet of Things (IoT) devices" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy"
                                 />
-                            </div>
+                            </motion.div>
                         </div>
                         
+                        {/* ReservationButton component already has the animation */}
                         <div className="flex justify-center mt-12">
                             <ReservationButton serviceName="INTERNET DES OBJETS (IoT)" />
                         </div>
                         
-                        {/* Missions Liées (IoT) */}
-                        <div className="mt-20 p-6 md:p-12 rounded-2xl border-2 border-[#49B0F2]/50 bg-[#0A0A19] shadow-xl">
-                            {/* ... (IoT Missions) ... */}
+                        {/* Missions Liées (IoT) - Apply staggerContainer to the grid parent */}
+                        <motion.div 
+                            className="mt-20 p-6 md:p-12 rounded-2xl border-2 border-[#49B0F2]/50 bg-[#0A0A19] shadow-xl"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            variants={staggerContainer} // Staggered grid
+                        >
                             <p className="font-inter text-[#49B0F2] uppercase text-sm font-medium text-center">MISSION</p>
-                            <h3 className="text-2xl font-medium font-poppins text-center mt-2 mb-12 text-white">
+                            <motion.h3 className="text-2xl font-medium font-poppins text-center mt-2 mb-12 text-white" variants={fadeInUp}>
                                 Nos Missions Liées
-                            </h3>
+                            </motion.h3>
                             
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                                <div className="flex flex-col items-center text-center space-y-4">
-                                    <div className="w-24 h-24 bg-[#49B0F2]/10 rounded-md flex items-center justify-center">
+                                {/* Children animation: fadeInUp */}
+                                <motion.div 
+                                    className="flex flex-col items-center text-center space-y-4"
+                                    variants={fadeInUp}
+                                >
+                                    <motion.div
+                                        className="w-24 h-24 bg-[#49B0F2]/10 rounded-md flex items-center justify-center"
+                                        whileHover={{ scale: 1.12, rotate: 6 }}
+                                        transition={{ type: 'spring', stiffness: 300 }}
+                                    >
                                         <Package className="w-8 h-8 text-white" />
-                                    </div>
+                                    </motion.div>
                                     <div className="pt-2">
                                         <h4 className="text-lg font-semibold text-white mb-2 font-poppins">
                                             Conception et Prototypage
@@ -736,11 +1019,18 @@ export default function Service() {
                                             Développement de solutions matérielles et logicielles pour vos besoins IoT spécifiques.
                                         </p>
                                     </div>
-                                </div>
-                                <div className="flex flex-col items-center text-center space-y-4">
-                                    <div className="w-24 h-24 bg-[#49B0F2]/10 rounded-md flex items-center justify-center">
+                                </motion.div>
+                                <motion.div 
+                                    className="flex flex-col items-center text-center space-y-4"
+                                    variants={fadeInUp}
+                                >
+                                    <motion.div
+                                        className="w-24 h-24 bg-[#49B0F2]/10 rounded-md flex items-center justify-center"
+                                        whileHover={{ scale: 1.12, rotate: 6 }}
+                                        transition={{ type: 'spring', stiffness: 300 }}
+                                    >
                                         <Server className="w-8 h-8 text-white" />
-                                    </div>
+                                    </motion.div>
                                     <div className="pt-2">
                                         <h4 className="text-lg font-semibold text-white mb-2 font-poppins">
                                             Intégration et Déploiement Cloud
@@ -749,11 +1039,18 @@ export default function Service() {
                                             Mise en place de plateformes cloud robustes pour la gestion et l'analyse des données IoT.
                                         </p>
                                     </div>
-                                </div>
-                                <div className="flex flex-col items-center text-center space-y-4">
-                                    <div className="w-24 h-24 bg-[#49B0F2]/10 rounded-md flex items-center justify-center">
+                                </motion.div>
+                                <motion.div 
+                                    className="flex flex-col items-center text-center space-y-4"
+                                    variants={fadeInUp}
+                                >
+                                    <motion.div
+                                        className="w-24 h-24 bg-[#49B0F2]/10 rounded-md flex items-center justify-center"
+                                        whileHover={{ scale: 1.12, rotate: 6 }}
+                                        transition={{ type: 'spring', stiffness: 300 }}
+                                    >
                                         <Zap className="w-8 h-8 text-white" />
-                                    </div>
+                                    </motion.div>
                                     <div className="pt-2">
                                         <h4 className="text-lg font-semibold text-white mb-2 font-poppins">
                                             Sécurité et Maintenance IoT
@@ -762,32 +1059,51 @@ export default function Service() {
                                             Garantie de la sécurité de vos dispositifs et assurance d'une maintenance préventive continue.
                                         </p>
                                     </div>
-                                </div>
+                                </motion.div>
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </section>
                 
                 <hr className="border-t border-gray-800" />
 
                 {/* 8. CONTRACT DE SUPPORT TECHNIQUES (New Section - Pricing) */}
                 <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
-                    {/* ... (Existing code for section 8) ... */}
-                    <div className="bg-[#49B0F2] h-40 sm:h-50 flex items-center justify-center px-4">
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight font-poppins text-white text-center">
+                    {/* Title Banner - Apply fadeInUp */}
+                    <motion.div 
+                        className="bg-[#49B0F2] h-40 sm:h-50 flex items-center justify-center px-4"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.5 }}
+                        variants={fadeInUp}
+                    >
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight font-poppins text-white text-center">
                             CONTRAT DE SUPPORT TECHNIQUE
                         </h1>
-                    </div>
+                    </motion.div>
 
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
-                        <h2 className="text-3xl md:text-4xl font-extrabold font-poppins">
+                    {/* Main Content Container - Apply staggerContainer */}
+                    <motion.div 
+                        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={staggerContainer}
+                    >
+                        <motion.h2 
+                            className="text-3xl md:text-4xl font-extrabold font-poppins"
+                            variants={fadeInUp}
+                        >
                             Choisissez le Plan qui Vous Convient
-                        </h2>
-                        <p className="text-lg text-gray-400 max-w-3xl mx-auto font-inter">
+                        </motion.h2>
+                        <motion.p 
+                            className="text-lg text-gray-400 max-w-3xl mx-auto font-inter"
+                            variants={fadeInUp}
+                        >
                             Nos contrats de support technique sont conçus pour vous offrir une tranquillité d'esprit totale, quelle que soit la taille de votre structure, garantissant une résolution rapide des problèmes.
-                        </p>
+                        </motion.p>
 
-                        {/* Pricing Grid */}
+                        {/* Pricing Grid - PricingCard component already has fadeInUp */}
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-10">
                             <PricingCard 
                                 title="Support Standard" 
@@ -805,7 +1121,7 @@ export default function Service() {
                                 isPremium={false} 
                             />
                         </div>
-                    </div>
+                    </motion.div>
                 </section>
             </div>
             
