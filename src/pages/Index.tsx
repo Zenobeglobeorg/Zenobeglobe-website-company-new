@@ -867,15 +867,15 @@ function TeamSection() {
                   whileHover={{ y: -10, scale: 1.02 }}
                 >
                   {/* Image avec overlay */}
-                  <div className="relative overflow-hidden">
+                  <div className="relative overflow-hidden aspect-[4/5]">
                     <motion.img
                 src={member.image}
                       alt={`${member.name} - ${member.role} chez ZenobeGlobe, expert IT au Gabon`}
-                      className="w-full h-64 object-cover"
+                      className="w-full h-full object-cover object-center"
                       loading="lazy"
                       width="300"
-                      height="256"
-                      whileHover={{ scale: 1.1 }}
+                      height="375"
+                      whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.3 }}
                     />
                     
