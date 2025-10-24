@@ -428,7 +428,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                         <div className="flex flex-col lg:flex-row items-center justify-center gap-12">
                             {/* Text (1/2) - Apply fadeInUp - MODIFIÉ: text-center */}
                             <motion.div 
-                                className="lg:w-1/2 w-full order-2 lg:order-1 text-center space-y-4"
+                                className="lg:w-1/2 w-full order-2 lg:order-1 space-y-4"
                                 variants={fadeInUp}
                             >
                                 <h2 className="text-3xl md:text-4xl font-extrabold font-poppins text-white">
@@ -444,7 +444,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                                 variants={scaleIn}
                             >
                                 <img 
-                                    src="public/securité.jpg" 
+                                    src="/securité.jpg" 
                                     alt="Cybersecurity concept with digital lock" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy" 
@@ -521,7 +521,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                                 variants={scaleIn}
                             >
                                 <img 
-                                    src="public/maintenance.jpg" 
+                                    src="maintenance.jpg" 
                                     alt="IT Maintenance concept" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy" 
@@ -770,7 +770,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                                 variants={scaleIn}
                             >
                                 <img 
-                                    src="public/marketing_numerique.jpg"
+                                    src="/marketing_numerique.jpg"
                                     alt="Digital Marketing dashboard and analysis" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy"
@@ -862,7 +862,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                                 variants={scaleIn}
                             >
                                 <img 
-                                    src="public/design.jpg"
+                                    src="/design.jpg"
                                     alt="Graphic Design and Infographics" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy"
@@ -972,7 +972,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                                 variants={scaleIn}
                             >
                                 <img 
-                                    src="public/iot.jpg"
+                                    src="/iot.jpg"
                                     alt="Internet of Things (IoT) devices" 
                                     className="w-full h-full object-cover" 
                                     loading="lazy"
