@@ -17,7 +17,8 @@ import {
   CheckCircle,
   Layers,
   Quote,
-  MessageCircle
+  MessageCircle,
+  X
 } from "lucide-react";
 
 // Animation variants
@@ -148,8 +149,8 @@ function HeroSection() {
             >
               <strong>ZenobeGlobe</strong> est plus qu'une entreprise technologique. Nous sommes les architectes 
               de la <strong>transformation digitale</strong> qui propulse les entreprises <strong>gabonaises et camerounaises</strong> 
-              vers l'excellence numérique. Basés à <strong>Libreville</strong>, nous offrons des <strong>solutions de cybersécurité</strong> 
-              et <strong>développement IT</strong> sur mesure.
+              vers l'excellence numérique. Basés à <strong>Libreville</strong>, nous offrons des <strong>solutions de cybersécurité</strong> et <br />
+               <strong>développement IT</strong> sur mesure.
             </motion.p>
 
             {/* Statistiques impressionnantes */}
@@ -948,7 +949,20 @@ function NosValeursSection() {
   );
 }
 
+// Interface pour les membres de l'équipe
+interface TeamMemberData {
+  name: string;
+  role: string;
+  image: string;
+  highlight: boolean;
+  bio: string;
+  details?: string;
+  social: { linkedin: string; twitter: string };
+}
+
 function NotreEquipeSection() {
+  const [selectedMember, setSelectedMember] = useState<TeamMemberData | null>(null);
+  
   const team = [
     {
       name: "Ngoulou Zenobe",
@@ -956,6 +970,7 @@ function NotreEquipeSection() {
       image: "/img-6.jpg",
       highlight: true,
       bio: "Visionnaire et leader technologique avec plus de 8 ans d'expérience",
+      details: "Fondateur de ZenobeGlobe, Ngoulou Zenobe a plus de 8 ans d'expérience dans le domaine de la cybersécurité et des solutions IT. Passionné par l'innovation technologique en Afrique centrale, il a créé cette entreprise pour démocratiser l'accès aux technologies de pointe et accompagner les entreprises dans leur transformation digitale.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -963,7 +978,8 @@ function NotreEquipeSection() {
       role: "Product Manager",
       image: "/img-1.jpg",
       highlight: false,
-      bio: "Spécialiste en gestion de produits digitaux.  Je coordonne, planifie et optimise pour livrer des solutions utiles.  Axé résultats, innovation et expérience utilisateur.",
+      bio: "Spécialiste en gestion de produits digitaux.",
+      details: "Matida Flora coordonne et optimise nos produits digitaux pour livrer des solutions utiles. Axée sur les résultats et l'innovation, elle se concentre sur l'expérience utilisateur et assure que nos produits répondent parfaitement aux besoins de nos clients.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -972,6 +988,7 @@ function NotreEquipeSection() {
       image: "/img-2.jpg",
       highlight: false,
       bio: "Expert en architecture technique et innovation",
+      details: "Brice est notre Chief Technology Officer, expert en architecture technique et en innovation. Il supervise le développement technologique de nos solutions et s'assure que notre infrastructure est toujours à la pointe de la technologie.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -980,6 +997,7 @@ function NotreEquipeSection() {
       image: "/img-3.jpg",
       highlight: false,
       bio: "Créateur d'expériences utilisateur exceptionnelles",
+      details: "Aurel est notre designer UX/UI, passionné par la création d'interfaces utilisateur exceptionnelles. Il combine esthétique moderne et fonctionnalité pour créer des expériences utilisateur mémorables et intuitives.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -988,6 +1006,7 @@ function NotreEquipeSection() {
       image: "/img-4.jpg",
       highlight: false,
       bio: "Développeur backend passionné par les solutions robustes",
+      details: "Diallo est notre développeur backend, spécialisé dans la création de solutions robustes et performantes. Il maîtrise les dernières technologies pour développer des architectures backend solides et évolutives.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -996,6 +1015,7 @@ function NotreEquipeSection() {
       image: "/img-5.jpg",
       highlight: false,
       bio: "Spécialiste en interfaces modernes et réactives",
+      details: "Toussok Fabricia est notre développeuse frontend, spécialiste en interfaces modernes et réactives. Elle transforme les designs en applications web fluides et performantes, en mettant l'accent sur l'expérience utilisateur.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -1004,6 +1024,7 @@ function NotreEquipeSection() {
       image: "/img-7.jpg",
       highlight: false,
       bio: "Développeur polyvalent maîtrisant toutes les technologies",
+      details: "Djoko Franck est notre développeur fullstack polyvalent. Il maîtrise toutes les technologies, du frontend au backend, et excelle dans la création de solutions web complètes et performantes.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -1012,6 +1033,7 @@ function NotreEquipeSection() {
       image: "/img-8.jpg",
       highlight: false,
       bio: "Expert en développement d'applications complexes",
+      details: "Nick Giresse est notre expert en développement d'applications complexes. Avec une expertise approfondie en fullstack, il résout les problèmes techniques les plus complexes et crée des solutions innovantes.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -1020,6 +1042,7 @@ function NotreEquipeSection() {
       image: "/img-9.jpg",
       highlight: false,
       bio: "Créateur visuel avec un sens artistique développé",
+      details: "Kenne Tiomene est notre designer graphique, créateur visuel avec un sens artistique développé. Il donne vie à nos concepts avec des designs percutants qui renforcent l'identité visuelle de nos clients.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -1028,6 +1051,7 @@ function NotreEquipeSection() {
       image: "/img-10.jpg",
       highlight: false,
       bio: "Stratège marketing digital et communication",
+      details: "Wilfried Cheffer est notre responsable marketing, stratège en marketing digital et communication. Il développe des stratégies marketing efficaces qui augmentent la visibilité de nos clients et génèrent des résultats mesurables.",
       social: { linkedin: "#", twitter: "#" }
     }
   ];
@@ -1077,7 +1101,7 @@ function NotreEquipeSection() {
               whileInView="visible"
               viewport={{ once: false, margin: "-100px" }}
             >
-              <TeamCard member={member} />
+              <TeamCard member={member} onClick={() => setSelectedMember(member)} />
             </motion.div>
           ))}
         </motion.div>
@@ -1135,20 +1159,123 @@ function NotreEquipeSection() {
           </motion.div>
         </motion.div>
       </div>
+      
+      {/* Modal de détail membre */}
+      {selectedMember && (
+        <MemberDetailModal 
+          member={selectedMember} 
+          onClose={() => setSelectedMember(null)} 
+        />
+      )}
     </section>
   );
 }
 
-interface TeamMember {
-  name: string;
-  role: string;
-  image: string;
-  highlight: boolean;
-  bio: string;
-  social: { linkedin: string; twitter: string };
+// Composant modal pour afficher les détails d'un membre
+function MemberDetailModal({ member, onClose }: { member: TeamMemberData, onClose: () => void }) {
+  return (
+    <motion.div
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="bg-gradient-to-br from-[#090914] to-[#0a0a1a] rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-800"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="relative p-8">
+          <motion.button
+            onClick={onClose}
+            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+            whileHover={{ scale: 1.1, rotate: 90 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <X className="w-5 h-5" />
+          </motion.button>
+          
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Image */}
+            <motion.div
+              className="flex-shrink-0"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring" }}
+            >
+              <img
+                src={member.image}
+                alt={member.name}
+                className="w-32 h-32 md:w-40 md:h-40 rounded-2xl object-cover border-4 border-[hsl(var(--brand-cyan))]/30"
+              />
+            </motion.div>
+            
+            {/* Info */}
+            <div className="flex-1">
+              {member.highlight && (
+                <motion.div
+                  className="inline-flex items-center gap-2 px-4 py-1 bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] rounded-full text-sm font-semibold mb-3"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <Star className="w-4 h-4" />
+                  Leader
+                </motion.div>
+              )}
+              <h3 className="text-white font-poppins text-3xl font-bold mb-2">
+                {member.name}
+              </h3>
+              <p className="text-[hsl(var(--brand-cyan))] font-inter text-lg font-semibold mb-4">
+                {member.role}
+              </p>
+              <p className="text-gray-400 font-inter text-base leading-relaxed mb-6">
+                {member.details || member.bio}
+              </p>
+              
+              {/* Social links */}
+              <div className="flex gap-3">
+                <motion.a
+                  href={member.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-[hsl(var(--brand-blue))] transition-colors"
+                  whileHover={{ scale: 1.2, rotate: 360 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                </motion.a>
+                <motion.a
+                  href={member.social.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-[hsl(var(--brand-cyan))] transition-colors"
+                  whileHover={{ scale: 1.2, rotate: 360 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                  </svg>
+                </motion.a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
 }
 
-function TeamCard({ member }: { member: TeamMember }) {
+function TeamCard({ member, onClick }: { member: TeamMemberData, onClick: () => void }) {
   return (
     <motion.div 
       className="group relative bg-gradient-to-br from-[#090914] to-[#0a0a1a] rounded-2xl overflow-hidden border border-gray-800 hover:border-[hsl(var(--brand-cyan))]/50 transition-all duration-300"
@@ -1232,6 +1359,7 @@ function TeamCard({ member }: { member: TeamMember }) {
       {/* CTA moderne */}
       <div className="border-t border-gray-800 p-4">
         <motion.button
+          onClick={onClick}
           className={`w-full py-3 text-white font-inter text-sm font-semibold rounded-lg transition-all duration-300 ${
             member.highlight
               ? "bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] hover:opacity-90"

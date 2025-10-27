@@ -3,8 +3,10 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import emailjs from '@emailjs/browser';
+import { EMAILJS_CONFIG } from "@/config/emailjs";
 import { 
-  Shield, Code, Brain, Users, Award, Clock, Star, ArrowRight, CheckCircle, Target, Calendar, GraduationCap, Settings, X, ChevronDown
+  Shield, Code, Brain, Users, Award, Clock, Star, ArrowRight, CheckCircle, Target, Calendar, GraduationCap, Settings, X, ChevronDown, Wrench
 } from "lucide-react";
 
 // Animation variants
@@ -36,14 +38,12 @@ export default function Formation() {
 
   // Liste de toutes les formations disponibles
   const allFormations = [
-    "Fullstack JavaScript Bootcamp",
-    "Cybersécurité Avancée",
-    "DevOps & Cloud Computing",
-    "UX/UI Design Masterclass",
-    "Data Science & Analytics",
-    "Formation Bureautique Avancée",
-    "Marketing Digital",
-    "Gestion de Projet Agile"
+    "Fullstack Bootcamp",
+    "Fondamentaux de la Sécurité Informatique",
+    "Fondamentaux du Réseau Informatique",
+    "Fondamentaux de la Maintenance Informatique",
+    "Introduction a l'intelligence artificielle",
+    "Introduction au Design Graphique",
   ];
 
   // Fonction pour ouvrir le modal avec une formation présélectionnée
@@ -174,8 +174,8 @@ function HeroSection() {
               className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0"
               variants={fadeInUp}
             >
-              Accélérez votre carrière et maîtrisez les <strong>technologies de demain</strong> 
-              grâce à des parcours de formation adaptés et <strong>certifiants</strong>. 
+              Accélérez votre carrière et maîtrisez les <strong>technologies de demain</strong> avec 
+              nos parcours de formation adaptés et <strong>certifiants</strong>. 
               Rejoignez des milliers de professionnels qui ont transformé leur avenir avec <strong>ZenobeGlobe</strong>.
             </motion.p>
 
@@ -325,24 +325,31 @@ function DomainesFormationSection() {
     },
     {
       icon: Shield,
-      title: "Cybersécurité",
+      title: "Sécurité & Réseau Informatique",
       description: "Protégez les systèmes et les données contre les menaces numériques avec nos experts en sécurité informatique.",
       color: "from-red-500 to-orange-500",
       features: ["Ethical Hacking", "Audit Sécurité", "Firewall", "Cryptographie"]
     },
     {
+      icon: Wrench,
+      title: "Maintenance Informatique",
+      description: "Apprenez les méthodologies de maintenance informatique pour mener vos projets au succès.",
+      color: "from-red-500 to-orange-500",
+      features: ["Maintenance Préventive", "Maintenance Corrective", "Support Technique"]
+    },
+    {
       icon: Brain,
       title: "Intelligence Artificielle",
-      description: "Explorez comment utiliser l'inteligence artificielle de la meilleur des manieres.",
+      description: "Explorez comment utiliser l'intelligence artificielle de la meilleur des manieres.",
       color: "from-purple-500 to-pink-500",
-      features: ["ChatGPT",]
+      features: ["ChatGPT", "Claude", "Gemini", "Perplexity"]
     },
     {
       icon: Target,
-      title: "Gestion de Projet",
-      description: "Apprenez les méthodologies agiles et traditionnelles pour mener vos projets au succès.",
+      title: "Design Graphique",
+      description: "Apprenez les méthodologies de design graphique pour mener vos projets au succès.",
       color: "from-green-500 to-emerald-500",
-      features: ["Scrum", "Agile", "PMI", "Kanban"]
+      features: ["Figma", "Photoshop",]
     },
   ];
 
@@ -385,7 +392,7 @@ function DomainesFormationSection() {
             className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto"
             variants={fadeInUp}
           >
-            Découvrez nos programmes de formation spécialisés dans les <strong>technologies les plus demandées</strong> du marché IT au <strong>Gabon</strong> et en <strong>Afrique Centrale</strong>.
+            Découvrez nos programmes de formation spécialisés dans les <strong>technologies les plus demandées</strong> du marché IT en <strong>Afrique Centrale</strong>.
           </motion.p>
         </motion.div>
 
@@ -474,7 +481,7 @@ function FormationsPopulairesSection({ onReserveFormation }: { onReserveFormatio
     },
     {
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
-      title: "Fondamentaux de la Cybersécurité",
+      title: "Fondamentaux de la Sécurité Informatique",
       duration: "4 semaines",
       level: "Débutant",
       price: "280,000 XAF",
@@ -484,13 +491,46 @@ function FormationsPopulairesSection({ onReserveFormation }: { onReserveFormatio
       students: 89
     },
     {
-      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80",
+      image: "/reseau informatique.jpg",
+      title: "Fondamentaux du Réseau Informatique",
+      duration: "4 semaines",
+      level: "Débutant",
+      price: "280,000 XAF",
+      description: "Developper des competences en réseau informatique pour mener vos projets avec succès.",
+      features: ["Réseau Local", "Réseau Sans Fil", "Réseau Câblé", "Réseau de Grande Echelle"],
+      rating: 4.8,
+      students: 89
+    },
+    {
+      image: "/maintenance informatique.jpg",
+      title: "Fondamentaux de la Maintenance Informatique",
+      duration: "4 semaines",
+      level: "Débutant",
+      price: "280,000 XAF",
+      description: "Sachez comment maintenir et prevenir les pannes de vos ordinateurs et serveurs.",
+      features: ["Maintenance Préventive", "Maintenance Corrective", "Support Technique"],
+      rating: 4.8,
+      students: 89
+    },
+    {
+      image: "/intelligence artificielle.jpg",
       title: "Introduction a l'intelligence artificielle",
       duration: "8 semaines",
       level: "Intermédiaire",
       price: "380,000 XAF",
-      description: "Découvrez l'intelligence artificielle et apprenez a l'utilisez.",
+      description: "Découvrez l'intelligence artificielle et apprenez a l'utiliser",
       features: ["ChatGPT", "Claude", "Gemini"],
+      rating: 4.7,
+      students: 67
+    },
+    {
+      image: "/design graphique.jpg",
+      title: "Introduction au Design Graphique",
+      duration: "8 semaines",
+      level: "Intermédiaire",
+      price: "380,000 XAF",
+      description: "Découvrez la design graphique et apprenez a l'utiliser pour mener vos projets avec succès.",
+      features: ["Figma", "Photoshop",],
       rating: 4.7,
       students: 67
     },
@@ -535,7 +575,7 @@ function FormationsPopulairesSection({ onReserveFormation }: { onReserveFormatio
             className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto"
             variants={fadeInUp}
           >
-            Découvrez nos <strong>formations les plus demandées</strong> par les professionnels IT au <strong>Gabon</strong>. 
+            Découvrez nos <strong>formations les plus demandées</strong> par les professionnels IT en <strong>Afrique Centrale</strong>. 
             Des programmes complets avec <strong>certification</strong> et <strong>accompagnement personnalisé</strong>.
           </motion.p>
         </motion.div>
@@ -669,8 +709,8 @@ function PourquoiChoisirSection() {
     {
       icon: Users,
       title: "Formateurs Experts",
-      description: "Apprenez des meilleurs, nos formateurs sont des professionnels reconnus dans leur domaine.",
-      features: ["8+ ans d'expérience", "Certifications internationales", "Projets réels"]
+      description: "Apprenez des meilleurs, nos formateurs sont des experts dans leur domaine.",
+      features: ["2+ ans d'expérience", "Projets réels"]
     },
     {
       icon: Calendar,
@@ -680,9 +720,9 @@ function PourquoiChoisirSection() {
     },
     {
       icon: Award,
-      title: "Certifications Reconnues",
+      title: "Attestation de Formation",
       description: "Obtenez des certifications valorisantes qui boosteront votre carrière.",
-      features: ["Certificats officiels", "Reconnaissance internationale", "Valorisation CV"]
+      features: ["Attestation de Formation officiels", "Valorisation CV"]
     },
     {
       icon: Settings,
@@ -716,8 +756,8 @@ function PourquoiChoisirSection() {
             className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto"
             variants={fadeInUp}
           >
-            Découvrez les <strong>avantages exclusifs</strong> qui font de <strong>ZenobeGlobe</strong> 
-            le leader de la formation IT au <strong>Gabon</strong>.
+            Découvrez les <strong>avantages exclusifs</strong> qui font de <strong>ZenobeGlobe</strong> le 
+            leader de la formation IT en <strong>Afrique Centrale</strong>.
           </motion.p>
         </motion.div>
 
@@ -785,40 +825,58 @@ function FormateursSection() {
   const formateurs = [
     {
       name: "Ngoulou Zenobe",
-      role: "Expert Cybersécurité",
+      role: "Formateur Reseau",
       image: "/img-6.jpg",
-      bio: "Plus de 8 ans d'expérience en cybersécurité et sécurité des réseaux",
-      specialites: ["Cybersécurité", "Audit IT", "Sécurité Réseau"],
+      bio: "Spécialiste en cybersécurité, sécurité des réseaux, reseau informatique et maintenance informatique",
+      specialites: ["Cybersécurité", "Audit IT", "Sécurité & Réseau", "Maintenance Informatique"],
       rating: 5,
       students: 150
     },
     {
       name: "Matida Flora",
-      role: "Formatrice Développement",
+      role: "Formatrice Développement Mobile",
       image: "/img-1.jpg",
-      bio: "Spécialiste en développement web et mobile avec une approche pédagogique innovante",
-      specialites: ["React", "Node.js", "Mobile"],
+      bio: "Spécialiste en développement mobile avec une approche pédagogique innovante",
+      specialites: ["Flutter", "Dart"],
       rating: 5,
       students: 120
     },
     {
       name: "Brice",
-      role: "Expert DevOps",
+      role: "Formateur Développement Web",
       image: "/img-2.jpg",
-      bio: "Architecte technique passionné par l'automatisation et les bonnes pratiques",
-      specialites: ["Docker", "Kubernetes", "CI/CD"],
+      bio: "Spécialiste en développement web ",
+      specialites: ["Html", "Css", "SQL", "Javascript", "Php"],
       rating: 5,
       students: 80
     },
     {
-      name: "Aurel",
-      role: "Designer UX/UI",
-      image: "/img-3.jpg",
+      name: "Kenne Tiomene",
+      role: "Designer Graphique",
+      image: "/img-9.jpg",
       bio: "Créateur d'expériences utilisateur exceptionnelles et formateur en design",
-      specialites: ["Figma", "Prototypage", "Design System"],
+      specialites: ["Figma", "Prototypage", "Design System", "Photoshop"],
       rating: 5,
       students: 90
-    }
+    },
+    {
+      name: "Toussok Fabricia",
+      role: "Formatrice en Développement Web",
+      image: "/img-5.jpg",
+      bio: "Spécialiste en développement web",
+      specialites: ["Html", "Css", "SQL", "Php", "Laravel"],
+      rating: 5,
+      students: 90
+    },
+    {
+      name: "Djoko Franck",
+      role: "Formateur en Developpement Web",
+      image: "/img-7.jpg",
+      bio: "Spécialiste en développement web",
+      specialites: ["Html", "Css", "SQL", "Javascript",],
+      rating: 5,
+      students: 90
+    },
   ];
 
   return (
@@ -1141,32 +1199,56 @@ function ReservationModal({
   const [email, setEmail] = useState('');
   const [telephone, setTelephone] = useState('');
   const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Mettre à jour la formation quand initialFormation change
   useEffect(() => {
     setFormation(initialFormation);
   }, [initialFormation]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Ici vous pouvez ajouter la logique d'envoi du formulaire
-    console.log('Réservation de formation:', {
-      formation,
-      nom,
-      email,
-      telephone,
-      message
-    });
-    
-    // Fermer le modal après soumission
-    onClose();
-    
-    // Réinitialiser le formulaire
-    setNom('');
-    setEmail('');
-    setTelephone('');
-    setMessage('');
+    try {
+      // Préparer les paramètres d'envoi
+      const templateParams = {
+        formation: formation,
+        nom: nom,
+        email: email,
+        telephone: telephone,
+        message: message || 'Aucun message',
+        to_email: EMAILJS_CONFIG.DESTINATION_EMAIL
+      };
+      
+      // Envoyer l'email via EmailJS
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID, 
+        EMAILJS_CONFIG.TEMPLATE_ID, 
+        templateParams, 
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+      
+      console.log('Email envoyé avec succès!', response.status, response.text);
+      
+      // Afficher une notification de succès
+      alert('Votre demande de réservation a été envoyée avec succès ! Nous vous contacterons bientôt.');
+      
+      // Fermer le modal après soumission
+      onClose();
+      
+      // Réinitialiser le formulaire
+      setNom('');
+      setEmail('');
+      setTelephone('');
+      setMessage('');
+      
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de l\'email:', error);
+      alert('Une erreur s\'est produite. Veuillez réessayer plus tard ou nous contacter directement.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -1289,11 +1371,14 @@ function ReservationModal({
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <motion.button
               type="submit"
-              className="flex-1 px-6 py-3 bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              disabled={isSubmitting}
+              className={`flex-1 px-6 py-3 bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] text-white font-semibold rounded-lg transition-all duration-300 ${
+                isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'
+              }`}
+              whileHover={isSubmitting ? {} : { scale: 1.02 }}
+              whileTap={isSubmitting ? {} : { scale: 0.98 }}
             >
-              Réserver la Formation
+              {isSubmitting ? 'Envoi en cours...' : 'Réserver la Formation'}
             </motion.button>
             <motion.button
               type="button"
