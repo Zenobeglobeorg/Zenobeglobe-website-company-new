@@ -108,7 +108,7 @@ export default function Header() {
             whileTap={{ scale: 0.95 }}
           >
             <Link
-              to="/commencer"
+              to="/service"
               className="hidden lg:flex items-center justify-center gap-2 px-4 py-3 rounded-full border border-[hsl(var(--brand-cyan))] text-white font-inter text-base hover:bg-[hsl(var(--brand-cyan))] hover:text-black transition-all duration-300"
             >
               <span>Commencer</span>

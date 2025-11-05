@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { User, Grid, Sparkles, Zap, Smartphone, Shield, Server, Edit, Globe, Lock, Code, Brush, Package, FileText, X, ChevronDown } from "lucide-react"; // Added ChevronDown for the select dropdown
 import { useState, useCallback, useMemo, useEffect } from "react"; 
 import type { ReactNode } from "react";
+<<<<<<< HEAD
 import emailjs from '@emailjs/browser';
 
 // --------------------------------------------------------------------------------
@@ -15,6 +16,9 @@ const EMAIL_CONFIG = {
     toEmail: "zenobeglobe@gmail.com" // Email de destination
 };
 // --------------------------------------------------------------------------------
+=======
+import { useLocation } from "react-router-dom";
+>>>>>>> 84e73a842fae3c3d3a1723e96158bc4b19b24c2f
 
 // --------------------------------------------------------------------------------
 // --- ANIMATION VARIANTS ADDED ---
@@ -55,6 +59,21 @@ const staggerContainer = {
 
 // Define the Service component
 export default function Service() {
+    const location = useLocation();
+    
+    // Gérer la navigation par ancres
+    useEffect(() => {
+        const hash = location.hash;
+        if (hash) {
+            // Attendre que le composant soit monté
+            setTimeout(() => {
+                const element = document.querySelector(hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
+    }, [location.hash]);
     
     // --------------------------------------------------------------------------------
     // NEW ADDITIONS FOR MODAL START
@@ -428,7 +447,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                 
              
                 {/* 1. SECURITE ET RESEAUX INFORMATIQUE */}
-                <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
+                <section id="securite-et-reseaux-informatique" className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* Title Banner - Apply fadeInUp */}
                     <motion.div 
                         className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
@@ -506,7 +525,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                 <hr className="border-t border-gray-800" />
                 
                 {/* 2. MAINTENANCE */}
-                <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
+                <section id="maintenance" className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* Title Banner - Apply fadeInUp */}
                     <motion.div 
                         className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
@@ -582,7 +601,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                 <hr className="border-t border-gray-800" />
 
                 {/* 3. DEVELOPPEMENT WEB/MOBILE */}
-                <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
+                <section id="developpement-web-mobile" className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* Title Banner - Apply fadeInUp */}
                     <motion.div 
                         className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
@@ -686,7 +705,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                 <hr className="border-t border-gray-800" />
 
                 {/* 4. FORMATION EN BUREAUTIQUE */}
-                <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
+                <section id="formation-en-bureautique" className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* Title Banner - Apply fadeInUp */}
                     <motion.div 
                         className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
@@ -753,7 +772,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                 <hr className="border-t border-gray-800" />
 
                 {/* 5. MARKETING DIGITAL */}
-                <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
+                <section id="marketing-digital" className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* Title Banner - Apply fadeInUp */}
                     <motion.div 
                         className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
@@ -859,7 +878,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                 <hr className="border-t border-gray-800" />
                 
                 {/* 6. INFOGRAPHIE ET DESIGN (New Section) */}
-                <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
+                <section id="infographie-et-design" className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* Title Banner - Apply fadeInUp */}
                     <motion.div 
                         className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"
@@ -957,7 +976,7 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
                 <hr className="border-t border-gray-800" />
 
                 {/* 7. INTERNET DES OBJETS (New Section) */}
-                <section className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
+                <section id="internet-des-objets-iot" className="py-16 md:py-24 bg-[#090914] flex flex-col gap-12">
                     {/* Title Banner - Apply fadeInUp */}
                     <motion.div 
                         className="bg-[#49B0F2] h-80 sm:h-40 flex items-center justify-center px-4"

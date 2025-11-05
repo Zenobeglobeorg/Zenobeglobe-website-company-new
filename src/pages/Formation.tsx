@@ -1,9 +1,12 @@
 import Layout from "@/components/Layout";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import emailjs from '@emailjs/browser';
+import { EMAILJS_CONFIG } from "@/config/emailjs";
 import { 
-  Shield, Code, Brain, Users, Award, Clock, Star, ArrowRight, CheckCircle, Target, Calendar, GraduationCap, Settings
+  Shield, Code, Brain, Users, Award, Clock, Star, ArrowRight, CheckCircle, Target, Calendar, GraduationCap, Settings, X, ChevronDown, Wrench
 } from "lucide-react";
 
 // Animation variants
@@ -29,6 +32,40 @@ const scaleIn = {
 };
 
 export default function Formation() {
+  // États pour la gestion des réservations
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedFormation, setSelectedFormation] = useState('');
+
+  // Liste de toutes les formations disponibles
+  const allFormations = [
+    "Fullstack Bootcamp",
+    "Fondamentaux de la Sécurité Informatique",
+    "Fondamentaux du Réseau Informatique",
+    "Fondamentaux de la Maintenance Informatique",
+    "Introduction a l'intelligence artificielle",
+    "Introduction au Design Graphique",
+  ];
+
+  // Fonction pour ouvrir le modal avec une formation présélectionnée
+  const openModalWithFormation = (formationName: string) => {
+    console.log('openModalWithFormation appelée avec:', formationName);
+    setSelectedFormation(formationName);
+    setIsModalOpen(true);
+    console.log('Modal ouvert:', true, 'Formation sélectionnée:', formationName);
+  };
+
+  // Fonction pour ouvrir le modal sans présélection
+  const openModal = () => {
+    setSelectedFormation('');
+    setIsModalOpen(true);
+  };
+
+  // Fonction pour fermer le modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedFormation('');
+  };
+
   return (
     <Layout>
         <SEO 
@@ -40,10 +77,17 @@ export default function Formation() {
       <div className="w-full bg-black">
         <HeroSection />
         <DomainesFormationSection />
-        <FormationsPopulairesSection />
+        <FormationsPopulairesSection onReserveFormation={openModalWithFormation} />
         <PourquoiChoisirSection />
+        <FormateursSection />
         <TestimonialsSection />
-        <CTASection />
+        <CTASection onOpenModal={openModal} />
+        <ReservationModal 
+          isOpen={isModalOpen} 
+          onClose={closeModal} 
+          initialFormation={selectedFormation} 
+          allFormations={allFormations} 
+        />
       </div>
     </Layout>
   );
@@ -130,8 +174,8 @@ function HeroSection() {
               className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0"
               variants={fadeInUp}
             >
-              Accélérez votre carrière et maîtrisez les <strong>technologies de demain</strong> 
-              grâce à des parcours de formation adaptés et <strong>certifiants</strong>. 
+              Accélérez votre carrière et maîtrisez les <strong>technologies de demain</strong> avec 
+              nos parcours de formation adaptés et <strong>certifiants</strong>. 
               Rejoignez des milliers de professionnels qui ont transformé leur avenir avec <strong>ZenobeGlobe</strong>.
             </motion.p>
 
@@ -180,23 +224,33 @@ function HeroSection() {
               viewport={{ once: true }}
             >
               <motion.div variants={fadeInUp}>
-                <Link
-                  to="/contact"
+                <button
+                  onClick={() => {
+                    const formationSection = document.getElementById('formation');
+                    if (formationSection) {
+                      formationSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                   className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] rounded-lg text-white font-inter font-semibold text-base hover:opacity-90 hover:scale-105 transition-all duration-300"
                 >
                   <span>Découvrir nos formations</span>
                   <ArrowRight className="w-5 h-5" />
-                </Link>
+                </button>
               </motion.div>
               
               <motion.div variants={fadeInUp}>
-                <Link
-                  to="/a-propos"
+                <button
+                  onClick={() => {
+                    const formateurSection = document.getElementById('formateur');
+                    if (formateurSection) {
+                      formateurSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                   className="inline-flex items-center gap-2 px-8 py-4 border-2 border-[hsl(var(--brand-cyan))] rounded-lg text-[hsl(var(--brand-cyan))] font-inter font-semibold text-base hover:bg-[hsl(var(--brand-cyan))] hover:text-black transition-all duration-300"
                 >
                   <span>Nos formateurs</span>
                   <Users className="w-5 h-5" />
-                </Link>
+                </button>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -216,7 +270,7 @@ function HeroSection() {
                 transition={{ duration: 0.3 }}
               >
                 <motion.img
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
+                  src="https://media.istockphoto.com/id/2188069561/photo/young-woman-programmer-focused-on-her-work-coding-on-dual-monitors-in-a-modern-office.webp?s=2048x2048&w=is&k=20&c=qxbLBksAVVZZcza7-_Ij3mWBCXfagXlaD3qkj2QexfE="
                   alt="Formation IT moderne - ZenobeGlobe Gabon"
                   className="w-full max-w-[500px] lg:max-w-[600px] h-auto rounded-2xl"
                   loading="lazy"
@@ -267,28 +321,35 @@ function DomainesFormationSection() {
       title: "Développement Web",
       description: "Maîtrisez les dernières technologies front-end et back-end pour créer des applications web innovantes.",
       color: "from-blue-500 to-cyan-500",
-      features: ["React", "Node.js", "MongoDB", "TypeScript"]
+      features: ["Html", "Css", "Javascript", "PHP", "Wordpress"]
     },
     {
       icon: Shield,
-      title: "Cybersécurité",
+      title: "Sécurité & Réseau Informatique",
       description: "Protégez les systèmes et les données contre les menaces numériques avec nos experts en sécurité informatique.",
       color: "from-red-500 to-orange-500",
       features: ["Ethical Hacking", "Audit Sécurité", "Firewall", "Cryptographie"]
     },
     {
+      icon: Wrench,
+      title: "Maintenance Informatique",
+      description: "Apprenez les méthodologies de maintenance informatique pour mener vos projets au succès.",
+      color: "from-red-500 to-orange-500",
+      features: ["Maintenance Préventive", "Maintenance Corrective", "Support Technique"]
+    },
+    {
       icon: Brain,
       title: "Intelligence Artificielle",
-      description: "Explorez le machine learning, le deep learning et l'analyse de données pour des solutions intelligentes.",
+      description: "Explorez comment utiliser l'intelligence artificielle de la meilleur des manieres.",
       color: "from-purple-500 to-pink-500",
-      features: ["Python", "TensorFlow", "Data Science", "MLOps"]
+      features: ["ChatGPT", "Claude", "Gemini", "Perplexity"]
     },
     {
       icon: Target,
-      title: "Gestion de Projet",
-      description: "Apprenez les méthodologies agiles et traditionnelles pour mener vos projets au succès.",
+      title: "Design Graphique",
+      description: "Apprenez les méthodologies de design graphique pour mener vos projets au succès.",
       color: "from-green-500 to-emerald-500",
-      features: ["Scrum", "Agile", "PMI", "Kanban"]
+      features: ["Figma", "Photoshop",]
     },
   ];
 
@@ -331,7 +392,7 @@ function DomainesFormationSection() {
             className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto"
             variants={fadeInUp}
           >
-            Découvrez nos programmes de formation spécialisés dans les <strong>technologies les plus demandées</strong> du marché IT au <strong>Gabon</strong> et en <strong>Afrique Centrale</strong>.
+            Découvrez nos programmes de formation spécialisés dans les <strong>technologies les plus demandées</strong> du marché IT en <strong>Afrique Centrale</strong>.
           </motion.p>
         </motion.div>
 
@@ -379,7 +440,7 @@ function DomainesFormationSection() {
                   ))}
                 </div>
                 
-                <motion.div
+                {/*<motion.div
                   className="mt-4"
                   whileHover={{ x: 5 }}
                   transition={{ duration: 0.3 }}
@@ -388,12 +449,12 @@ function DomainesFormationSection() {
                     Découvrir
                     <ArrowRight className="w-4 h-4" />
                   </span>
-                </motion.div>
+                </motion.div>*/}
               </div>
 
               {/* Effet de hover */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--brand-cyan))]/5 to-[hsl(var(--brand-blue))]/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--brand-cyan))]/5 to-[hsl(var(--brand-blue))]/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 initial={{ opacity: 0 }}
                 whileHover={{ opacity: 1 }}
               />
@@ -405,45 +466,78 @@ function DomainesFormationSection() {
   );
 }
 
-function FormationsPopulairesSection() {
+function FormationsPopulairesSection({ onReserveFormation }: { onReserveFormation: (formationName: string) => void }) {
   const formations = [
     {
       image: "/Formation-deux.jpeg",
-      title: "Fullstack JavaScript Bootcamp",
+      title: "Fullstack Bootcamp",
       duration: "12 semaines",
       level: "Avancé",
       price: "450,000 XAF",
-      description: "Devenez un développeur Fullstack polyvalent avec React, Node.js et MongoDB, de la conception au déploiement.",
-      features: ["React & Next.js", "Node.js & Express", "MongoDB", "Déploiement AWS"],
+      description: "Devenez un développeur Fullstack polyvalent avec Html, Css, Javascript, Php et MySql, de la conception au déploiement.",
+      features: ["Html", "Css", "Javascript", "Php", "Laravel", "MySql", "Deploiement Vercel"],
       rating: 4.9,
       students: 150
     },
     {
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
-      title: "Fondamentaux de la Cybersécurité",
+      title: "Fondamentaux de la Sécurité Informatique",
       duration: "4 semaines",
       level: "Débutant",
       price: "280,000 XAF",
       description: "Acquérez les bases essentielles pour comprendre et prévenir les cyberattaques courantes.",
-      features: ["Ethical Hacking", "Audit Sécurité", "Firewall", "Cryptographie"],
+      features: ["Audit Sécurité", "Firewall", "Cryptographie"],
       rating: 4.8,
       students: 89
     },
     {
-      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80",
-      title: "Introduction au Machine Learning avec Python",
+      image: "/reseau informatique.jpg",
+      title: "Fondamentaux du Réseau Informatique",
+      duration: "4 semaines",
+      level: "Débutant",
+      price: "280,000 XAF",
+      description: "Developper des competences en réseau informatique pour mener vos projets avec succès.",
+      features: ["Réseau Local", "Réseau Sans Fil", "Réseau Câblé", "Réseau de Grande Echelle"],
+      rating: 4.8,
+      students: 89
+    },
+    {
+      image: "/maintenance informatique.jpg",
+      title: "Fondamentaux de la Maintenance Informatique",
+      duration: "4 semaines",
+      level: "Débutant",
+      price: "280,000 XAF",
+      description: "Sachez comment maintenir et prevenir les pannes de vos ordinateurs et serveurs.",
+      features: ["Maintenance Préventive", "Maintenance Corrective", "Support Technique"],
+      rating: 4.8,
+      students: 89
+    },
+    {
+      image: "/intelligence artificielle.jpg",
+      title: "Introduction a l'intelligence artificielle",
       duration: "8 semaines",
       level: "Intermédiaire",
       price: "380,000 XAF",
-      description: "Découvrez l'intelligence artificielle et le machine learning avec Python et TensorFlow.",
-      features: ["Python", "TensorFlow", "Data Science", "MLOps"],
+      description: "Découvrez l'intelligence artificielle et apprenez a l'utiliser",
+      features: ["ChatGPT", "Claude", "Gemini"],
+      rating: 4.7,
+      students: 67
+    },
+    {
+      image: "/design graphique.jpg",
+      title: "Introduction au Design Graphique",
+      duration: "8 semaines",
+      level: "Intermédiaire",
+      price: "380,000 XAF",
+      description: "Découvrez la design graphique et apprenez a l'utiliser pour mener vos projets avec succès.",
+      features: ["Figma", "Photoshop",],
       rating: 4.7,
       students: 67
     },
   ];
 
   return (
-    <section className="w-full px-4 lg:px-8 py-16 lg:py-24 bg-gradient-to-b from-[#090914] to-black">
+    <section id="formation" className="w-full px-4 lg:px-8 py-16 lg:py-24 bg-gradient-to-b from-[#090914] to-black">
       <div className="container mx-auto">
         <motion.div 
           className="text-center mb-12"
@@ -481,7 +575,7 @@ function FormationsPopulairesSection() {
             className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto"
             variants={fadeInUp}
           >
-            Découvrez nos <strong>formations les plus demandées</strong> par les professionnels IT au <strong>Gabon</strong>. 
+            Découvrez nos <strong>formations les plus demandées</strong> par les professionnels IT en <strong>Afrique Centrale</strong>. 
             Des programmes complets avec <strong>certification</strong> et <strong>accompagnement personnalisé</strong>.
           </motion.p>
         </motion.div>
@@ -580,24 +674,25 @@ function FormationsPopulairesSection() {
                 </div>
                 
                 {/* CTA */}
-                <motion.div
-                  className="mt-auto"
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Link
-                    to="/contact"
+                <div className="mt-auto">
+                  <motion.button
+                    onClick={() => {
+                      console.log('Bouton cliqué pour:', formation.title);
+                      onReserveFormation(formation.title);
+                    }}
                     className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] rounded-lg text-white font-inter font-semibold text-sm hover:opacity-90 transition-all duration-300"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     <span>S'inscrire maintenant</span>
                     <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </motion.div>
+                  </motion.button>
+                </div>
               </div>
 
               {/* Effet de hover */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--brand-cyan))]/5 to-[hsl(var(--brand-blue))]/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--brand-cyan))]/5 to-[hsl(var(--brand-blue))]/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 initial={{ opacity: 0 }}
                 whileHover={{ opacity: 1 }}
               />
@@ -614,8 +709,8 @@ function PourquoiChoisirSection() {
     {
       icon: Users,
       title: "Formateurs Experts",
-      description: "Apprenez des meilleurs, nos formateurs sont des professionnels reconnus dans leur domaine.",
-      features: ["8+ ans d'expérience", "Certifications internationales", "Projets réels"]
+      description: "Apprenez des meilleurs, nos formateurs sont des experts dans leur domaine.",
+      features: ["2+ ans d'expérience", "Projets réels"]
     },
     {
       icon: Calendar,
@@ -625,9 +720,9 @@ function PourquoiChoisirSection() {
     },
     {
       icon: Award,
-      title: "Certifications Reconnues",
+      title: "Attestation de Formation",
       description: "Obtenez des certifications valorisantes qui boosteront votre carrière.",
-      features: ["Certificats officiels", "Reconnaissance internationale", "Valorisation CV"]
+      features: ["Attestation de Formation officiels", "Valorisation CV"]
     },
     {
       icon: Settings,
@@ -661,8 +756,8 @@ function PourquoiChoisirSection() {
             className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto"
             variants={fadeInUp}
           >
-            Découvrez les <strong>avantages exclusifs</strong> qui font de <strong>ZenobeGlobe</strong> 
-            le leader de la formation IT au <strong>Gabon</strong>.
+            Découvrez les <strong>avantages exclusifs</strong> qui font de <strong>ZenobeGlobe</strong> le 
+            leader de la formation IT en <strong>Afrique Centrale</strong>.
           </motion.p>
         </motion.div>
 
@@ -714,7 +809,189 @@ function PourquoiChoisirSection() {
 
               {/* Effet de hover */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--brand-cyan))]/5 to-[hsl(var(--brand-blue))]/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--brand-cyan))]/5 to-[hsl(var(--brand-blue))]/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function FormateursSection() {
+  const formateurs = [
+    {
+      name: "Ngoulou Zenobe",
+      role: "Formateur Reseau",
+      image: "/img-6.jpg",
+      bio: "Spécialiste en cybersécurité, sécurité des réseaux, reseau informatique et maintenance informatique",
+      specialites: ["Cybersécurité", "Audit IT", "Sécurité & Réseau", "Maintenance Informatique"],
+      rating: 5,
+      students: 150
+    },
+    {
+      name: "Matida Flora",
+      role: "Formatrice Développement Mobile",
+      image: "/img-1.jpg",
+      bio: "Spécialiste en développement mobile avec une approche pédagogique innovante",
+      specialites: ["Flutter", "Dart"],
+      rating: 5,
+      students: 120
+    },
+    {
+      name: "Brice",
+      role: "Formateur Développement Web",
+      image: "/img-2.jpg",
+      bio: "Spécialiste en développement web ",
+      specialites: ["Html", "Css", "SQL", "Javascript", "Php"],
+      rating: 5,
+      students: 80
+    },
+    {
+      name: "Kenne Tiomene",
+      role: "Designer Graphique",
+      image: "/img-9.jpg",
+      bio: "Créateur d'expériences utilisateur exceptionnelles et formateur en design",
+      specialites: ["Figma", "Prototypage", "Design System", "Photoshop"],
+      rating: 5,
+      students: 90
+    },
+    {
+      name: "Toussok Fabricia",
+      role: "Formatrice en Développement Web",
+      image: "/img-5.jpg",
+      bio: "Spécialiste en développement web",
+      specialites: ["Html", "Css", "SQL", "Php", "Laravel"],
+      rating: 5,
+      students: 90
+    },
+    {
+      name: "Djoko Franck",
+      role: "Formateur en Developpement Web",
+      image: "/img-7.jpg",
+      bio: "Spécialiste en développement web",
+      specialites: ["Html", "Css", "SQL", "Javascript",],
+      rating: 5,
+      students: 90
+    },
+  ];
+
+  return (
+    <section id="formateur" className="w-full px-4 lg:px-8 py-16 lg:py-24 bg-gradient-to-b from-black to-[#090914]">
+      <div className="container mx-auto">
+        <motion.div 
+          className="text-center mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
+          <motion.div 
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(var(--brand-blue))]/20 border border-[hsl(var(--brand-blue))]/30 rounded-full mb-6"
+            variants={fadeInUp}
+          >
+            <span className="text-[hsl(var(--brand-cyan))] font-inter text-sm font-semibold">
+              NOS FORMATEURS
+            </span>
+          </motion.div>
+          
+          <motion.h2 
+            className="text-white font-poppins text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+            variants={fadeInUp}
+          >
+            Rencontrez Nos{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[hsl(var(--brand-cyan))] to-[hsl(var(--brand-blue))]">
+              Experts
+            </span>
+          </motion.h2>
+          
+          <motion.p 
+            className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto"
+            variants={fadeInUp}
+          >
+            Des professionnels expérimentés qui vous accompagnent dans votre apprentissage avec <strong>ZenobeGlobe</strong>.
+          </motion.p>
+        </motion.div>
+
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {formateurs.map((formateur, idx) => (
+            <motion.div
+              key={idx}
+              className="group relative bg-gradient-to-br from-[#090914] to-[#0a0a1a] rounded-2xl overflow-hidden border border-gray-800 hover:border-[hsl(var(--brand-cyan))]/50 transition-all duration-300"
+              variants={fadeInUp}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
+              {/* Image avec overlay */}
+              <div className="relative overflow-hidden aspect-[4/5]">
+                <motion.img
+                  src={formateur.image}
+                  alt={`${formateur.name} - ${formateur.role} chez ZenobeGlobe`}
+                  className="w-full h-full object-cover object-center"
+                  loading="lazy"
+                  width="300"
+                  height="375"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                />
+                
+                {/* Overlay avec gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Badge rating */}
+                <motion.div
+                  className="absolute top-4 right-4 bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] text-white px-3 py-1 rounded-full text-xs font-semibold"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                  viewport={{ once: true }}
+                >
+                  ⭐ {formateur.rating}
+                </motion.div>
+              </div>
+              
+              {/* Contenu */}
+              <div className="p-6">
+                <h3 className="text-white font-poppins text-xl font-bold mb-2 group-hover:text-[hsl(var(--brand-cyan))] transition-colors">
+                  {formateur.name}
+                </h3>
+                <p className="text-[hsl(var(--brand-cyan))] font-inter text-sm font-semibold mb-3">
+                  {formateur.role}
+                </p>
+                <p className="text-gray-400 font-inter text-sm leading-relaxed mb-4">
+                  {formateur.bio}
+                </p>
+                
+                {/* Spécialités */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {formateur.specialites.map((spec, specIdx) => (
+                    <span
+                      key={specIdx}
+                      className="px-2 py-1 bg-[hsl(var(--brand-blue))]/20 text-[hsl(var(--brand-cyan))] text-xs rounded-full"
+                    >
+                      {spec}
+                    </span>
+                  ))}
+                </div>
+                
+                {/* Stats */}
+                <div className="flex items-center justify-between text-sm text-gray-400">
+                  <span>{formateur.students}+ étudiants</span>
+                  <span className="text-[hsl(var(--brand-cyan))]">⭐ {formateur.rating}</span>
+                </div>
+              </div>
+              
+              {/* Effet de hover */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--brand-cyan))]/5 to-[hsl(var(--brand-blue))]/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 initial={{ opacity: 0 }}
                 whileHover={{ opacity: 1 }}
               />
@@ -733,7 +1010,7 @@ function TestimonialsSection() {
       role: "Développeuse Web",
       avatar: "profil-1.webp",
       quote: "Les formations sont d'une qualité exceptionnelle, avec des projets concrets qui m'ont permis d'intégrer rapidement le marché du travail.",
-      rating: 5,
+      rating: 3,
       company: "TechGabon"
     },
     {
@@ -741,7 +1018,7 @@ function TestimonialsSection() {
       role: "Consultant en Cybersécurité",
       avatar: "profil-2.jpg",
       quote: "Un grand merci aux formateurs pour leur expertise et leur pédagogie. J'ai pu acquérir des compétences clés pour mon évolution professionnelle.",
-      rating: 5,
+      rating: 4,
       company: "Digital Solutions"
     },
     {
@@ -749,7 +1026,7 @@ function TestimonialsSection() {
       role: "Chef de Projet",
       avatar: "profil-3.webp",
       quote: "Le programme de gestion de projet est très complet et m'a donné les outils pour manager mes équipes avec plus d'efficacité. Je recommande !",
-      rating: 5,
+      rating: 4,
       company: "Innovate"
     },
   ];
@@ -842,7 +1119,7 @@ function TestimonialsSection() {
   );
 }
 
-function CTASection() {
+function CTASection({ onOpenModal }: { onOpenModal: () => void }) {
   return (
     <section className="w-full px-4 lg:px-8 py-16 lg:py-24 bg-gradient-to-b from-black to-[#090914]">
       <div className="container mx-auto text-center max-w-5xl">
@@ -878,16 +1155,18 @@ function CTASection() {
             viewport={{ once: true }}
           >
             <motion.div variants={fadeInUp}>
-              <Link
-                to="/contact"
+              <motion.button
+                onClick={onOpenModal}
                 className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] rounded-lg text-white font-inter font-semibold text-base hover:opacity-90 hover:scale-105 transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <span>Découvrir nos formations</span>
+                <span>Réserver une formation</span>
                 <ArrowRight className="w-5 h-5" />
-              </Link>
+              </motion.button>
             </motion.div>
             
-            <motion.div variants={fadeInUp}>
+            {/*<motion.div variants={fadeInUp}>
               <Link
                 to="/a-propos"
                 className="inline-flex items-center gap-2 px-8 py-4 border-2 border-[hsl(var(--brand-cyan))] rounded-lg text-[hsl(var(--brand-cyan))] font-inter font-semibold text-base hover:bg-[hsl(var(--brand-cyan))] hover:text-black transition-all duration-300"
@@ -895,10 +1174,224 @@ function CTASection() {
                 <span>Rencontrer nos formateurs</span>
                 <Users className="w-5 h-5" />
               </Link>
-            </motion.div>
+            </motion.div>*/}
           </motion.div>
         </motion.div>
       </div>
     </section>
+  );
+}
+
+// Composant Modal de Réservation
+function ReservationModal({ 
+  isOpen, 
+  onClose, 
+  initialFormation, 
+  allFormations 
+}: { 
+  isOpen: boolean, 
+  onClose: () => void, 
+  initialFormation: string, 
+  allFormations: string[] 
+}) {
+  const [formation, setFormation] = useState(initialFormation);
+  const [nom, setNom] = useState('');
+  const [email, setEmail] = useState('');
+  const [telephone, setTelephone] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Mettre à jour la formation quand initialFormation change
+  useEffect(() => {
+    setFormation(initialFormation);
+  }, [initialFormation]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      // Préparer les paramètres d'envoi
+      const templateParams = {
+        formation: formation,
+        nom: nom,
+        email: email,
+        telephone: telephone,
+        message: message || 'Aucun message',
+        to_email: EMAILJS_CONFIG.DESTINATION_EMAIL
+      };
+      
+      // Envoyer l'email via EmailJS
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID, 
+        EMAILJS_CONFIG.TEMPLATE_ID, 
+        templateParams, 
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+      
+      console.log('Email envoyé avec succès!', response.status, response.text);
+      
+      // Afficher une notification de succès
+      alert('Votre demande de réservation a été envoyée avec succès ! Nous vous contacterons bientôt.');
+      
+      // Fermer le modal après soumission
+      onClose();
+      
+      // Réinitialiser le formulaire
+      setNom('');
+      setEmail('');
+      setTelephone('');
+      setMessage('');
+      
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de l\'email:', error);
+      alert('Une erreur s\'est produite. Veuillez réessayer plus tard ou nous contacter directement.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <motion.div
+        className="bg-gradient-to-br from-[#090914] to-[#0a0a1a] rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-800"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
+        transition={{ duration: 0.3 }}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-white mb-2">
+              Réserver une Formation
+            </h2>
+            <p className="text-gray-400">
+              Remplissez le formulaire pour réserver votre place
+            </p>
+          </div>
+          <motion.button
+            onClick={onClose}
+            className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <X className="w-5 h-5" />
+          </motion.button>
+        </div>
+
+        {/* Formulaire */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Sélection de formation */}
+          <div>
+            <label className="block text-white font-semibold mb-2">
+              Formation souhaitée *
+            </label>
+            <div className="relative">
+              <select
+                value={formation}
+                onChange={(e) => setFormation(e.target.value)}
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-[hsl(var(--brand-cyan))] focus:outline-none appearance-none"
+                required
+                aria-label="Sélectionner une formation"
+              >
+                <option value="">Sélectionnez une formation</option>
+                {allFormations.map((form) => (
+                  <option key={form} value={form}>
+                    {form}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+            </div>
+          </div>
+
+          {/* Nom */}
+          <div>
+            <label className="block text-white font-semibold mb-2">
+              Nom complet *
+            </label>
+            <input
+              type="text"
+              value={nom}
+              onChange={(e) => setNom(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-[hsl(var(--brand-cyan))] focus:outline-none"
+              placeholder="Votre nom complet"
+              required
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-white font-semibold mb-2">
+              Email *
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-[hsl(var(--brand-cyan))] focus:outline-none"
+              placeholder="votre@email.com"
+              required
+            />
+          </div>
+
+          {/* Téléphone */}
+          <div>
+            <label className="block text-white font-semibold mb-2">
+              Téléphone *
+            </label>
+            <input
+              type="tel"
+              value={telephone}
+              onChange={(e) => setTelephone(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-[hsl(var(--brand-cyan))] focus:outline-none"
+              placeholder="+237 XXX XXX XXX"
+              required
+            />
+          </div>
+
+          {/* Message */}
+          <div>
+            <label className="block text-white font-semibold mb-2">
+              Message (optionnel)
+            </label>
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-[hsl(var(--brand-cyan))] focus:outline-none resize-none"
+              rows={4}
+              placeholder="Décrivez vos objectifs ou questions..."
+            />
+          </div>
+
+          {/* Boutons */}
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <motion.button
+              type="submit"
+              disabled={isSubmitting}
+              className={`flex-1 px-6 py-3 bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] text-white font-semibold rounded-lg transition-all duration-300 ${
+                isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'
+              }`}
+              whileHover={isSubmitting ? {} : { scale: 1.02 }}
+              whileTap={isSubmitting ? {} : { scale: 0.98 }}
+            >
+              {isSubmitting ? 'Envoi en cours...' : 'Réserver la Formation'}
+            </motion.button>
+            <motion.button
+              type="button"
+              onClick={onClose}
+              className="flex-1 px-6 py-3 border border-gray-700 text-gray-400 font-semibold rounded-lg hover:bg-gray-800 hover:text-white transition-all duration-300"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Annuler
+            </motion.button>
+          </div>
+        </form>
+      </motion.div>
+    </div>
   );
 }

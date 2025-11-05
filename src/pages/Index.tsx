@@ -36,7 +36,8 @@ import {
   Star,
   CheckCircle,
   Mail,
-  MapPin
+  MapPin,
+  X
 } from "lucide-react";
 
 // Animation variants
@@ -112,13 +113,13 @@ function HeroSection() {
               className="text-white font-poppins text-4xl md:text-5xl lg:text-[80px] font-medium leading-tight lg:leading-[90px] mb-6 lg:mb-8"
               variants={fadeInUp}
             >
-              Votre Partenaire en <strong>Cybersécurité</strong> & Solutions IT au <strong>Gabon</strong>
+              Votre Partenaire en <strong>Cybersécurité</strong> & Solutions IT au <strong>Partout au monde</strong>
             </motion.h1>
             <motion.p 
               className="text-gray-200 font-inter text-lg lg:text-xl mb-8 lg:mb-12"
               variants={fadeInUp}
             >
-              Sécurisez votre infrastructure IT avec <strong>ZENOBEGLOBE</strong> - Expert en cybersécurité à <strong>Libreville</strong>
+              Sécurisez votre infrastructure IT avec <strong>ZENOBEGLOBE</strong> - Expert en cybersécurité
             </motion.p>
             <motion.div 
               className="flex flex-wrap gap-4"
@@ -128,16 +129,21 @@ function HeroSection() {
               viewport={{ once: true }}
             >
               <motion.div variants={fadeInUp}>
-              <Link
-                to="/commencer"
+              <button
+                onClick={() => {
+                  const aboutSection = document.getElementById('about');
+                  if (aboutSection) {
+                    aboutSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
                   className="inline-block px-10 py-4 bg-[hsl(var(--brand-blue))] rounded-lg text-white font-inter font-semibold text-base hover:bg-opacity-90 hover:scale-105 transition-all duration-300"
               >
                 Commencer
-              </Link>
+              </button>
               </motion.div>
               <motion.div variants={fadeInUp}>
               <Link
-                to="/travail"
+                to="/a-propos"
                   className="inline-block px-10 py-4 border-4 border-[#4AA3DF] rounded-lg text-white font-inter font-semibold text-base hover:bg-[#4AA3DF] hover:bg-opacity-20 hover:scale-105 transition-all duration-300"
               >
                 Notre Travail
@@ -203,7 +209,7 @@ function AboutSection() {
   ];
 
   return (
-    <section className="w-full px-4 lg:px-8 py-12 lg:py-20 overflow-hidden bg-gradient-to-b from-black to-[#090914]">
+    <section id="about" className="w-full px-4 lg:px-8 py-12 lg:py-20 overflow-hidden bg-gradient-to-b from-black to-[#090914]">
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
           <motion.div 
@@ -244,7 +250,7 @@ function AboutSection() {
               className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed mb-8"
               variants={fadeInUp}
             >
-              <strong>ZenobeGlobe</strong> est une entreprise technologique innovante basée à <strong>Libreville, Gabon</strong>, 
+              <strong>ZenobeGlobe</strong> est une entreprise technologique innovante, 
               spécialisée dans l'accompagnement des entreprises, administrations et 
               particuliers dans leur <strong>transition numérique</strong>. Nous offrons des <strong>solutions de cybersécurité</strong>, 
               <strong>développement web et mobile</strong>, et <strong>maintenance informatique</strong> au Gabon et au Cameroun.
@@ -335,7 +341,7 @@ function AboutSection() {
                 transition={{ duration: 0.3 }}
               >
                 <motion.img
-                  src="/About.jpg"
+                  src="/photo-2.jpg"
                   alt="Équipe ZenobeGlobe - Experts cybersécurité et développement IT au Gabon"
                 className="rounded-3xl w-full h-auto"
                   loading="lazy"
@@ -409,6 +415,17 @@ interface Service {
 
 function ServicesSection() {
   const [selectedCategory, setSelectedCategory] = useState("Developpement web/mobile");
+
+  // Mapping des catégories vers les ancres de Service.tsx
+  const categoryToAnchor = {
+    "Developpement web/mobile": "developpement-web-mobile",
+    "Securité et reseau": "securite-et-reseaux-informatique", 
+    "Maintenance": "maintenance",
+    "Design": "infographie-et-design",
+    "Automatisme": "internet-des-objets-iot",
+    "Marketing": "marketing-digital",
+    "Formations et outils collaboratifs": "formation-en-bureautique"
+  };
 
   // Structure complète des services par catégorie
   const allServices: Record<string, Service[]> = {
@@ -603,43 +620,58 @@ function ServicesSection() {
   const displayedServices = allServices[selectedCategory as keyof typeof allServices] || [];
 
   return (
-    <section className="w-full px-4 lg:px-8 py-12 lg:py-16 overflow-hidden">
+    <section className="w-full px-4 lg:px-8 py-12 lg:py-16 overflow-hidden bg-gradient-to-b from-black via-[#090914] to-black">
       <div className="container mx-auto">
         <motion.div 
-          className="bg-[hsl(var(--brand-blue))] rounded-[20px] px-6 md:px-12 lg:px-24 py-12 lg:py-16"
+          className="rounded-[20px] px-6 md:px-12 lg:px-24 py-12 lg:py-16"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
         >
           <motion.div className="text-center mb-8 lg:mb-12" variants={fadeInUp}>
-            <h2 className="text-white font-poppins text-2xl md:text-3xl font-semibold mb-6">
-              Nos Services
-            </h2>
             <motion.div 
-              className="flex flex-wrap justify-center gap-3"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(var(--brand-blue))]/20 border border-[hsl(var(--brand-blue))]/30 rounded-full mb-6"
+              variants={fadeInUp}
             >
-              {categories.map((cat, idx) => (
-                <motion.button
-                  key={idx}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  variants={fadeInUp}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`px-6 md:px-10 py-2 md:py-2.5 rounded-[20px] font-inter text-base md:text-xl font-semibold transition-all duration-300 ${
-                    selectedCategory === cat.id
-                      ? "bg-[hsl(var(--brand-cyan))] text-black shadow-lg"
-                      : "bg-white text-black hover:bg-opacity-90"
-                  }`}
-                >
-                  {cat.label}
-                </motion.button>
-              ))}
+              <span className="text-[hsl(var(--brand-cyan))] font-inter text-sm font-semibold">
+                NOS SERVICES
+              </span>
             </motion.div>
+            <h2 className="text-white font-poppins text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              Découvrez Nos{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[hsl(var(--brand-cyan))] to-[hsl(var(--brand-blue))]">
+                Solutions
+              </span>
+            </h2>
+            <p className="text-gray-400 font-inter text-lg max-w-2xl mx-auto">
+              Des services complets pour tous vos besoins IT et cybersécurité
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            className="flex flex-wrap justify-center gap-3 mb-12"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {categories.map((cat, idx) => (
+              <motion.button
+                key={idx}
+                onClick={() => setSelectedCategory(cat.id)}
+                variants={fadeInUp}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-6 md:px-10 py-2.5 md:py-3 rounded-xl font-inter text-sm md:text-base font-semibold transition-all duration-300 ${
+                  selectedCategory === cat.id
+                    ? "bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] text-white shadow-lg shadow-[hsl(var(--brand-cyan))]/20"
+                    : "bg-white/10 backdrop-blur-sm text-gray-300 border border-white/20 hover:bg-white/20 hover:text-white"
+                }`}
+              >
+                {cat.label}
+              </motion.button>
+            ))}
           </motion.div>
 
           <motion.div 
@@ -655,9 +687,12 @@ function ServicesSection() {
                 key={`${selectedCategory}-${idx}`}
                 variants={fadeInUp}
                 whileHover={{ y: -10, scale: 1.02 }}
-                className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 flex flex-col transition-all duration-300 cursor-pointer hover:border-[hsl(var(--brand-cyan))]/50"
+                className="group relative bg-gradient-to-br from-[#090914] to-[#0a0a1a] border border-gray-800 rounded-2xl p-6 flex flex-col transition-all duration-300 cursor-pointer hover:border-[hsl(var(--brand-cyan))]/50"
               >
-                <Link to="/service" className="flex flex-col h-full relative z-10">
+                <Link 
+                  to={`/service#${categoryToAnchor[selectedCategory as keyof typeof categoryToAnchor]}`} 
+                  className="flex flex-col h-full relative z-10"
+                >
                   <div className="relative mb-6">
                     <motion.div
                       className="relative overflow-hidden rounded-xl"
@@ -698,7 +733,7 @@ function ServicesSection() {
                       whileHover={{ x: 5 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <span className="text-[hsl(var(--brand-cyan))] font-inter font-semibold text-sm flex items-center justify-center gap-2 group-hover:gap-3 transition-all">
+                      <span className="text-white font-inter font-semibold text-sm flex items-center justify-center gap-2 group-hover:gap-3 group-hover:text-[hsl(var(--brand-cyan))] transition-all">
                         En savoir plus
                         <ArrowRight className="w-4 h-4" />
                       </span>
@@ -732,6 +767,7 @@ function TeamSection() {
       role: "CEO & Fondateur", 
       image: "/img-6.jpg",
       bio: "Visionnaire et leader technologique avec plus de 8 ans d'expérience",
+      details: "Fondateur de ZenobeGlobe, Ngoulou Zenobe a plus de 8 ans d'expérience dans le domaine de la cybersécurité et des solutions IT. Passionné par l'innovation technologique en Afrique centrale, il a créé cette entreprise pour démocratiser l'accès aux technologies de pointe et accompagner les entreprises dans leur transformation digitale.",
       highlight: true,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -740,6 +776,7 @@ function TeamSection() {
       role: "Product Manager", 
       image: "/img-1.jpg",
       bio: "Spécialiste en gestion de produits et stratégie digitale",
+      details: "Matida Flora coordonne et optimise nos produits digitaux pour livrer des solutions utiles. Axée sur les résultats et l'innovation, elle se concentre sur l'expérience utilisateur et assure que nos produits répondent parfaitement aux besoins de nos clients.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -748,6 +785,7 @@ function TeamSection() {
       role: "CTO",
       image: "/img-2.jpg",
       bio: "Expert en architecture technique et innovation",
+      details: "Brice est notre Chief Technology Officer, expert en architecture technique et en innovation. Il supervise le développement technologique de nos solutions et s'assure que notre infrastructure est toujours à la pointe de la technologie.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -756,6 +794,7 @@ function TeamSection() {
       role: "Designer UX/UI", 
       image: "/img-3.jpg",
       bio: "Créateur d'expériences utilisateur exceptionnelles",
+      details: "Aurel est notre designer UX/UI, passionné par la création d'interfaces utilisateur exceptionnelles. Il combine esthétique moderne et fonctionnalité pour créer des expériences utilisateur mémorables et intuitives.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -764,6 +803,7 @@ function TeamSection() {
       role: "Dev Backend", 
       image: "/img-4.jpg",
       bio: "Développeur backend passionné par les solutions robustes",
+      details: "Diallo est notre développeur backend, spécialisé dans la création de solutions robustes et performantes. Il maîtrise les dernières technologies pour développer des architectures backend solides et évolutives.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -772,6 +812,7 @@ function TeamSection() {
       role: "Dev Frontend", 
       image: "/img-5.jpg",
       bio: "Spécialiste en interfaces modernes et réactives",
+      details: "Toussok Fabricia est notre développeuse frontend, spécialiste en interfaces modernes et réactives. Elle transforme les designs en applications web fluides et performantes, en mettant l'accent sur l'expérience utilisateur.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -780,6 +821,7 @@ function TeamSection() {
       role: "Dev Fullstack", 
       image: "/img-7.jpg",
       bio: "Développeur polyvalent maîtrisant toutes les technologies",
+      details: "Djoko Franck est notre développeur fullstack polyvalent. Il maîtrise toutes les technologies, du frontend au backend, et excelle dans la création de solutions web complètes et performantes.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -788,6 +830,7 @@ function TeamSection() {
       role: "Dev Fullstack", 
       image: "/img-8.jpg",
       bio: "Expert en développement d'applications complexes",
+      details: "Nick Giresse est notre expert en développement d'applications complexes. Avec une expertise approfondie en fullstack, il résout les problèmes techniques les plus complexes et crée des solutions innovantes.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -796,6 +839,7 @@ function TeamSection() {
       role: "Designer Graphique", 
       image: "/img-9.jpg",
       bio: "Créateur visuel avec un sens artistique développé",
+      details: "Kenne Tiomene est notre designer graphique, créateur visuel avec un sens artistique développé. Il donne vie à nos concepts avec des designs percutants qui renforcent l'identité visuelle de nos clients.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -804,10 +848,13 @@ function TeamSection() {
       role: "Responsable Marketing", 
       image: "/img-10.jpg",
       bio: "Stratège marketing digital et communication",
+      details: "Wilfried Cheffer est notre responsable marketing, stratège en marketing digital et communication. Il développe des stratégies marketing efficaces qui augmentent la visibilité de nos clients et génèrent des résultats mesurables.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
   ];
+  
+  const [selectedMember, setSelectedMember] = useState<typeof team[0] | null>(null);
   /*const team = [
     { name: "Axel Pebe", role: "CEO", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" },
     { name: "Ella Grace", role: "CTO", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" },
@@ -939,8 +986,8 @@ function TeamSection() {
                   
                   {/* CTA moderne */}
                   <div className="border-t border-gray-800 p-4">
-                    <Link to="/a-propos" className="relative z-10">
                       <motion.button
+                        onClick={() => setSelectedMember(member)}
                         className={`w-full py-3 text-white font-inter text-sm font-semibold rounded-lg transition-all duration-300 ${
                           member.highlight
                             ? "bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] hover:opacity-90"
@@ -951,7 +998,6 @@ function TeamSection() {
                       >
                         En savoir plus
                       </motion.button>
-                    </Link>
         </div>
 
                   {/* Effet de hover */}
@@ -991,7 +1037,130 @@ function TeamSection() {
           ))}
         </motion.div>
       </div>
+      
+      {/* Modal de détail membre */}
+      {selectedMember && (
+        <MemberDetailModal 
+          member={selectedMember} 
+          onClose={() => setSelectedMember(null)} 
+        />
+      )}
     </section>
+  );
+}
+
+// Interface pour les membres de l'équipe  
+interface TeamMemberData {
+  name: string;
+  role: string;
+  image: string;
+  bio: string;
+  details: string;
+  highlight: boolean;
+  social: { linkedin: string; twitter: string };
+}
+
+// Composant modal pour afficher les détails d'un membre
+function MemberDetailModal({ member, onClose }: { member: TeamMemberData, onClose: () => void }) {
+  return (
+    <motion.div
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="bg-gradient-to-br from-[#090914] to-[#0a0a1a] rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-800"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="relative p-8">
+          <motion.button
+            onClick={onClose}
+            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+            whileHover={{ scale: 1.1, rotate: 90 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <X className="w-5 h-5" />
+          </motion.button>
+          
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Image */}
+            <motion.div
+              className="flex-shrink-0"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring" }}
+            >
+              <img
+                src={member.image}
+                alt={member.name}
+                className="w-32 h-32 md:w-40 md:h-40 rounded-2xl object-cover border-4 border-[hsl(var(--brand-cyan))]/30"
+              />
+            </motion.div>
+            
+            {/* Info */}
+            <div className="flex-1">
+              {member.highlight && (
+                <motion.div
+                  className="inline-flex items-center gap-2 px-4 py-1 bg-gradient-to-r from-[hsl(var(--brand-blue))] to-[hsl(var(--brand-cyan))] rounded-full text-sm font-semibold mb-3"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <Star className="w-4 h-4" />
+                  Leader
+                </motion.div>
+              )}
+              <h3 className="text-white font-poppins text-3xl font-bold mb-2">
+                {member.name}
+              </h3>
+              <p className="text-[hsl(var(--brand-cyan))] font-inter text-lg font-semibold mb-4">
+                {member.role}
+              </p>
+              <p className="text-gray-400 font-inter text-base leading-relaxed mb-6">
+                {member.details}
+              </p>
+              
+              {/* Social links */}
+              <div className="flex gap-3">
+                <motion.a
+                  href={member.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-[hsl(var(--brand-blue))] transition-colors"
+                  whileHover={{ scale: 1.2, rotate: 360 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                </motion.a>
+                <motion.a
+                  href={member.social.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-[hsl(var(--brand-cyan))] transition-colors"
+                  whileHover={{ scale: 1.2, rotate: 360 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                  </svg>
+                </motion.a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -1366,7 +1535,7 @@ function ContactSection() {
               </motion.a>
 
               <motion.a 
-                href="https://wa.me/237671524727"
+                href="https://wa.link/eyvnes"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[hsl(var(--brand-cyan))]/10 to-transparent border border-[hsl(var(--brand-cyan))]/20 hover:border-[hsl(var(--brand-cyan))]/40 transition-all duration-300 group"
@@ -1381,7 +1550,49 @@ function ContactSection() {
                     WhatsApp
                   </h3>
                   <p className="text-[hsl(var(--brand-gray-light))] text-sm">
-                    +237 671 524 727
+                    +237 683 428 378
+                  </p>
+          </div>
+              </motion.a>
+
+              <motion.a 
+                href="https://wa.me/237658482722"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[hsl(var(--brand-cyan))]/10 to-transparent border border-[hsl(var(--brand-cyan))]/20 hover:border-[hsl(var(--brand-cyan))]/40 transition-all duration-300 group"
+                variants={fadeInUp}
+                whileHover={{ x: 10, scale: 1.02 }}
+              >
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[hsl(var(--brand-cyan))] to-[hsl(var(--brand-blue))] flex items-center justify-center">
+                  <MessageCircle className="w-6 h-6 text-white" />
+            </div>
+                <div>
+                  <h3 className="text-white font-semibold text-lg group-hover:text-[hsl(var(--brand-cyan))] transition-colors">
+                    WhatsApp
+                  </h3>
+                  <p className="text-[hsl(var(--brand-gray-light))] text-sm">
+                    +237 658 482 722
+                  </p>
+          </div>
+              </motion.a>
+
+              <motion.a 
+                href="https://wa.me/24104194914"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[hsl(var(--brand-cyan))]/10 to-transparent border border-[hsl(var(--brand-cyan))]/20 hover:border-[hsl(var(--brand-cyan))]/40 transition-all duration-300 group"
+                variants={fadeInUp}
+                whileHover={{ x: 10, scale: 1.02 }}
+              >
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[hsl(var(--brand-cyan))] to-[hsl(var(--brand-blue))] flex items-center justify-center">
+                  <MessageCircle className="w-6 h-6 text-white" />
+            </div>
+                <div>
+                  <h3 className="text-white font-semibold text-lg group-hover:text-[hsl(var(--brand-cyan))] transition-colors">
+                    WhatsApp
+                  </h3>
+                  <p className="text-[hsl(var(--brand-gray-light))] text-sm">
+                    +241 04 19 49 14
                   </p>
           </div>
               </motion.a>
