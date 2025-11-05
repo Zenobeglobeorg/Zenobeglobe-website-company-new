@@ -3,6 +3,18 @@ import { motion } from "framer-motion";
 import { User, Grid, Sparkles, Zap, Smartphone, Shield, Server, Edit, Globe, Lock, Code, Brush, Package, FileText, X, ChevronDown } from "lucide-react"; // Added ChevronDown for the select dropdown
 import { useState, useCallback, useMemo, useEffect } from "react"; 
 import type { ReactNode } from "react";
+import emailjs from '@emailjs/browser';
+
+// --------------------------------------------------------------------------------
+// --- CONFIGURATION EMAILJS UNIQUE POUR TOUS LES SERVICES ---
+// --------------------------------------------------------------------------------
+const EMAIL_CONFIG = {
+    serviceId: "service_dxi1lf6",    // ID du service EmailJS
+    templateId: "template_4ang3ox",  // ID du template
+    publicKey: "1y6V7_QcHf369aqU2", // Public Key / User ID
+    toEmail: "zenobeglobe@gmail.com" // Email de destination
+};
+// --------------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------------
 // --- ANIMATION VARIANTS ADDED ---
@@ -253,21 +265,35 @@ const MissionItem = ({ title, description, icon }: { title: string, description:
 
         const handleSubmit = (e: React.FormEvent) => {
             e.preventDefault();
-            // Basic validation
-            if (!email) {
-                alert("Veuillez entrer une adresse email.");
+            
+            if (!email || !service) {
+                alert("Veuillez remplir les champs obligatoires (Email et Service).");
                 return;
             }
-            // In a real app, you'd send this data to a backend API
-            console.log({ email, service, message });
-            alert(`Demande de réservation pour ${service} envoyée !\nEmail: ${email}`);
-            onClose(); // Close on successful submission
-            // Reset form fields
-            setEmail('');
-            setMessage('');
-            setService(initialService); // Reset service to initial value
+
+            // Créer l'objet de paramètres pour le template EmailJS
+            const templateParams = {
+                user_email: email,
+                service_name: service,
+                user_message: message || "L'utilisateur n'a pas laissé de message spécifique.",
+                to_email: EMAIL_CONFIG.toEmail
+            };
+            
+            // Envoi de l'email via EmailJS avec la configuration unique
+            emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templateId, templateParams, EMAIL_CONFIG.publicKey)
+                .then((result) => {
+                    console.log('SUCCESS!', result.text);
+                    
+                    // Réinitialiser le formulaire après succès
+                    setEmail('');
+                    setMessage('');
+                    setService(initialService);
+                    onClose(); // Fermer le modal
+                }, (error) => {
+                    console.error('FAILED...', error.text);
+                    alert(`Échec de l'envoi de la demande pour ${service}. Veuillez réessayer.`);
+                });
         };
-        
         
         return (
             // Conteneur principal: fixed pour couvrir tout l'écran, permet le scroll de la page derrière
