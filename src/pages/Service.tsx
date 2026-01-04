@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { User, Grid, Sparkles, Zap, Smartphone, Shield, Server, Edit, Globe, Lock, Code, Brush, Package, FileText, X, ChevronDown } from "lucide-react"; // Added ChevronDown for the select dropdown
 import { useState, useCallback, useMemo, useEffect } from "react"; 
 import type { ReactNode } from "react";
-<<<<<<< HEAD
 import emailjs from '@emailjs/browser';
 
 // --------------------------------------------------------------------------------
@@ -16,9 +15,7 @@ const EMAIL_CONFIG = {
     toEmail: "zenobeglobe@gmail.com" // Email de destination
 };
 // --------------------------------------------------------------------------------
-=======
 import { useLocation } from "react-router-dom";
->>>>>>> 84e73a842fae3c3d3a1723e96158bc4b19b24c2f
 
 // --------------------------------------------------------------------------------
 // --- ANIMATION VARIANTS ADDED ---

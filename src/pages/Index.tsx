@@ -113,7 +113,7 @@ function HeroSection() {
               className="text-white font-poppins text-4xl md:text-5xl lg:text-[80px] font-medium leading-tight lg:leading-[90px] mb-6 lg:mb-8"
               variants={fadeInUp}
             >
-              Votre Partenaire en <strong>Cybersécurité</strong> & Solutions IT au <strong>Partout au monde</strong>
+              Votre Partenaire en <strong>Cybersécurité</strong> & Solutions IT <strong>Partout au monde</strong>
             </motion.h1>
             <motion.p 
               className="text-gray-200 font-inter text-lg lg:text-xl mb-8 lg:mb-12"
