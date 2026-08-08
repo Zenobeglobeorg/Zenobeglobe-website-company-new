@@ -764,7 +764,7 @@ function TeamSection() {
   const team = [
     {
       name: "Ngoulou Zenobe", 
-      role: "CEO & Fondateur", 
+      role: "CEO", 
       image: "/img-6-1.jpg",
       bio: "Visionnaire et leader technologique avec plus de 8 ans d'expérience",
       details: "Fondateur de ZenobeGlobe, Ngoulou Zenobe a plus de 8 ans d'expérience dans le domaine de la cybersécurité et des solutions IT. Passionné par l'innovation technologique en Afrique centrale, il a créé cette entreprise pour démocratiser l'accès aux technologies de pointe et accompagner les entreprises dans leur transformation digitale.",
