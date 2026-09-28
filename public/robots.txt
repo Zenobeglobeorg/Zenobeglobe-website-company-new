@@ -17,11 +17,8 @@ Disallow: /*.css$
 Disallow: /*.ts$
 Disallow: /*.tsx$
 
-# Autoriser spécifiquement les images et assets publics
-Allow: /images/
-Allow: /assets/
+# Autoriser spécifiquement le logo
 Allow: /Logo.svg
-Allow: /favicon.ico
 
 # Sitemap
 Sitemap: https://zenobeglobe.com/sitemap.xml

@@ -4,21 +4,21 @@ export const SEO_CONFIG = {
   // Informations de base
   siteName: 'ZenobeGlobe',
   siteUrl: 'https://zenobeglobe.com',
-  siteDescription: 'Expert en cybersécurité et solutions IT au Gabon',
+  siteDescription: 'Expert en cybersécurité et solutions IT au Cameroun',
   
   // Contact
   contact: {
     phone: '+237-671-524-727',
     email: 'zenobeglobe@gmail.com',
-    address: 'Libreville, Gabon',
+    address: 'Yaoundé, Cameroun',
     coordinates: {
-      latitude: '0.4162',
-      longitude: '9.4673'
+      latitude: '3.8480',
+      longitude: '11.5021'
     }
   },
   
   // Zones de service
-  serviceAreas: ['Gabon', 'Cameroun'],
+  serviceAreas: ['Cameroun', 'Gabon'],
   
   // Services principaux
   services: [
@@ -34,25 +34,25 @@ export const SEO_CONFIG = {
   // Mots-clés principaux
   keywords: {
     primary: [
-      'cybersécurité Gabon',
-      'développement web Libreville',
+      'cybersécurité Cameroun',
+      'développement web Cameroun',
       'maintenance informatique',
       'formation bureautique',
-      'solutions IT Gabon'
+      'solutions IT Cameroun'
     ],
     secondary: [
       'sécurité réseau',
       'développement mobile',
       'ZenobeGlobe',
-      'expert IT Libreville',
-      'services informatiques Gabon'
+      'expert IT Cameroun',
+      'services informatiques Cameroun'
     ],
     longTail: [
-      'entreprise cybersécurité Libreville',
-      'développeur web mobile Gabon',
+      'entreprise cybersécurité Cameroun',
+      'développeur web mobile Cameroun',
       'maintenance informatique entreprise',
       'formation bureautique professionnelle',
-      'solutions IT sur mesure Gabon'
+      'solutions IT sur mesure Cameroun'
     ]
   },
   
@@ -72,7 +72,7 @@ export const SEO_CONFIG = {
   
   // Configuration Google Analytics
   analytics: {
-    measurementId: 'G-XXXXXXXXXX', // À remplacer par votre ID réel
+    measurementId: 'G-8DJ2J3YTKM',
     events: {
       contact: 'contact',
       serviceClick: 'service_click',
@@ -84,24 +84,24 @@ export const SEO_CONFIG = {
   // Configuration des pages
   pages: {
     home: {
-      title: 'ZenobeGlobe - Expert Cybersécurité & Solutions IT au Gabon | Libreville',
-      description: 'ZenobeGlobe : Votre partenaire IT au Gabon. Cybersécurité, développement web/mobile, maintenance informatique, formation bureautique. Expertise locale, solutions sur mesure à Libreville.',
-      keywords: 'cybersécurité Gabon, développement web Libreville, maintenance informatique, formation bureautique, solutions IT, sécurité réseau, développement mobile, ZenobeGlobe'
+      title: 'ZenobeGlobe - Expert Cybersécurité & Solutions IT au Cameroun',
+      description: 'ZenobeGlobe : Votre partenaire IT au Cameroun. Cybersécurité, développement web/mobile, maintenance informatique, formation bureautique. Expertise locale, solutions sur mesure.',
+      keywords: 'cybersécurité Cameroun, développement web Cameroun, maintenance informatique, formation bureautique, solutions IT, sécurité réseau, développement mobile, ZenobeGlobe'
     },
     about: {
-      title: 'À Propos - ZenobeGlobe | Expert Cybersécurité au Gabon',
-      description: 'Découvrez ZenobeGlobe, votre partenaire IT au Gabon. Notre équipe d\'experts en cybersécurité et développement IT vous accompagne dans votre transformation digitale à Libreville.',
-      keywords: 'à propos ZenobeGlobe, équipe cybersécurité Gabon, histoire entreprise IT Libreville, experts développement web Gabon'
+      title: 'À Propos - ZenobeGlobe | Expert Cybersécurité au Cameroun',
+      description: 'Découvrez ZenobeGlobe, votre partenaire IT au Cameroun. Notre équipe d\'experts en cybersécurité et développement IT vous accompagne dans votre transformation digitale.',
+      keywords: 'à propos ZenobeGlobe, équipe cybersécurité Cameroun, histoire entreprise IT Cameroun, experts développement web Cameroun'
     },
     services: {
-      title: 'Services IT - ZenobeGlobe | Cybersécurité & Développement au Gabon',
-      description: 'Découvrez nos services IT au Gabon : cybersécurité, développement web/mobile, maintenance informatique, formation bureautique. Solutions sur mesure à Libreville.',
-      keywords: 'services IT Gabon, cybersécurité Libreville, développement web mobile, maintenance informatique, formation bureautique'
+      title: 'Services IT - ZenobeGlobe | Cybersécurité & Développement au Cameroun',
+      description: 'Découvrez nos services IT au Cameroun : cybersécurité, développement web/mobile, maintenance informatique, formation bureautique. Solutions sur mesure.',
+      keywords: 'services IT Cameroun, cybersécurité Cameroun, développement web mobile, maintenance informatique, formation bureautique'
     },
     contact: {
-      title: 'Contact - ZenobeGlobe | Expert IT au Gabon',
-      description: 'Contactez ZenobeGlobe pour vos besoins en cybersécurité et développement IT au Gabon. Devis gratuit, expertise locale à Libreville.',
-      keywords: 'contact ZenobeGlobe, expert IT Gabon, devis cybersécurité, consultation informatique Libreville'
+      title: 'Contact - ZenobeGlobe | Expert IT au Cameroun',
+      description: 'Contactez ZenobeGlobe pour vos besoins en cybersécurité et développement IT au Cameroun. Devis gratuit, expertise locale.',
+      keywords: 'contact ZenobeGlobe, expert IT Cameroun, devis cybersécurité, consultation informatique Cameroun'
     }
   },
   
@@ -172,7 +172,7 @@ export const getOrganizationSchema = () => ({
   "address": {
     "@type": "PostalAddress",
     "addressLocality": SEO_CONFIG.contact.address.split(',')[0],
-    "addressCountry": "GA"
+    "addressCountry": "CM"
   },
   "areaServed": SEO_CONFIG.serviceAreas.map(area => ({
     "@type": "Country",
@@ -191,7 +191,7 @@ export const getLocalBusinessSchema = () => ({
   "address": {
     "@type": "PostalAddress",
     "addressLocality": SEO_CONFIG.contact.address.split(',')[0],
-    "addressCountry": "GA"
+    "addressCountry": "CM"
   },
   "geo": {
     "@type": "GeoCoordinates",

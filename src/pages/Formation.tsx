@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 //import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
@@ -69,9 +70,9 @@ export default function Formation() {
   return (
     <Layout>
         <SEO 
-        title="Formations | ZenobeGlobe | Expert Cybersécurité au Gabon"
+        title="Formations | ZenobeGlobe | Expert Cybersécurité au Cameroun"
         description="Découvrez nos formations innovantes pour devenir un expert en cybersécurité et développement web. Accélérez votre carrière avec nos parcours de formation adaptés et certifiants."
-        keywords="formations ZenobeGlobe, cybersécurité Gabon, développement web Gabon, formation bureautique Gabon"
+        keywords="formations ZenobeGlobe, cybersécurité Cameroun, développement web Cameroun, formation bureautique Cameroun"
         canonical="https://zenobeglobe.com/formation"
       />
       <div className="w-full bg-black">
@@ -175,8 +176,8 @@ function HeroSection() {
               variants={fadeInUp}
             >
               Accélérez votre carrière et maîtrisez les <strong>technologies de demain</strong> avec 
-              nos parcours de formation adaptés et <strong>certifiants</strong>. 
-              Rejoignez des milliers de professionnels qui ont transformé leur avenir avec <strong>ZenobeGlobe</strong>.
+              nos parcours de formation adaptés et <strong>certifiants</strong>, animés par une équipe de 
+              formateurs passionnés chez <strong>ZenobeGlobe</strong>.
             </motion.p>
 
             {/* Statistiques impressionnantes */}
@@ -188,9 +189,9 @@ function HeroSection() {
               viewport={{ once: true }}
             >
               {[
-                { number: "500+", label: "Apprenants Formés" },
-                { number: "95%", label: "Taux de Réussite" },
-                { number: "15+", label: "Formations Disponibles" },
+                { number: "6", label: "Parcours de Formation" },
+                { number: "100%", label: "Pratique & Concret" },
+                { number: "8", label: "Formateurs Experts" },
                 { number: "24/7", label: "Support Pédagogique" }
               ].map((stat, idx) => (
                 <motion.div
@@ -199,15 +200,10 @@ function HeroSection() {
                   variants={fadeInUp}
                   whileHover={{ scale: 1.05 }}
                 >
-                  <motion.div
-                    className="text-[hsl(var(--brand-cyan))] font-poppins text-2xl lg:text-3xl font-bold mb-1"
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    {stat.number}
-                  </motion.div>
+                  <AnimatedCounter
+                    value={stat.number}
+                    className="block text-[hsl(var(--brand-cyan))] font-poppins text-2xl lg:text-3xl font-bold mb-1"
+                  />
                   <div className="text-gray-400 font-inter text-sm">
                     {stat.label}
                   </div>
@@ -271,7 +267,7 @@ function HeroSection() {
               >
                 <motion.img
                   src="https://media.istockphoto.com/id/2188069561/photo/young-woman-programmer-focused-on-her-work-coding-on-dual-monitors-in-a-modern-office.webp?s=2048x2048&w=is&k=20&c=qxbLBksAVVZZcza7-_Ij3mWBCXfagXlaD3qkj2QexfE="
-                  alt="Formation IT moderne - ZenobeGlobe Gabon"
+                  alt="Formation IT moderne - ZenobeGlobe Cameroun"
                   className="w-full max-w-[500px] lg:max-w-[600px] h-auto rounded-2xl"
                   loading="lazy"
                   width="600"
@@ -598,7 +594,7 @@ function FormationsPopulairesSection({ onReserveFormation }: { onReserveFormatio
               <div className="relative overflow-hidden">
                 <motion.img
                   src={formation.image}
-                  alt={`Formation ${formation.title} - ZenobeGlobe Gabon`}
+                  alt={`Formation ${formation.title} - ZenobeGlobe Cameroun`}
                   className="w-full h-48 object-cover"
                   loading="lazy"
                   width="400"
@@ -652,7 +648,7 @@ function FormationsPopulairesSection({ onReserveFormation }: { onReserveFormatio
                   </div>
                   <div className="flex items-center gap-1">
                     <Users className="w-4 h-4" />
-                    <span>{formation.students} étudiants</span>
+                    <span>Petits groupes</span>
                   </div>
                 </div>
                 
@@ -710,7 +706,7 @@ function PourquoiChoisirSection() {
       icon: Users,
       title: "Formateurs Experts",
       description: "Apprenez des meilleurs, nos formateurs sont des experts dans leur domaine.",
-      features: ["2+ ans d'expérience", "Projets réels"]
+      features: ["Pédagogie pratique", "Projets réels"]
     },
     {
       icon: Calendar,
@@ -756,8 +752,8 @@ function PourquoiChoisirSection() {
             className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto"
             variants={fadeInUp}
           >
-            Découvrez les <strong>avantages exclusifs</strong> qui font de <strong>ZenobeGlobe</strong> le 
-            leader de la formation IT en <strong>Afrique Centrale</strong>.
+            Découvrez les <strong>avantages</strong> qui font de <strong>ZenobeGlobe</strong> un partenaire 
+            de choix pour la formation IT en <strong>Afrique Centrale</strong>.
           </motion.p>
         </motion.div>
 
@@ -983,8 +979,7 @@ function FormateursSection() {
                 </div>
                 
                 {/* Stats */}
-                <div className="flex items-center justify-between text-sm text-gray-400">
-                  <span>{formateur.students}+ étudiants</span>
+                <div className="flex items-center justify-end text-sm text-gray-400">
                   <span className="text-[hsl(var(--brand-cyan))]">⭐ {formateur.rating}</span>
                 </div>
               </div>
@@ -1143,7 +1138,7 @@ function CTASection({ onOpenModal }: { onOpenModal: () => void }) {
             className="text-gray-300 font-inter text-lg lg:text-xl leading-relaxed mb-8 max-w-3xl mx-auto"
             variants={fadeInUp}
           >
-            Rejoignez des milliers de professionnels qui ont boosté leurs compétences avec nos formations. 
+            Rejoignez les professionnels qui font confiance à ZenobeGlobe pour booster leurs compétences. 
             <strong>Commencez votre transformation dès aujourd'hui</strong>.
           </motion.p>
           

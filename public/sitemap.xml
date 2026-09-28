@@ -7,7 +7,7 @@
   <!-- Page d'accueil -->
   <url>
     <loc>https://zenobeglobe.com/</loc>
-    <lastmod>2024-01-15</lastmod>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,7 +15,7 @@
   <!-- Page À Propos -->
   <url>
     <loc>https://zenobeglobe.com/a-propos</loc>
-    <lastmod>2024-01-15</lastmod>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -23,121 +23,30 @@
   <!-- Page Services -->
   <url>
     <loc>https://zenobeglobe.com/service</loc>
-    <lastmod>2024-01-15</lastmod>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-  </url>
-
-  <!-- Page Équipe -->
-  <url>
-    <loc>https://zenobeglobe.com/equipe</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
 
   <!-- Page Formation -->
   <url>
     <loc>https://zenobeglobe.com/formation</loc>
-    <lastmod>2024-01-15</lastmod>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Page Contact -->
-  <url>
-    <loc>https://zenobeglobe.com/contact</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!--
+    NOTE : les pages /equipe, /contact et /commencer existent dans le routeur
+    mais affichent un contenu "en cours de construction". Elles ont été
+    retirées du sitemap pour éviter d'inviter Google à les indexer avant
+    qu'elles soient finalisées. Ajoutez-les ici une fois leur contenu réel
+    mis en ligne.
 
-  <!-- Pages de services détaillées (à créer) -->
-  <url>
-    <loc>https://zenobeglobe.com/service/cybersecurite</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://zenobeglobe.com/service/developpement-web</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://zenobeglobe.com/service/maintenance</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://zenobeglobe.com/service/formation-bureautique</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://zenobeglobe.com/service/marketing-digital</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://zenobeglobe.com/service/design</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Pages de blog (à créer) -->
-  <url>
-    <loc>https://zenobeglobe.com/blog</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://zenobeglobe.com/blog/cybersecurite-gabon-2024</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://zenobeglobe.com/blog/guide-choisir-partenaire-it-libreville</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://zenobeglobe.com/blog/formation-bureautique-roi-entreprises</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://zenobeglobe.com/blog/developpement-mobile-tendances-africaines</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://zenobeglobe.com/blog/maintenance-preventive-economies</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
+    Les URLs /blog/* et /service/<sous-page> ont été retirées car elles ne
+    correspondent à aucune route existante dans src/App.tsx : les laisser
+    dans le sitemap aurait fait indexer des pages 404 par Google, ce qui
+    nuit au référencement du site dans son ensemble.
+  -->
 
 </urlset>
-
-

@@ -10,9 +10,9 @@ interface SEOProps {
 }
 
 export default function SEO({
-  title = "ZenobeGlobe - Expert Cybersécurité & Solutions IT au Gabon | Libreville et au cameroun",
-  description = "ZenobeGlobe : Votre partenaire IT au Gabon. Cybersécurité, développement web/mobile, maintenance informatique, formation bureautique. Expertise locale, solutions sur mesure à Libreville.",
-  keywords = "cybersécurité Gabon, développement web Libreville, maintenance informatique, formation bureautique, solutions IT, sécurité réseau, développement mobile, ZenobeGlobe",
+  title = "ZenobeGlobe - Expert Cybersécurité & Solutions IT au Cameroun",
+  description = "ZenobeGlobe : Votre partenaire IT au Cameroun. Cybersécurité, développement web/mobile, maintenance informatique, formation bureautique. Expertise locale, solutions sur mesure.",
+  keywords = "cybersécurité Cameroun, développement web Cameroun, maintenance informatique, formation bureautique, solutions IT, sécurité réseau, développement mobile, ZenobeGlobe",
   canonical = "https://zenobeglobe.com",
   ogImage = "https://zenobeglobe.com/og-image.jpg",
   structuredData
@@ -84,10 +84,10 @@ export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "ZenobeGlobe",
-  "description": "Expert en cybersécurité et solutions IT au Gabon",
+  "description": "Expert en cybersécurité et solutions IT au Cameroun",
   "url": "https://zenobeglobe.com",
   "logo": "https://zenobeglobe.com/Logo.svg",
-  "foundingDate": "2024",
+  "foundingDate": "2025",
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+237-671-524-727",
@@ -97,17 +97,17 @@ export const organizationSchema = {
   },
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Libreville",
-    "addressCountry": "GA"
+    "addressLocality": "Yaoundé",
+    "addressCountry": "CM"
   },
   "areaServed": [
     {
       "@type": "Country",
-      "name": "Gabon"
+      "name": "Cameroun"
     },
     {
       "@type": "Country", 
-      "name": "Cameroun"
+      "name": "Gabon"
     }
   ],
   "serviceType": [
@@ -130,16 +130,16 @@ export const localBusinessSchema = {
   "@type": "LocalBusiness",
   "name": "ZenobeGlobe",
   "image": "https://zenobeglobe.com/Logo.svg",
-  "description": "Expert en cybersécurité et solutions IT au Gabon",
+  "description": "Expert en cybersécurité et solutions IT au Cameroun",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Libreville",
-    "addressCountry": "GA"
+    "addressLocality": "Yaoundé",
+    "addressCountry": "CM"
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": "0.4162",
-    "longitude": "9.4673"
+    "latitude": "3.8480",
+    "longitude": "11.5021"
   },
   "url": "https://zenobeglobe.com",
   "telephone": "+237-671-524-727",
@@ -150,8 +150,8 @@ export const localBusinessSchema = {
     "@type": "GeoCircle",
     "geoMidpoint": {
       "@type": "GeoCoordinates",
-      "latitude": "0.4162",
-      "longitude": "9.4673"
+      "latitude": "3.8480",
+      "longitude": "11.5021"
     },
     "geoRadius": "500000"
   }

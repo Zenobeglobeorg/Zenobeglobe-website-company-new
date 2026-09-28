@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEO, { organizationSchema } from "@/components/SEO";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import { motion } from "framer-motion";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import {
@@ -66,9 +67,9 @@ export default function Index() {
   return (
     <Layout>
       <SEO 
-        title="ZenobeGlobe - Expert Cybersécurité & Solutions IT au Gabon | Libreville"
-        description="ZenobeGlobe : Votre partenaire IT au Gabon. Cybersécurité, développement web/mobile, maintenance informatique, formation bureautique. Expertise locale, solutions sur mesure à Libreville."
-        keywords="cybersécurité Gabon, développement web Libreville, maintenance informatique, formation bureautique, solutions IT, sécurité réseau, développement mobile, ZenobeGlobe"
+        title="ZenobeGlobe - Expert Cybersécurité & Solutions IT au Cameroun"
+        description="ZenobeGlobe : Votre partenaire IT au Cameroun. Cybersécurité, développement web/mobile, maintenance informatique, formation bureautique. Expertise locale, solutions sur mesure."
+        keywords="cybersécurité Cameroun, développement web Cameroun, maintenance informatique, formation bureautique, solutions IT, sécurité réseau, développement mobile, ZenobeGlobe"
         canonical="https://zenobeglobe.com/"
         structuredData={organizationSchema}
       />
@@ -93,12 +94,23 @@ function HeroSection() {
         backgroundImage: "url('/Hero main.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed"
+        backgroundRepeat: "no-repeat"
       }}
     >
       {/* Overlay sombre pour améliorer la lisibilité */}
       <div className="absolute inset-0 bg-black/60"></div>
+
+      {/* Formes flottantes en arrière-plan pour plus de dynamisme */}
+      <motion.div
+        className="absolute top-1/4 left-[10%] w-64 h-64 bg-[hsl(var(--brand-cyan))]/10 rounded-full blur-3xl pointer-events-none"
+        animate={{ x: [0, 40, 0], y: [0, -30, 0], scale: [1, 1.15, 1] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 right-[8%] w-72 h-72 bg-[hsl(var(--brand-blue))]/10 rounded-full blur-3xl pointer-events-none"
+        animate={{ x: [0, -40, 0], y: [0, 30, 0], scale: [1, 1.2, 1] }}
+        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+      />
       
       <div className="container mx-auto relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
@@ -113,13 +125,12 @@ function HeroSection() {
               className="text-white font-poppins text-4xl md:text-5xl lg:text-[80px] font-medium leading-tight lg:leading-[90px] mb-6 lg:mb-8"
               variants={fadeInUp}
             >
-              Votre Partenaire en <strong>Cybersécurité</strong> & Solutions IT <strong>Partout au monde</strong>
+              Votre Partenaire en <strong>transformation numérique</strong> & Solutions IT au <strong>Cameroun</strong>
             </motion.h1>
             <motion.p 
               className="text-gray-200 font-inter text-lg lg:text-xl mb-8 lg:mb-12"
               variants={fadeInUp}
-            >
-              Sécurisez votre infrastructure IT avec <strong>ZENOBEGLOBE</strong> - Expert en cybersécurité
+            > <strong>ZENOBEGLOBE</strong> - Des solutions intelligentes pour un monde connecté
             </motion.p>
             <motion.div 
               className="flex flex-wrap gap-4"
@@ -177,7 +188,7 @@ function HeroSection() {
                     Expertise IT
                   </h3>
                   <p className="text-gray-200 font-inter text-sm">
-                    Plus de 5 ans d'expérience dans la cybersécurité et les solutions numériques
+                    Une équipe jeune, diplômée et passionnée qui accompagne entreprises, startups et particuliers dans leur transformation digitale grâce à des solutions numériques innovantes et adaptées à leurs besoins.
                   </p>
                 </motion.div>
             </div>
@@ -185,6 +196,24 @@ function HeroSection() {
           </motion.div>
         </div>
       </div>
+
+      {/* Indicateur de scroll animé */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+      >
+        <span className="text-white/60 font-inter text-xs uppercase tracking-widest">Découvrir</span>
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-70">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
@@ -252,8 +281,7 @@ function AboutSection() {
             >
               <strong>ZenobeGlobe</strong> est une entreprise technologique innovante, 
               spécialisée dans l'accompagnement des entreprises, administrations et 
-              particuliers dans leur <strong>transition numérique</strong>. Nous offrons des <strong>solutions de cybersécurité</strong>, 
-              <strong>développement web et mobile</strong>, et <strong>maintenance informatique</strong> au Gabon et au Cameroun.
+              particuliers dans leur <strong>transition numérique</strong>. Nous offrons des <strong>solutions de cybersécurité</strong>, <strong>développement web et mobile</strong>, <strong>formation</strong>, <strong>marketing digitale</strong>, <strong>design graphique</strong> et <strong>maintenance informatique</strong> au Cameroun et au Gabon.
             </motion.p>
 
             <motion.div 
@@ -342,7 +370,7 @@ function AboutSection() {
               >
                 <motion.img
                   src="/photo-2.jpg"
-                  alt="Équipe ZenobeGlobe - Experts cybersécurité et développement IT au Gabon"
+                  alt="Équipe ZenobeGlobe - Experts cybersécurité et développement IT au Cameroun"
                 className="rounded-3xl w-full h-auto"
                   loading="lazy"
                   width="600"
@@ -701,7 +729,7 @@ function ServicesSection() {
                     >
                   <img
                     src={service.image}
-                    alt={`${service.title} - Service ${service.title.toLowerCase()} par ZenobeGlobe au Gabon`}
+                    alt={`${service.title} - Service ${service.title.toLowerCase()} par ZenobeGlobe au Cameroun`}
                     className="w-full h-48 object-cover"
                     loading="lazy"
                     width="400"
@@ -766,8 +794,8 @@ function TeamSection() {
       name: "Ngoulou Zenobe", 
       role: "CEO", 
       image: "/img-6-1.jpg",
-      bio: "Visionnaire et leader technologique avec plus de 8 ans d'expérience",
-      details: "Fondateur de ZenobeGlobe, Ngoulou Zenobe a plus de 8 ans d'expérience dans le domaine de la cybersécurité et des solutions IT. Passionné par l'innovation technologique en Afrique centrale, il a créé cette entreprise pour démocratiser l'accès aux technologies de pointe et accompagner les entreprises dans leur transformation digitale.",
+      bio: "Fondateur visionnaire, passionné de cybersécurité et d'innovation technologique",
+      details: "Fondateur de ZenobeGlobe, Ngoulou Zenobe est passionné par l'innovation technologique en Afrique centrale. Diplômé en informatique, il a créé cette entreprise avec une équipe de jeunes talents pour démocratiser l'accès aux technologies de pointe et accompagner les entreprises dans leur transformation digitale.",
       highlight: true,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -786,15 +814,6 @@ function TeamSection() {
       image: "/img-2.jpg",
       bio: "Expert en architecture technique et innovation",
       details: "Brice est notre Chief Technology Officer, expert en architecture technique et en innovation. Il supervise le développement technologique de nos solutions et s'assure que notre infrastructure est toujours à la pointe de la technologie.",
-      highlight: false,
-      social: { linkedin: "#", twitter: "#" }
-    },
-    { 
-      name: "Aurel", 
-      role: "Designer UX/UI", 
-      image: "/img-3.jpg",
-      bio: "Créateur d'expériences utilisateur exceptionnelles",
-      details: "Aurel est notre designer UX/UI, passionné par la création d'interfaces utilisateur exceptionnelles. Il combine esthétique moderne et fonctionnalité pour créer des expériences utilisateur mémorables et intuitives.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -844,11 +863,11 @@ function TeamSection() {
       social: { linkedin: "#", twitter: "#" }
     },
     { 
-      name: "Wilfried Cheffer", 
-      role: "Responsable Marketing", 
-      image: "/img-10.jpg",
-      bio: "Stratège marketing digital et communication",
-      details: "Wilfried Cheffer est notre responsable marketing, stratège en marketing digital et communication. Il développe des stratégies marketing efficaces qui augmentent la visibilité de nos clients et génèrent des résultats mesurables.",
+      name: "ANDERSON KONTCHOU", 
+      role: "Responsable Formation", 
+      image: "/img-10.jpeg",
+      bio: "Formateur et spécialiste en développement web, mobile et natif",
+      details: "ANDERSON KONTCHOU est notre responsable de service formation, Spécialiste en développement web,mobile et natif, passionné par les technologies multiplateformes et l’intelligence artificielle.",
       highlight: false,
       social: { linkedin: "#", twitter: "#" }
     },
@@ -917,7 +936,7 @@ function TeamSection() {
                   <div className="relative overflow-hidden aspect-[4/5]">
                     <motion.img
                 src={member.image}
-                      alt={`${member.name} - ${member.role} chez ZenobeGlobe, expert IT au Gabon`}
+                      alt={`${member.name} - ${member.role} chez ZenobeGlobe, expert IT au Cameroun`}
                       className="w-full h-full object-cover object-center"
                       loading="lazy"
                       width="300"
@@ -1166,13 +1185,6 @@ function MemberDetailModal({ member, onClose }: { member: TeamMemberData, onClos
 
 function FAQSection() {
   const faqs = [
-    {
-      question: "Comment créer un compte ?",
-      answer:
-        "La création d'un compte est simple et rapide. Cliquez sur le bouton 'Commencer' en haut de la page, remplissez le formulaire avec vos informations et validez. Vous recevrez un email de confirmation pour activer votre compte.",
-      icon: Users,
-      category: "Compte"
-    },
     {
       question: "Quelles méthodes de paiement acceptez-vous ?",
       answer:
@@ -1450,19 +1462,19 @@ function TestimonialsSection() {
           <div className="bg-gradient-to-r from-[hsl(var(--brand-cyan))]/10 to-[hsl(var(--brand-blue))]/10 rounded-2xl p-8 border border-white/10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-[hsl(var(--brand-cyan))] mb-2">50+</div>
+                <AnimatedCounter value="10+" className="block text-3xl font-bold text-[hsl(var(--brand-cyan))] mb-2" />
                 <div className="text-[hsl(var(--brand-gray-light))] text-sm">Clients Satisfaits</div>
         </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-[hsl(var(--brand-cyan))] mb-2">100%</div>
+                <AnimatedCounter value="100%" className="block text-3xl font-bold text-[hsl(var(--brand-cyan))] mb-2" />
                 <div className="text-[hsl(var(--brand-gray-light))] text-sm">Satisfaction</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-[hsl(var(--brand-cyan))] mb-2">24/7</div>
+                <AnimatedCounter value="24/7" className="block text-3xl font-bold text-[hsl(var(--brand-cyan))] mb-2" />
                 <div className="text-[hsl(var(--brand-gray-light))] text-sm">Support</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-[hsl(var(--brand-cyan))] mb-2">5★</div>
+                <AnimatedCounter value="5★" className="block text-3xl font-bold text-[hsl(var(--brand-cyan))] mb-2" />
                 <div className="text-[hsl(var(--brand-gray-light))] text-sm">Note Moyenne</div>
               </div>
             </div>
@@ -1609,7 +1621,7 @@ function ContactSection() {
                     Localisation
                   </h3>
                   <p className="text-[hsl(var(--brand-gray-light))] text-sm">
-                    Libreville, Gabon
+                    Cameroun • intervention également au Gabon
                   </p>
                 </div>
               </motion.div>

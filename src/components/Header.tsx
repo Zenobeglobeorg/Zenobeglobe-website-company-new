@@ -121,7 +121,7 @@ export default function Header() {
               <motion.button 
                 className="lg:hidden text-white" 
                 title="Open Menu"
-                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <svg
@@ -131,8 +131,25 @@ export default function Header() {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
+                  strokeLinecap="round"
                 >
-                  <path d="M3 12h18M3 6h18M3 18h18" />
+                  <motion.line
+                    x1="3" y1="6" x2="21" y2="6"
+                    animate={mobileMenuOpen ? { rotate: 45, y: 6, x: 0 } : { rotate: 0, y: 0, x: 0 }}
+                    style={{ originX: "12px", originY: "6px" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.line
+                    x1="3" y1="12" x2="21" y2="12"
+                    animate={mobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                  <motion.line
+                    x1="3" y1="18" x2="21" y2="18"
+                    animate={mobileMenuOpen ? { rotate: -45, y: -6, x: 0 } : { rotate: 0, y: 0, x: 0 }}
+                    style={{ originX: "12px", originY: "18px" }}
+                    transition={{ duration: 0.3 }}
+                  />
                 </svg>
               </motion.button>
             </SheetTrigger>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import SEO, { localBusinessSchema } from "@/components/SEO";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import { 
   Rocket, 
   Briefcase, 
@@ -47,9 +48,9 @@ export default function APropos() {
   return (
     <Layout>
       <SEO 
-        title="À Propos - ZenobeGlobe | Expert Cybersécurité au Gabon"
-        description="Découvrez ZenobeGlobe, votre partenaire IT au Gabon. Notre équipe d'experts en cybersécurité et développement IT vous accompagne dans votre transformation digitale à Libreville."
-        keywords="à propos ZenobeGlobe, équipe cybersécurité Gabon, histoire entreprise IT Libreville, experts développement web Gabon"
+        title="À Propos - ZenobeGlobe | Expert Cybersécurité au Cameroun"
+        description="Découvrez ZenobeGlobe, votre partenaire IT au Cameroun. Notre équipe d'experts en cybersécurité et développement IT vous accompagne dans votre transformation digitale."
+        keywords="à propos ZenobeGlobe, équipe cybersécurité Cameroun, histoire entreprise IT Cameroun, experts développement web Cameroun"
         canonical="https://zenobeglobe.com/a-propos"
         structuredData={localBusinessSchema}
       />
@@ -117,7 +118,7 @@ function HeroSection() {
               transition={{ duration: 2, repeat: Infinity }}
             />
               <span className="text-[hsl(var(--brand-cyan))] font-inter text-sm font-semibold">
-                Depuis 2025 • Nouveau Leader en Cybersécurité
+                Depuis 2025 • Une équipe montante en Cybersécurité
               </span>
           </motion.div>
         </motion.div>
@@ -148,8 +149,8 @@ function HeroSection() {
               variants={fadeInUp}
             >
               <strong>ZenobeGlobe</strong> est plus qu'une entreprise technologique. Nous sommes les architectes 
-              de la <strong>transformation digitale</strong> qui propulse les entreprises <strong>gabonaises et camerounaises</strong> 
-              vers l'excellence numérique. Basés à <strong>Libreville</strong>, nous offrons des <strong>solutions de cybersécurité</strong> et <br />
+              de la <strong>transformation digitale</strong> qui propulse les entreprises <strong>camerounaises</strong>, et bientôt <strong>gabonaises</strong>, 
+              vers l'excellence numérique. Basés au <strong>Cameroun</strong>, nous offrons des <strong>solutions de cybersécurité</strong> et <br />
                <strong>développement IT</strong> sur mesure.
             </motion.p>
 
@@ -162,9 +163,9 @@ function HeroSection() {
               viewport={{ once: true }}
             >
               {[
-                { number: "150+", label: "Projets Réalisés" },
-                { number: "98%", label: "Satisfaction Client" },
-                { number: "5+", label: "Années d'Expertise" },
+                { number: "10+", label: "Projets Réalisés" },
+                { number: "100%", label: "Satisfaction Client" },
+                { number: "8", label: "Experts Passionnés" },
                 { number: "24/7", label: "Support Technique" }
               ].map((stat, idx) => (
                 <motion.div
@@ -173,15 +174,10 @@ function HeroSection() {
                   variants={fadeInUp}
                   whileHover={{ scale: 1.05 }}
                 >
-                  <motion.div
-                    className="text-[hsl(var(--brand-cyan))] font-poppins text-2xl lg:text-3xl font-bold mb-1"
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    {stat.number}
-                  </motion.div>
+                  <AnimatedCounter
+                    value={stat.number}
+                    className="block text-[hsl(var(--brand-cyan))] font-poppins text-2xl lg:text-3xl font-bold mb-1"
+                  />
                   <div className="text-gray-400 font-inter text-sm">
                     {stat.label}
           </div>
@@ -256,7 +252,7 @@ function HeroSection() {
               >
                 <motion.img
                   src="/Hero main.jpg"
-                  alt="Équipe ZenobeGlobe en action - Experts cybersécurité et développement IT au Gabon"
+                  alt="Équipe ZenobeGlobe en action - Experts cybersécurité et développement IT au Cameroun"
                   className="w-full max-w-[500px] lg:max-w-[600px] h-auto rounded-2xl"
                   loading="lazy"
                   width="600"
@@ -304,9 +300,16 @@ function NotreHistoireSection() {
     {
       year: "2025",
       title: "Fondation de ZenobeGlobe",
-      description: "Création de l'entreprise avec une vision claire : démocratiser la technologie en Afrique Centrale.",
+      description: "Création de l'entreprise par une équipe de jeunes diplômés en informatique, avec une vision claire : démocratiser la technologie en Afrique Centrale.",
       icon: Rocket,
       highlight: true
+    },
+    {
+      year: "2025",
+      title: "Équipe Fondatrice",
+      description: "Assemblage d'une équipe de 8 experts passionnés par l'innovation technologique.",
+      icon: Users,
+      highlight: false
     },
     {
       year: "2025",
@@ -316,30 +319,23 @@ function NotreHistoireSection() {
       highlight: false
     },
     {
-      year: "2025",
-      title: "Équipe Fondatrice",
-      description: "Assemblage d'une équipe d'experts passionnés par l'innovation technologique.",
-      icon: Users,
-      highlight: false
-    },
-    {
-      year: "2025",
+      year: "2026",
       title: "Innovation & Vision",
-      description: "Développement de nos premières solutions et définition de notre approche unique.",
+      description: "Développement de nouvelles solutions et affinement de notre approche unique auprès de nos clients.",
       icon: Lightbulb,
       highlight: false
     },
     {
-      year: "2025",
+      year: "2026",
       title: "Expansion & Croissance",
-      description: "Établissement de notre présence au Gabon et au Cameroun avec des projets ambitieux.",
+      description: "Renforcement de notre présence au Cameroun et premiers projets menés au Gabon.",
       icon: Globe,
       highlight: false
     },
     {
-      year: "2025",
+      year: "2026",
       title: "Avenir Digital",
-      description: "Nous continuons d'innover pour accompagner la transformation numérique de l'Afrique.",
+      description: "Nous continuons d'innover pour accompagner la transformation numérique de l'Afrique Centrale.",
       icon: Eye,
       highlight: true
     }
@@ -370,7 +366,7 @@ function NotreHistoireSection() {
               </span>
         </h2>
             <p className="text-gray-300 font-inter text-lg leading-relaxed max-w-3xl mx-auto">
-              De nos débuts modestes à notre position actuelle de leader en cybersécurité, 
+              De nos débuts à aujourd'hui, 
               découvrez les étapes clés qui ont façonné ZenobeGlobe.
             </p>
           </div>
@@ -466,7 +462,7 @@ function NotreHistoireSection() {
               {[
                 { number: "10+", label: "Projets Réalisés", icon: Target },
                 { number: "100%", label: "Satisfaction Client", icon: Star },
-                { number: "1", label: "Année d'Innovation", icon: Calendar },
+                { number: "2025", label: "Année de Fondation", icon: Calendar },
                 { number: "24/7", label: "Support Technique", icon: Shield }
               ].map((stat, idx) => (
             <motion.div
@@ -482,15 +478,10 @@ function NotreHistoireSection() {
               >
                 <stat.icon className="w-10 h-10 mx-auto" />
               </motion.div>
-              <motion.div
-                className="text-[hsl(var(--brand-cyan))] font-poppins text-3xl font-bold mb-2"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-              >
-                {stat.number}
-              </motion.div>
+              <AnimatedCounter
+                value={stat.number}
+                className="block text-[hsl(var(--brand-cyan))] font-poppins text-3xl font-bold mb-2"
+              />
               <div className="text-gray-400 font-inter text-sm">
                 {stat.label}
               </div>
@@ -969,8 +960,8 @@ function NotreEquipeSection() {
       role: "CEO",
       image: "/img-6-1.jpg",
       highlight: true,
-      bio: "Visionnaire et leader technologique avec plus de 8 ans d'expérience",
-      details: "Fondateur de ZenobeGlobe, Ngoulou Zenobe a plus de 8 ans d'expérience dans le domaine de la cybersécurité et des solutions IT. Passionné par l'innovation technologique en Afrique centrale, il a créé cette entreprise pour démocratiser l'accès aux technologies de pointe et accompagner les entreprises dans leur transformation digitale.",
+      bio: "Fondateur visionnaire, passionné de cybersécurité et d'innovation technologique",
+      details: "Fondateur de ZenobeGlobe, Ngoulou Zenobe est passionné par l'innovation technologique en Afrique centrale. Diplômé en informatique, il a créé cette entreprise avec une équipe de jeunes talents pour démocratiser l'accès aux technologies de pointe et accompagner les entreprises dans leur transformation digitale.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -989,15 +980,6 @@ function NotreEquipeSection() {
       highlight: false,
       bio: "Expert en architecture technique et innovation",
       details: "Brice est notre Chief Technology Officer, expert en architecture technique et en innovation. Il supervise le développement technologique de nos solutions et s'assure que notre infrastructure est toujours à la pointe de la technologie.",
-      social: { linkedin: "#", twitter: "#" }
-    },
-    {
-      name: "Aurel",
-      role: "Designer UX/UI",
-      image: "/img-3.jpg",
-      highlight: false,
-      bio: "Créateur d'expériences utilisateur exceptionnelles",
-      details: "Aurel est notre designer UX/UI, passionné par la création d'interfaces utilisateur exceptionnelles. Il combine esthétique moderne et fonctionnalité pour créer des expériences utilisateur mémorables et intuitives.",
       social: { linkedin: "#", twitter: "#" }
     },
     {
@@ -1046,12 +1028,12 @@ function NotreEquipeSection() {
       social: { linkedin: "#", twitter: "#" }
     },
     {
-      name: "Wilfried Cheffer",
-      role: "Responsable Marketing",
-      image: "/img-10.jpg",
+      name: "ANDERSON KONTCHOU",
+      role: "Responsable Formation",
+      image: "/img-10.jpeg",
       highlight: false,
-      bio: "Stratège marketing digital et communication",
-      details: "Wilfried Cheffer est notre responsable marketing, stratège en marketing digital et communication. Il développe des stratégies marketing efficaces qui augmentent la visibilité de nos clients et génèrent des résultats mesurables.",
+      bio: "Formateur et spécialiste en développement web, mobile et natif",
+      details: "ANDERSON KONTCHOU est notre responsable de service formation, Spécialiste en développement web,mobile et natif, passionné par les technologies multiplateformes et l’intelligence artificielle.",
       social: { linkedin: "#", twitter: "#" }
     }
   ];
@@ -1081,7 +1063,7 @@ function NotreEquipeSection() {
               </span>
         </h2>
             <p className="text-gray-300 font-inter text-lg leading-relaxed max-w-3xl mx-auto">
-              Rencontrez les talents exceptionnels qui font de ZenobeGlobe un leader en cybersécurité et solutions numériques.
+              Rencontrez les talents qui font de ZenobeGlobe une équipe engagée en cybersécurité et solutions numériques.
             </p>
           </div>
         </motion.div>
